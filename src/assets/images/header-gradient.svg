@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="223" height="50" viewBox="0 0 223 50">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="223" height="50" transform="translate(144 235)" fill="#474752"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="-0.981" y1="0.496" x2="0.783" y2="0.504" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#555562"/>
+      <stop offset="1" stop-color="#474752"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-0.365" y1="0.5" x2="0.5" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#6b6b7b"/>
+      <stop offset="1" stop-color="#474752"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.016" y1="0.664" x2="0.783" y2="0.664" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="header-gradient" transform="translate(-144 -235)" clip-path="url(#clip-path)">
+    <g id="img-header-bg" transform="translate(-100 235)">
+      <path id="Path_1" data-name="Path 1" d="M0,0V50H260.3A349.8,349.8,0,0,1,319.247,0Z" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+      <path id="Path_2" data-name="Path 2" d="M318.7,0c-26.841,8.712-56.782,31.923-73.773,50H368.714A369.05,369.05,0,0,1,412.34,23.242,347.457,347.457,0,0,1,467.88,0Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+      <path id="Path_3" data-name="Path 3" d="M424.368,0c-17.047,3.134-40.046,15.2-55.432,23.242A368.215,368.215,0,0,0,325.394,50H1730V0Z" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+    </g>
+  </g>
+</svg>

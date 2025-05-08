@@ -1,0 +1,503 @@
+$main-height: calc(100vh - 50px) !default;
+
+.page-index {
+  width: 100%;
+
+  main {
+    width: 100%;
+    height: $main-height;
+    display: flex;
+
+    &.hide-right {
+      > aside {
+        transform: translateX(96%);
+      }
+
+      > section {
+        width: 99%;
+
+        .button-scroll-to-top {
+          left: 50%;
+          margin-left: -50px;
+        }
+        .table-block {
+          table {
+            .w-330 {
+              max-width: 495px;
+            }
+            .w-105 {
+              max-width: 157.5px;
+            }
+            .w-300 {
+              width: 450px;
+            }
+            .w-50 {
+              max-width: 75px;
+            }
+          }
+        }
+      }
+    }
+
+    & > section {
+      width: 73%;
+      transition: all 0.5s;
+      max-height: $main-height;
+      overflow-x: auto;
+      background-color: #eeeeee;
+      border-right: 5px solid #898991;
+      padding: 0px 10px 7px 15px;
+      position: relative;
+
+      .filter-area {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 7px;
+
+        & > .block {
+          margin: 4px;
+        }
+
+        .user-block {
+          flex-basis: 27%;
+          max-width: 310px;
+
+          .block-content {
+            padding: 30px 9px 7px 15px;
+            min-height: 132px;
+
+            > div {
+              display: flex;
+            }
+
+            .user-info {
+              align-items: center;
+              margin-bottom: 23.5px;
+
+              .user-name {
+                font-size: 20px;
+                font-weight: 600;
+                color: $font-title;
+              }
+
+              .user-role {
+                font-size: 14px;
+                font-weight: 500;
+                color: $font-contain;
+                margin: 0 10px;
+              }
+
+              .user-level {
+                font-size: 14px;
+                font-weight: 500;
+                color: $font-title;
+              }
+            }
+
+            .info-box {
+              // padding: 5px 10px;
+              min-width: 99px;
+              font-size: 14px;
+              font-weight: 500;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #585862;
+              border-radius: 10px;
+              background-color: $primary-lightest;
+              margin-right: 10px;
+
+              // white-space: nowrap;
+              b {
+                font-size: 16px;
+                margin-left: 5px;
+                color: #474752;
+              }
+            }
+
+            .dropdown {
+              &-trigger {
+                button {
+                  max-width: 175px;
+                }
+              }
+            }
+          }
+        }
+
+        .wait-approve-block {
+          flex-basis: 42%;
+          max-width: 570px;
+
+          .block-content {
+            min-height: 124px;
+            padding: 15px 4px;
+
+            button {
+              margin: 10px 3px;
+              padding: 5px 10px;
+            }
+          }
+        }
+
+        .other-block {
+          flex-basis: 33%;
+          max-width: 455px;
+
+          .block-content {
+            min-height: 124px;
+            padding: 15px 3px;
+
+            button.primary-button-light {
+              margin: 10px 2px;
+              padding: 5px 6px;
+              @media screen and (min-width: 1900px) {
+                margin: 10px 3px;
+                padding: 5px 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .table-block {
+        margin-top: -10px;
+
+        .table-title-tab {
+          display: flex;
+          align-items: center;
+          margin-top: -7px;
+          > div + div {
+            cursor: pointer;
+            margin: 0 15px;
+
+            padding: 5px 20px;
+            border-radius: 10px;
+            &.is-active {
+              background: $primary;
+              color: white;
+            }
+          }
+        }
+        table {
+          min-width: 1230px;
+          thead tr {
+            top: 43px;
+            z-index: 10;
+
+            th {
+              white-space: nowrap;
+              border-right: 1px solid $bg-grey;
+              &.sort {
+                user-select: none;
+                transition: 0.3s;
+
+                cursor: pointer;
+
+                &:hover {
+                  color: $primary-lighter !important;
+                  .triangle {
+                    transition: 0.3s;
+                    fill: $primary;
+                    stroke: $primary;
+                  }
+                }
+              }
+            }
+
+            &.scroll-fix[stuck] {
+              box-shadow: 0 10px 18px 5px rgb(184 184 184 / 50%);
+              border-radius: 15px;
+              background-color: $font-subcontain;
+
+              th:last-child {
+                border-top-right-radius: 15px;
+              }
+
+              th:first-child {
+                border-top-left-radius: 15px;
+              }
+            }
+          }
+
+          tbody {
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            tr td {
+              button {
+                background-color: transparent;
+
+                &:hover {
+                  background-color: $primary-lighter;
+                }
+              }
+            }
+
+            tr {
+              &.hidden-info {
+                td {
+                  background-color: $bg-primary;
+                  .columns .column {
+                    padding: 10px 0;
+                    .field {
+                      color: $font-subcontain;
+                      margin-right: 20px;
+                      margin-bottom: 0;
+                    }
+                    .inner-second {
+                      .column {
+                        padding: 7px 0;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .block-title-outside {
+          height: 60px;
+          padding-left: 16px;
+
+          &.scroll-fix {
+            top: -9px;
+            z-index: 10;
+            padding-top: 25px;
+            &[stuck] {
+              background: #eeeeee;
+              min-width: 1230px;
+            }
+          }
+        }
+      }
+      [stuck] .table-title-tab {
+        margin-top: -12px;
+      }
+    }
+
+    aside {
+      padding: 17px 12px 0 18px;
+
+      .calendar-block {
+        .block-title-outside {
+          margin-top: 15px;
+          margin-bottom: 6px;
+          padding-left: 20px;
+        }
+
+        .block-content {
+          padding: 15px 17px 17px 21px;
+        }
+      }
+
+      .todo-block {
+        margin-top: 14px;
+
+        .block-content {
+          padding: 10px 10px 10px 20px;
+
+          .block-title-inside {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #232323;
+            font-weight: 500;
+            // box-shadow: 0 10px 18px 5px rgb(184 184 184 / 50%);
+          }
+
+          .todo-area {
+            max-height: 233px;
+            overflow: auto;
+
+            /* custom scrollbar */
+            &::-webkit-scrollbar {
+              width: 5px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: #dfdfdf;
+              border-radius: 2.5px;
+              // border: 2px solid transparent;
+              border-right: none;
+              background-clip: content-box;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+              background-color: #a8bbbf;
+            }
+
+            .todo {
+              .todo-time {
+                font-family: Rubik;
+                font-size: 18px;
+                font-weight: 500;
+                color: #232323;
+              }
+
+              ul.todo-list {
+                > li {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  padding: 5px 0;
+
+                  img {
+                    margin-right: 1.5%;
+                  }
+                  .oval {
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 100%;
+                    margin-right: 1.5%;
+                  }
+
+                  .todo-button {
+                    width: 20%;
+                    text-align: right;
+
+                    .button {
+                      max-height: 32px;
+                      border: none;
+                      background: none;
+                      padding: 2px;
+                    }
+                  }
+
+                  h6 {
+                    width: 20%;
+                    font-weight: 600;
+                  }
+
+                  span {
+                    font-weight: 500;
+                    width: 30%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+
+                  .todo-button button {
+                    border-radius: 10px;
+                  }
+
+                  &.danger {
+                    color: $important;
+                    .oval {
+                      background: $important;
+                    }
+                    .todo-button button {
+                      &:hover {
+                        background: #ffe4d9;
+                      }
+
+                      svg path {
+                        stroke: #ff7848;
+                      }
+                    }
+                  }
+
+                  &.warning {
+                    color: $less-important;
+                    .oval {
+                      background: $less-important;
+                    }
+                    .todo-button button {
+                      &:hover {
+                        background: #fff9f0;
+                      }
+
+                      svg path {
+                        stroke: #ffc46d;
+                      }
+                    }
+                  }
+
+                  &.normal {
+                    color: $ordinary;
+                    .oval {
+                      background: $ordinary;
+                    }
+                    .todo-button button {
+                      &:hover {
+                        background: $primary-lightest;
+                      }
+
+                      svg path {
+                        stroke: $primary;
+                      }
+                    }
+                  }
+
+                  &.finished {
+                    color: $todo-finished;
+                    .oval {
+                      background: $todo-finished;
+                    }
+                    .todo-button button {
+                      background-color: #dedede !important;
+                      border-radius: 10px;
+
+                      // 已完成也要可以編輯
+                      &.edit-todo {
+                        // display: none;
+                        background-color: white !important;
+                        &:hover {
+                          background: #d2d2d241 !important;
+                        }
+                        svg path {
+                          stroke: #898991;
+                        }
+                      }
+
+                      svg path {
+                        stroke: white;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .status-mark {
+      border: 3px solid transparent;
+      border-radius: 100%;
+      content: "";
+      display: block;
+      position: relative;
+      top: 3px;
+      left: -5px;
+      width: 15px;
+      height: 15px;
+      transition: background .3s ease-in-out, border .3s ease-in-out;
+
+      &.status {
+        background: #c6c6c6;
+      }
+      &.status0 {
+        background: #6fba2a;
+      }
+      &.status2 {
+        background: #ff4c36;
+      }
+    }
+    .case-status {
+      display: table;
+    }
+    .status-row {
+      display: table-row;
+      padding: 0;
+    }
+    .status-cell {
+      display: table-cell;
+      vertical-align: top;
+    }
+  }
+}

@@ -1,0 +1,104 @@
+$tabs-border-bottom-color: #dfdfdf;
+$tabs-link-active-color: $primary;
+$tabs-link-active-border-bottom-color: $primary;
+$tabs-link-hover-border-bottom-color: $text-accent;
+$tabs-link-hover-color: $text-accent;
+
+body {
+  .tabs {
+    flex-wrap: wrap;
+    overflow-x: hidden !important;
+    ul {
+      justify-content: space-around;
+      width: 100%;
+
+      a {
+        border-bottom-color: transparent;
+      }
+
+      li {
+        &.is-active {
+          a {
+            border-radius: 2.5px;
+            border-width: 5px;
+          }
+        }
+        &.is-disabled {
+          cursor: not-allowed;
+          position: relative;
+          pointer-events: none;
+          &:hover {
+            border: none;
+          }
+          & > a {
+            pointer-events: none;
+            color: $font-placeholder;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+
+    section {
+      .tab-content {
+        display: none;
+
+        a {
+          text-decoration: none;
+          border: none;
+        }
+
+        &.is-active {
+          display: block;
+        }
+      }
+    }
+    // 資料夾樣式的頁籤
+    &.folder-style {
+      ul {
+        border-bottom: solid 1px $bg-grey;
+        gap: 0 10px;
+
+        li {
+          border-radius: 5px 5px 0 0;
+
+          a {
+            border-radius: 5px 5px 0 0;
+            background: $primary;
+            color: white;
+
+            svg {
+              background-color: white;
+            }
+          }
+
+          &.is-active {
+            box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.2);
+
+            a {
+              background: white;
+              color: $primary;
+              border-bottom: 1px solid $primary;
+
+              svg {
+                background-color: $primary;
+              }
+            }
+          }
+
+          &:not(.is-active) {
+            &:hover {
+              a {
+                background: $primary-hover;
+
+                svg {
+                  background-color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

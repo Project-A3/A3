@@ -1,0 +1,1251 @@
+.page-accounting {
+  width: 100%;
+
+  main {
+    & > section {
+      .card {
+        padding: 20px 10px;
+
+        .hidden-parts {
+          display: none;
+        }
+
+        .card-title {
+          h3 {
+            padding-left: 10px;
+            display: inline-block;
+            margin-right: 25px;
+          }
+        }
+
+        .table-content {
+          margin-top: 15px;
+          table {
+            .has-transparent {
+              color: transparent !important;
+            }
+            thead tr th {
+              padding-top: 14px;
+              padding-bottom: 14px;
+              line-height: normal;
+              img {
+                vertical-align: middle;
+                margin-left: 10px;
+              }
+
+              &:last-child {
+                padding-right: 10px;
+              }
+            }
+            tbody {
+              &.part {
+                border-top: none;
+                &::after {
+                  content: "";
+                  display: block;
+                  height: 10px;
+                }
+              }
+              tr {
+                &:has(.reason):hover {
+                  background: transparent !important;
+                }
+                td {
+                  padding: 0.8em 0.3em;
+                  &.table-title-inside {
+                    background-color: $bg-grey-lighter;
+                    color: $font-title;
+                    font-weight: 500;
+                    font-size: 18px;
+                  }
+
+                  &:nth-child(1) {
+                    min-width: 200px;
+                  }
+                  &:nth-child(2) {
+                    min-width: 50px;
+                  }
+
+                  .reason {
+                    background-color: $bg-grey-lighter;
+                    padding: 20px 20px 10px 20px;
+                    border-radius: 10px;
+                    position: relative;
+                    & > .reason-code {
+                      position: absolute;
+                      top: -8px;
+                      left: 85px;
+                    }
+                    &::before {
+                      content: "核定原因";
+                      font-size: 14px;
+                      border-radius: 10px;
+                      padding: 2px 10px;
+                      background-color: $bg-grey;
+                      position: absolute;
+                      left: 0;
+                      top: -8px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.second-card {
+          padding: 20px 10px 0 10px;
+          .table-content {
+            table {
+              thead tr th {
+                &:last-child {
+                  padding: 0.5em 0.3em;
+                  vertical-align: middle;
+                }
+                label {
+                  input[type="checkbox"] + span {
+                    padding-left: 0;
+                    padding-right: 25px;
+                    background-position-x: 90%;
+                    background-position-y: 75%;
+                    background-size: 16px;
+                  }
+                }
+              }
+
+              tbody {
+                tr {
+                  td {
+                    label {
+                      input[type="checkbox"] + span {
+                        padding-left: 0;
+                        padding-right: 16px;
+                        background-size: 16px;
+                      }
+
+                      span {
+                        display: initial;
+                        width: 16px;
+                      }
+                    }
+                  }
+
+                  &.hidden-info {
+                    td {
+                      background-color: $bg-primary;
+                      .columns .column {
+                        .field {
+                          color: $font-subcontain;
+                        }
+                        .inner-second {
+                          .column {
+                            padding: 7px 0;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              tfoot {
+                position: sticky;
+                bottom: -26px;
+                background: white;
+                &.isSticky {
+                  box-shadow: 0 -10px 10px -10px rgba(0, 0, 0, 0.15);
+                }
+                &.table-footer {
+                  border-top: 1px solid $font-memo;
+
+                  tr {
+                    &:hover {
+                      background-color: transparent !important;
+                    }
+
+                    td {
+                      .columns .column {
+                        padding-left: 10px;
+                        .button {
+                          // min-width: 114px;
+                          min-width: 100px;
+                          height: 42px;
+                          border-radius: 15px;
+                          color: $primary;
+
+                          & + .button {
+                            margin-left: 10px;
+                          }
+                          &:disabled {
+                            color: #c9c9c9 !important;
+                          }
+                        }
+                      }
+
+                      span {
+                        font-size: 18px;
+                        color: $font-placeholder;
+                      }
+
+                      &.total {
+                        font-size: 20px;
+                        color: $font-contain;
+                        font-weight: 500;
+                      }
+                    }
+                  }
+                }
+              }
+
+              .w-006 {
+                width: 6%;
+              }
+            }
+          }
+        }
+
+        &.installment-card {
+          table tbody tr td {
+            &:nth-child(1),
+            &:nth-child(2) {
+              width: 130px;
+              min-width: initial;
+            }
+            &:nth-child(3) {
+              width: 600px;
+            }
+            &:nth-child(4),
+            &:nth-child(5) {
+              width: 160px;
+              min-width: initial;
+            }
+          }
+        }
+
+        &.thirdly-card {
+          .card-title {
+            label {
+              span {
+                color: $font-subcontain;
+              }
+              input[type="checkbox"] + span {
+                background-size: 16px;
+                background-position-y: 30%;
+                padding-left: 20px;
+              }
+            }
+          }
+          .table-content {
+            table {
+              thead {
+                tr {
+                  th {
+                    &.hor-ver-center {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    }
+                    .eye-toggle {
+                      display: inline-block;
+                      height: 24px;
+                      .eye-toggle-icon {
+                        -webkit-mask-image: url("~/assets/images/icon-eye-close.svg");
+                        mask-image: url("~/assets/images/icon-eye-close.svg");
+                        -webkit-mask-position: center;
+                        -webkit-mask-repeat: no-repeat;
+                        width: 24px;
+                        height: 24px;
+                        background-color: white;
+
+                        &.open {
+                          -webkit-mask-image: url("~/assets/images/icon-eye-open.svg");
+                          mask-image: url("~/assets/images/icon-eye-open.svg");
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  &.hidden-message {
+                    &.bg-primary {
+                      td {
+                        background-color: $bg-primary;
+                      }
+                    }
+                  }
+
+                  &:hover {
+                    // background-color: initial !important;
+                  }
+                  td {
+                    &:nth-child(1) {
+                      min-width: inherit;
+                    }
+                    &:last-child {
+                      width: 135px;
+                    }
+                    &.is-warning {
+                      color: $warning;
+                      background-color: initial;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.fourth-card {
+          .has-tippy {
+            text-decoration: underline;
+          }
+          .outline-btn-group {
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 10px;
+            button {
+              color: $primary;
+              padding: 10px 15px 10px 25px;
+              border-radius: 15px;
+              img {
+                margin-left: 5px;
+              }
+
+              & + button {
+                margin-left: 15px;
+              }
+            }
+
+            .column {
+              &.rules {
+                color: $font-title;
+                padding-top: 5px;
+                padding-bottom: 5px;
+              }
+            }
+
+            & + .outline-btn-group {
+              margin-top: 15px;
+            }
+          }
+        }
+      }
+      .button-group {
+        margin: 0 20px 15px 20px;
+        button {
+          padding: 10px 30px;
+          font-weight: 500;
+          height: 42px;
+
+          img {
+            margin-left: 10px;
+          }
+
+          & + button {
+            margin-left: 10px;
+          }
+        }
+
+        input[type="text"] {
+          width: 150px;
+          margin-left: 15px;
+          height: 42px;
+          &::placeholder {
+            color: $font-memo;
+            font-weight: 500;
+            font-size: 14px;
+          }
+        }
+
+        .bold {
+          font-weight: 600;
+        }
+        .color-is-title {
+          color: $font-title;
+        }
+      }
+
+      .button-scroll-to-top {
+        bottom: 80px;
+      }
+    }
+  }
+
+  // Review state
+  // Close state
+  &.accounting-review,
+  &.accounting-close {
+    main > section {
+      .card {
+        .table-content {
+          table {
+            a {
+              text-decoration: underline;
+              color: $primary;
+              &.is-warning {
+                color: #ff4c36;
+                font-weight: 500;
+              }
+            }
+
+            tbody {
+              tr {
+                td {
+                  &.is-memo {
+                    font-size: 14px;
+                    color: $font-subcontain;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.second-card {
+          .table-content {
+            table {
+              tbody {
+                .table-title-inside {
+                  font-size: 16px;
+                  padding: 0.6em 0.3em;
+                }
+                &.part {
+                  &:last-child {
+                    border: none;
+                  }
+                  &::after {
+                    height: 0;
+                  }
+                  tr {
+                    &:hover {
+                      background-color: transparent !important;
+                    }
+
+                    td {
+                      &.has-border-bot {
+                        border-bottom: 1px solid $bg-grey;
+                      }
+
+                      &:nth-child(2) {
+                        min-width: 42px;
+                      }
+                      &:nth-child(8) {
+                        width: 3%;
+                      }
+                      &:nth-child(9) {
+                        width: 10%;
+                      }
+                      &:nth-child(10) {
+                        width: 10%;
+                      }
+
+                      &.border-none {
+                        border: none;
+                      }
+                    }
+                  }
+                }
+                &.table-footer {
+                  tr td {
+                    &:nth-child(2) {
+                      min-width: 80px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.payee-card {
+          .table-content table {
+            tbody {
+              tr {
+                td {
+                  &:nth-child(1),
+                  &:nth-child(2) {
+                    min-width: inherit;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.thirdly-card {
+          .table-content {
+            table {
+              tbody {
+                tr {
+                  &:hover {
+                    background-color: $bg-primary;
+                  }
+                  &.hidden-message {
+                    td {
+                      // background-color: $bg-primary;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .button-group {
+        .column {
+          padding: 0;
+          .sign-level {
+            display: inline-flex;
+            background-color: $primary-lightest;
+            border-radius: 12px;
+            padding: 8px 15px;
+            color: $font-title;
+            align-items: center;
+            margin-left: 20px;
+
+            //Case closed state Start
+            &.case-closed {
+              background-color: $bg-grey;
+              padding: 15px 20px;
+              .data {
+                color: $font-title;
+                font-size: 18px;
+                font-weight: 500;
+              }
+            }
+            .field {
+              margin-bottom: 0;
+              margin-right: 10px;
+            }
+
+            .dropdown {
+              .dropdown-trigger {
+                button {
+                  padding: 10px 15px;
+                  width: 175px;
+                }
+              }
+            }
+            //Case closed state End
+          }
+        }
+      }
+
+      .button-scroll-to-top {
+        bottom: 100px;
+      }
+    }
+  }
+}
+
+//Modal - 理賠項目彈窗
+#claimItems {
+  .modal-content {
+    width: 960px;
+
+    .data-horizontal-info {
+      padding: 0 20px;
+      margin-bottom: 25px;
+    }
+  }
+  .modal-tool {
+    button {
+      width: 126px;
+    }
+  }
+}
+
+//Modal - 新增核付項目
+#addPaymentItem {
+  .modal-content {
+    width: 1180px;
+    .box {
+      .table-title {
+        color: $font-title;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 5px;
+        margin-bottom: 20px;
+      }
+      .modal-table {
+        table {
+          margin-bottom: 10px;
+          thead {
+            tr {
+              th {
+                padding: 15px 0;
+                &:first-child {
+                  padding-left: 20px;
+                }
+                &:last-child {
+                  padding-right: 15px;
+                }
+                &.has-text-right {
+                  padding-right: 10px;
+                }
+                label {
+                  input[type="checkbox"] + span {
+                    background-position-y: 40%;
+                    background-position-x: 100%;
+                    background-size: 16px;
+                    padding-left: 0;
+                    padding-right: 22px;
+                  }
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              &.checked {
+                background-color: $primary-lightest;
+              }
+
+              td {
+                &:first-child {
+                  padding-left: 20px;
+                }
+                &.has-text-right {
+                  padding-right: 10px;
+                }
+                &.w-10 {
+                  width: 10%;
+                }
+                &.w-17 {
+                  width: 17%;
+                }
+                .dropdown {
+                  .dropdown-trigger {
+                    button {
+                      padding: 8px 10px;
+                      height: 38px;
+                      min-height: inherit;
+
+                      &:hover {
+                        background-color: white;
+                      }
+                    }
+                  }
+                  .dropdown-menu {
+                    .dropdown-content {
+                      .dropdown-item {
+                        text-decoration: none;
+                      }
+                    }
+                  }
+                  &.category {
+                    width: 180px;
+                  }
+                  &.item {
+                    width: 255px;
+                  }
+                }
+                label {
+                  span {
+                    display: inline-block;
+                    height: 16px;
+                  }
+                  input[type="checkbox"] + span {
+                    background-position-y: 50%;
+                    background-size: 16px;
+                    padding-left: 16px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .columns .column {
+          button {
+            width: 114px;
+            height: 52px;
+            color: $primary !important;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+//Modal - 人工核定
+#manualApproved,
+#manualApprovedCompromise,
+#manualApprovedDisability,
+#manualApprovedNotPay,
+#manualApprovedTemporaryNotDeal {
+  .modal-content {
+    width: 1180px;
+    .box {
+      padding: 30px 20px;
+      section {
+        .title {
+          align-items: center;
+          margin-top: 10px;
+          margin-bottom: 15px;
+          h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: $font-title;
+            margin-right: 20px;
+          }
+        }
+
+        .manual-approved-table {
+          margin-bottom: 30px;
+          input {
+            width: 90px;
+            min-height: inherit;
+            height: 38px;
+            border-radius: 12px;
+            padding-left: 10px;
+          }
+        }
+
+        .dropdown {
+          .dropdown-trigger {
+            button {
+              min-height: inherit;
+              height: 38px;
+              border-radius: 12px;
+            }
+          }
+          &.edit-reason {
+            width: 180px;
+            .dropdown-trigger {
+              button {
+                span {
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+        }
+
+        textarea {
+          width: 1120px;
+          resize: vertical;
+        }
+
+        .input-group {
+          margin-top: 20px;
+          margin-bottom: 10px;
+          .columns {
+            .column {
+              display: flex;
+              align-items: center;
+              padding: 8px 10px;
+
+              .field {
+                display: inline-block;
+                width: 65px;
+                font-size: 16px;
+                color: $font-title;
+              }
+
+              input {
+                width: 250px;
+                height: 38px;
+                padding: 8px 10px;
+              }
+
+              .dropdown {
+                width: 250px;
+                .dropdown-trigger {
+                  button {
+                    padding: 8px 10px;
+                  }
+                }
+              }
+
+              .datetimepicker-wrapper-div {
+                margin-left: 40px;
+                &:nth-child(3n + 1) {
+                  margin-left: 0px;
+                }
+              }
+
+              .datetimepicker-dummy {
+                width: 250px;
+
+                .datetimepicker-dummy-wrapper {
+                  input {
+                    height: 38px;
+                  }
+
+                  &::before {
+                    top: 25%;
+                    right: 5%;
+                  }
+                }
+              }
+
+              button {
+                &.has-icon-back {
+                  width: 90px;
+                  padding: 0 15px;
+                  border-radius: 12px;
+                }
+              }
+            }
+          }
+        }
+
+        .datetimepicker-wrapper-div.multiple-date {
+          display: flex;
+          .datetimepicker-dummy,
+          input {
+            width: 180px !important;
+          }
+        }
+
+        .datetimepicker-wrapper-div.range-datetime {
+          min-width: 320px;
+          .datetimepicker-selection-input-hours,
+          .datetimepicker-selection-input-minutes {
+            padding: 0 !important;
+            width: 40px !important;
+            min-width: 40px !important;
+          }
+          .datetimepicker {
+            max-width: 320px !important;
+          }
+          .is-range {
+            max-width: 1000px !important;
+            .datetimepicker-dummy-input {
+              width: auto !important;
+              min-width: 320px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Modal - 人工核定(暫不處理)
+#manualApprovedDisability {
+  .modal-content {
+    .box {
+      section {
+        .modal-table {
+          table {
+            margin-top: 20px;
+            margin-bottom: 10px;
+
+            thead {
+              tr {
+                th {
+                  padding: 15px 0;
+                  &:first-child {
+                    padding-left: 20px;
+                  }
+                  &:last-child {
+                    padding-right: 15px;
+                  }
+                }
+              }
+            }
+            tbody {
+              tr {
+                td {
+                  .dropdown {
+                    &.open-modal-in-table {
+                      width: 140px;
+                      .dropdown-trigger {
+                        button {
+                          padding: 8px 10px;
+                          height: 38px;
+                          min-height: inherit;
+                          font-weight: normal;
+                          color: $font-title;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Modal - 失能程度查詢
+#disabilityQuery {
+  .modal-content {
+    width: 1180px;
+    section {
+      padding-top: 0;
+    }
+    .box {
+      .modal-table {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 70vh;
+
+        table {
+          thead tr {
+            th {
+              &:first-child {
+                padding-left: 0;
+              }
+            }
+
+            &.second-tr {
+              th {
+                top: 53px;
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                &.w-5 {
+                  width: 5%;
+                }
+                &.w-23 {
+                  width: 23%;
+                }
+                a {
+                  color: #232323;
+                  text-decoration: none;
+                  cursor: default;
+                  &.level {
+                    cursor: pointer;
+                    color: $primary;
+                    text-decoration: underline;
+                  }
+                }
+                &.description {
+                  color: $font-subcontain;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Modal - 人工核定_修改原因 {
+#manualApprovedEditReason {
+  .modal-content {
+    width: 1180px;
+    overflow: visible;
+    .search-area {
+      position: absolute;
+      right: 30px;
+      top: 80px;
+      .ver-center {
+        p {
+          white-space: nowrap;
+        }
+        input:focus {
+          border: 2px solid #b7dc94;
+          box-shadow: none;
+        }
+        gap: 10px;
+      }
+    }
+    .box {
+      section {
+        .dropdown {
+          width: 200px;
+          .button {
+            min-height: inherit;
+            height: 38px;
+            border-right: 12px;
+            color: $font-subcontain;
+          }
+        }
+        .modal-table {
+          margin-bottom: 20px;
+          max-height: 60vh;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          table {
+            thead tr {
+              th {
+                padding: 7px 10px;
+
+                &:last-child {
+                  color: transparent !important;
+                }
+              }
+            }
+            tbody {
+              tr {
+                &.checked {
+                  td {
+                    background-color: $primary-lightest;
+                  }
+                }
+                td {
+                  &.w-5 {
+                    width: 5%;
+                  }
+                  &.w-11 {
+                    width: 11%;
+                  }
+                  &.w-30 {
+                    width: 30%;
+                  }
+                  &.w-8 {
+                    width: 8%;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .pagination {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+}
+
+// Modal - 人工核定_消滅給付
+#manualApproved .reducing-benefits {
+  input {
+    width: 240px;
+    min-height: inherit;
+    height: 38px;
+    border-radius: 12px;
+    padding-left: 10px;
+  }
+
+  table {
+    margin-bottom: 20px;
+
+    thead th {
+      padding-top: 0.7em;
+      padding-bottom: 0.7em;
+    }
+    tbody tr td:nth-child(1) {
+      padding-left: 20px;
+    }
+  }
+}
+
+// Modal - 人工核定_依約給付
+#manualApproved .paying-according-contract {
+  input {
+    width: 240px;
+    min-height: inherit;
+    height: 38px;
+    border-radius: 12px;
+    padding-left: 10px;
+  }
+
+  table {
+    thead th {
+      padding-top: 0.7em;
+      padding-bottom: 0.7em;
+
+      &:nth-child(2) {
+        width: 70%;
+      }
+    }
+
+    tbody tr td:nth-child(1) {
+      padding-left: 12px;
+    }
+  }
+}
+
+// Modal - 給付明細說明輸入
+#paymentDetails {
+  & > .modal-content {
+    width: 1180px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      & > section {
+        .modal-table {
+          margin-bottom: 20px;
+          table {
+            thead tr th {
+              padding: 15px 10px;
+              &:first-child {
+                padding-right: initial;
+              }
+            }
+            tbody tr {
+              td {
+                background-color: $bg-grey-lighter;
+                .open-modal-input {
+                  width: 112px;
+                }
+
+                &.w-13 {
+                  width: 13%;
+                }
+
+                textarea {
+                  height: 110px;
+                  margin-top: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Modal - 給付明細說明輸入_選擇模板
+#paymentDetailsTemplate {
+  .modal-content {
+    width: 1180px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        .modal-table {
+          table {
+            thead tr th {
+              padding: 15px 10px;
+              &:first-child {
+                padding-right: initial;
+              }
+            }
+            tbody tr {
+              td {
+                padding: 13px 10px;
+                color: $font-subcontain;
+                background-color: initial;
+                &.w-7 {
+                  width: 7%;
+                }
+                &.w-84 {
+                  width: 84%;
+                }
+              }
+            }
+          }
+        }
+        .pagination {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+  .search-area {
+    position: absolute;
+    right: 30px;
+    top: 80px;
+    .ver-center {
+      p {
+        white-space: nowrap;
+      }
+      input:focus {
+        border: 2px solid #b7dc94;
+        box-shadow: none;
+      }
+      gap: 10px;
+    }
+  }
+}
+
+// Modal - 解除註記
+#unannotate {
+  .modal-content {
+    width: 1180px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        .modal-table {
+          min-height: 310px;
+          table {
+            thead tr th {
+              padding: 15px 10px;
+              &:first-child {
+                padding-left: 20px;
+              }
+            }
+            tbody tr {
+              td {
+                padding: 7px 10px;
+                .dropdown {
+                  width: 330px;
+                  button {
+                    .placeholder {
+                      color: $font-memo;
+                    }
+                  }
+                }
+
+                .is-grey {
+                  color: $font-memo;
+                }
+                .datetimepicker {
+                  position: absolute !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Modal - 例外授權碼輸入
+#exceptionCode {
+  .modal-content {
+    width: 520px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 60px;
+        input[type="text"] {
+          width: 360px;
+          &::placeholder {
+            color: $font-memo;
+          }
+        }
+      }
+    }
+  }
+}

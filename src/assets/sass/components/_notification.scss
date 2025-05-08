@@ -1,0 +1,147 @@
+// main.scss
+
+// colors
+$text-color: #232323;
+$important: #e16b5d; //紅
+$less-important: #eb8200; //橘黃
+$ordinary-grey: #a3a3a3; //淺灰
+
+// font-family
+$en-font-family: Rubik;
+$ch-font-family: PingFangTC;
+
+.notification {
+  position: fixed;
+  right: 12px;
+  top: 64px;
+  z-index: 50;
+  //“普通”通知卡片-左側裝飾
+  .card::before {
+    content: "";
+    width: 10px;
+    height: 100%;
+    background: $primary;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  //“重要”通知卡片-左側裝飾
+  .is-important::before {
+    content: "";
+    width: 10px;
+    height: 100%;
+    background: $important;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  //“次要”通知卡片-左側裝飾
+  .is-warning::before {
+    content: "";
+    width: 10px;
+    height: 100%;
+    background: $less-important;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  //"普通"通知卡片(預設)
+  .card {
+    width: 444px;
+    padding: 13px 0px 14px 25px;
+    box-shadow: 0 5px 15px 0 rgba(129, 136, 134, 0.6);
+    border-radius: 5px 20px 20px 5px;
+    position: relative;
+    font-size: 16px;
+    color: $ordinary-grey;
+    margin-bottom: 25px;
+    background: white;
+
+    //卡片內容容器
+    .warp {
+      width: 75%;
+    }
+
+    //卡片內容-上方容器
+    .item-top {
+      padding-bottom: 12px;
+    }
+
+    //卡片內容-上方容器-時間
+    .time {
+      padding: 0px 10px 0px 0px;
+      font-size: 16px;
+      color: $text-color;
+    }
+
+    //卡片內容-上方容器-待辦通知
+    .todo {
+      font-size: 14px;
+    }
+    
+
+    //卡片內容-標題
+    .title {
+      padding: 0px 10px 0px 0px;
+      font-size: 16px;
+      font-weight: 600;
+      color: $primary;
+    }
+
+    //卡片內容-內容
+    .content {
+      word-break: normal;
+      color: $primary;
+    }
+
+    //知道了按鈕
+    .understood {
+      width: 88px;
+      height: 42px;
+      border-radius: 10px;
+      // box-shadow: 0 5px 15px 0 rgba(163, 163, 163, 0.7);
+      background-color: #fff;
+      border: 2px solid $primary-lighter;
+      color: $primary;
+      font-weight: 500;
+      font-size: 16px;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      right: 15px;
+      margin: auto;
+      cursor: pointer;
+    }
+
+    .understood:hover {
+      background-color: $primary;
+      color: #fff;
+      border: $primary;
+      // box-shadow: 0 10px 20px 0 rgba(213, 215, 214, 0.6);
+    }
+  }
+
+  //"重要"通知時，卡片內文字顏色
+  .is-important {
+
+    .title,
+    .content {
+      color: $important;
+    }
+  }
+
+  //“次要”通知時，卡片內文字顏色
+  .is-warning {
+
+    .title,
+    .content {
+      color: $less-important;
+    }
+  }
+}

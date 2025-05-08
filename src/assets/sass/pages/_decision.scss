@@ -1,0 +1,1414 @@
+.decision-aside {
+  //decision-aside通用 "預設"狀態Start
+  padding: 15px 14px 145px 18px;
+
+  &.preview-state {
+    padding-bottom: 20px;
+  }
+  .card {
+    padding: 0;
+    margin: 0;
+
+    .hidden-parts {
+      display: block;
+    }
+
+    & + .card {
+      margin-top: 15px;
+    }
+
+    .tag {
+      padding: 3px 12px;
+      background-color: $primary;
+      color: white;
+      border-radius: 7px;
+      margin-right: 2px;
+      font-size: 14px;
+      // max-width: 90px;
+      height: fit-content;
+      margin-top: 2px;
+      &.is-primary {
+        background-color: $primary;
+      }
+      &.is-green {
+        background-color: $tag-green;
+      }
+      &.is-yellow {
+        background-color: $tag-yellow;
+      }
+      &.is-purple {
+        background-color: $tag-purple;
+      }
+      &.is-secondary {
+        background-color: $tag-blue;
+      }
+
+      &.dropdown {
+        width: 100% !important;
+        padding-right: 7px;
+        &.is-secondary,
+        &.is-yellow {
+          .dropdown-trigger {
+            button {
+              background-color: transparent;
+              border: none !important;
+              padding: 0;
+              padding-right: 7px;
+              color: white;
+              height: inherit !important;
+              min-height: inherit;
+              span {
+                text-overflow: inherit;
+                overflow: inherit;
+                white-space: normal;
+                flex-shrink: 0;
+              }
+              img {
+                width: 16px;
+                margin-left: 3px;
+              }
+            }
+          }
+          .dropdown-menu {
+            .dropdown-content {
+              border-radius: 7px;
+            }
+            .dropdown-item {
+              padding: 5px 1rem;
+              font-weight: 500;
+              color: $font-contain;
+            }
+          }
+        }
+        &.is-yellow .dropdown-content {
+          background-color: #fff3e2;
+          border-radius: 7px;
+          border: none;
+          .dropdown-item + .dropdown-item::before {
+            content: "";
+            width: 85%;
+            height: 1px;
+            background-color: #ffc46d;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          a {
+            &:hover {
+              background-color: #ffeacb;
+            }
+          }
+        }
+      }
+    }
+
+    .column {
+      padding: 0;
+      display: flex;
+
+      & + .column {
+        margin-top: 10px;
+      }
+    }
+
+    .card-title {
+      padding: 15px 22px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 500;
+        display: inline-block;
+        color: $font-contain;
+        flex-shrink: 0;
+      }
+    }
+
+    .tabs {
+      ul {
+        flex: auto;
+        margin-right: 0;
+        justify-content: space-between;
+
+        li {
+          flex-grow: 1;
+          &.is-active {
+            a {
+              color: $secondary;
+              border-bottom-color: $secondary;
+            }
+          }
+
+          a {
+            width: 100%;
+
+            &:hover {
+              border-bottom-color: $secondary;
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+
+    .part {
+      margin: 0 15px 0 15px;
+      padding: 15px 9px 20px 10px;
+
+      .part-title {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      h3 {
+        padding: 5px 0;
+        white-space: normal;
+        line-height: normal;
+      }
+
+      p {
+        white-space: normal;
+        line-height: normal;
+      }
+
+      .button-group {
+        padding: 10px 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        .column {
+          padding: 0;
+
+          & + .column {
+            margin-top: 15px;
+          }
+        }
+
+        .is-secondary {
+          padding: 11px 10px;
+          white-space: normal;
+          height: auto;
+
+          & + .is-secondary {
+            margin-left: 15px;
+          }
+        }
+      }
+
+      &.case-officer {
+        padding: 15px 5px !important;
+
+        &.first-case-officer {
+          border: none;
+          padding-top: 0 !important;
+        }
+
+        .officer {
+          display: flex;
+          justify-content: end;
+
+          p {
+            &.special {
+              font-size: 16px;
+              color: $font-title;
+              margin-left: 5px;
+            }
+
+            font-size: 14px;
+            font-weight: 500;
+            span {
+              margin-left: 10px;
+            }
+          }
+
+          &.jc-between {
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+    //aside通用 "預設"狀態End
+
+    //aside通用 "覆核"狀態Start
+    &.review-state {
+      .part {
+        h3 {
+          font-size: 16px;
+        }
+
+        h6 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $secondary;
+          padding: 5px 0;
+        }
+
+        .classification {
+          p {
+            line-height: 1.75;
+            margin-left: 10px;
+            display: flex;
+            width: 91%;
+            span {
+              margin-right: 10px;
+              display: inline-block;
+            }
+          }
+
+          & + .classification {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+    //aside通用 "覆核"狀態End
+
+    // __________________
+    // 作業風險 Card Start
+    &.risk-card {
+      //作業風險Card "覆核"狀態Start
+      &.review-state {
+        .part {
+          .result {
+            font-size: 16px;
+            font-weight: 600;
+            color: $secondary;
+            p {
+              margin: 0;
+              padding-top: 5px;
+            }
+          }
+        }
+      }
+      //作業風險Card "覆核"狀態End
+
+      .card-title {
+        .tag {
+          margin: 5px 5px 5px 0;
+        }
+      }
+
+      .part {
+        p {
+          margin-bottom: 5px;
+
+          span {
+            color: $secondary;
+            text-decoration: underline;
+            padding: 0 7px 0 7px;
+            cursor: pointer;
+          }
+        }
+
+        .is-secondary {
+          width: 118px;
+        }
+      }
+
+      .disagree-input {
+        margin-top: 10px;
+        resize: vertical;
+        border: none;
+        background-color: #eff5fd;
+        padding: 15px 15px 1px 16px;
+
+        &::placeholder {
+          color: $bg-grey-lightest;
+        }
+      }
+    }
+    // 作業風險 Card End
+    // __________________
+
+    // __________________
+    //決策引導 Card Start
+    &.decision-card {
+      //"編輯"狀態 Start
+      &.edit-state {
+        .part {
+          .columns {
+            .column {
+              .w-90 {
+                width: 90px;
+              }
+
+              .tag {
+                &.dropdown {
+                  .dropdown-menu {
+                    .dropdown-item {
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
+
+              textarea {
+                padding: 10px 5px;
+                color: $font-title;
+                font-size: 16px;
+                width: 85%;
+                height: 74px;
+                background-color: white;
+                border: 2px solid $font-memo;
+                border-radius: 12px;
+                margin-top: -1px;
+                resize: vertical;
+                flex-shrink: 0;
+              }
+
+              button {
+                &.button {
+                  &.icon {
+                    &.trash {
+                      width: 40px;
+                      height: 40px;
+
+                      &:hover {
+                        background-color: $primary-lightest;
+                      }
+                    }
+                  }
+                }
+              }
+
+              .dropdown {
+                width: auto !important;
+                .dropdown-trigger {
+                  .button {
+                    height: 40px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      //"編輯"狀態End
+
+      // 決策引導Card "覆核"狀態Start
+      &.review-state {
+        .part {
+          .button-group {
+            button {
+              &.is-secondary {
+                &.is-active {
+                  &:disabled {
+                    opacity: 1;
+                    border: inherit;
+                    &:hover {
+                      background-color: $secondary-light;
+                    }
+                  }
+                }
+
+                &:disabled {
+                  opacity: 1;
+                  border: 2px solid #4f8ec9;
+                  &:hover {
+                    background-color: inherit;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      // 決策引導Card "覆核"狀態End
+
+      .tabs {
+        ul {
+          li {
+            flex-grow: 1;
+          }
+        }
+        &.expand {
+          ul {
+            border: none;
+            li {
+              &:nth-child(1),
+              &:nth-child(2) {
+                padding: 0 15px;
+              }
+              a {
+                text-align: center;
+                color: $secondary;
+                border-bottom: 5px solid $secondary !important;
+              }
+            }
+          }
+          section {
+            display: flex;
+            > div {
+              display: block;
+              width: 50%;
+              &.is-hidden ~ .tab-content {
+                width: 100%;
+              }
+              & + div {
+                border-left: 1px solid $tabs-border-bottom-color;
+              }
+              .button-group {
+                .button.is-secondary {
+                  width: 47%;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .part {
+        padding-bottom: 10px;
+        .question-num {
+          font-size: 24px;
+          color: $secondary;
+          font-weight: bold;
+          margin-right: 8px;
+        }
+
+        // Two Btns Group
+        .two-btns-group {
+          display: flex;
+          gap: 20px;
+        }
+
+        .button {
+          &.is-secondary {
+            img {
+              width: 16px;
+              margin-right: 10px;
+            }
+
+            &.is-outline-fill {
+              border: 2px solid $secondary-light;
+              background: #e0edfc;
+              color: $secondary;
+
+              a {
+                color: $secondary;
+                padding: 0;
+
+                &:hover {
+                  color: $secondary;
+                }
+              }
+
+              img {
+                width: 35px;
+                margin-right: 0;
+              }
+
+              &:hover {
+                background: $secondary-lightest;
+              }
+            }
+          }
+        }
+
+        //簽呈預覽 Button Group
+        .preview-btn-group {
+          padding-top: 20px;
+          margin-top: 0 !important;
+
+          button {
+            a {
+              width: 100%;
+            }
+
+            &.is-secondary {
+              a {
+                color: white;
+              }
+
+              img {
+                margin-right: 5px;
+                width: 24px;
+
+                &.ml-10 {
+                  margin-left: 10px;
+                }
+              }
+            }
+
+            &.is-outline {
+              a {
+                color: $font-contain !important;
+              }
+            }
+          }
+        }
+
+        h3 {
+          display: inline-block;
+          font-size: 16px;
+
+          a {
+            justify-content: flex-start;
+            margin-bottom: 0;
+            padding: 0;
+            margin-left: -8px;
+
+            color: $secondary;
+            text-decoration: underline;
+          }
+        }
+        .button-group {
+          padding: 10px 0;
+
+          .is-secondary {
+            width: 178px;
+            position: relative;
+
+            &.has-dot {
+              &::after {
+                content: "";
+                width: 10px;
+                height: 10px;
+                border-radius: 50px;
+                background-color: $auxiliary-orange;
+                position: absolute;
+                right: -1px;
+                top: -1px;
+              }
+            }
+
+            &.h-fixed-67 {
+              height: 67px;
+              white-space: normal;
+            }
+          }
+        }
+      }
+
+      .signed-content {
+        position: relative;
+
+        button {
+          &.icon {
+            &.edit,
+            &.complete {
+              position: absolute;
+              width: 30px;
+              height: 30px;
+              top: 17px;
+              right: 10px;
+            }
+          }
+        }
+
+        .part {
+          padding-bottom: 20px;
+
+          .part-title {
+            h3 {
+              font-size: 18px;
+            }
+          }
+          .columns {
+            margin-top: 10px;
+            .column {
+              padding: 0;
+              flex-wrap: wrap;
+              gap: 5px;
+              .tag {
+                padding: 3px 10px;
+              }
+              p {
+                font-size: 18px;
+                margin-left: 4px;
+                width: 100%;
+
+                &.limit-width {
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+            }
+          }
+
+          .button {
+            width: 100%;
+            height: 56px;
+
+            a {
+              color: white;
+              &:hover {
+                color: white;
+              }
+            }
+          }
+        }
+        .dropdown.height-limit {
+          .dropdown-content {
+            max-height: 165px;
+          }
+        }
+      }
+    }
+    // 決策引導 Card End
+    // __________________
+
+    // __________________
+    // 簽呈歷程 Card Start
+    &.signed-history-card {
+      padding: 0 10px 0 10px;
+      overflow: hidden;
+
+      // 簽呈歷程Card "覆核"狀態Start
+      &.review-state {
+        .part {
+          &.case-officer {
+            .opinion {
+              p {
+                font-size: 16px;
+                color: $font-title;
+              }
+
+              & + .officer {
+                margin-top: 10px;
+              }
+            }
+          }
+        }
+      }
+      // 簽呈歷程Card "覆核"狀態End
+
+      .card-title {
+        padding-left: 15px;
+      }
+      .memo {
+        font-size: 14px;
+        color: $font-memo;
+        margin-bottom: -5px;
+        span {
+          padding-right: 65px;
+          margin-left: 10px;
+        }
+      }
+
+      .column + .column {
+        margin-top: 0;
+      }
+      .history-card {
+        background-color: $bg-grey-lighter;
+        padding: 15px 5px 0 5px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+
+        h2 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $secondary;
+          padding: 0 10px;
+        }
+
+        .part {
+          padding: 0;
+          margin: 0 5px 0 5px;
+          .item {
+            padding: 10px 5px;
+            h3 {
+              margin-top: 3px;
+              font-size: 18px;
+              padding: 0;
+              font-weight: 500;
+            }
+            p {
+              span {
+                margin-right: 15px;
+              }
+              margin-top: 5px;
+            }
+          }
+
+          .columns {
+            padding: 15px 0;
+
+            .column {
+              font-size: 14px;
+              font-weight: 500;
+              color: $font-subcontain;
+
+              span {
+                font-size: 16px;
+                color: $font-title;
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+    //簽呈歷程 Card End
+    // __________________
+
+    // __________________
+    //意見回饋 Card Start
+    &.feedback-card {
+      padding: 15px 16px 20px 16px;
+      .card-title {
+        display: flex;
+        align-items: center;
+        padding: 0;
+
+        h3 {
+          padding: 0;
+          margin-right: 20px;
+        }
+      }
+      .dropdown-area {
+        display: flex;
+        justify-content: space-between;
+        .dropdown {
+          width: 48%;
+          a {
+            display: flex;
+            justify-content: space-between;
+            .add-icon {
+              position: absolute;
+              right: 20px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            &.create > span {
+              color: #232323 !important;
+            }
+          }
+        }
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 135px;
+        margin-top: 17px;
+      }
+
+      .feedback-card-btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        button {
+          font-size: 16px;
+          color: $font-subcontain;
+          font-weight: 500;
+          height: 56px;
+          flex: 1;
+
+          a {
+            color: inherit;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          &.is-thirdly {
+            img {
+              margin-right: 5px;
+            }
+          }
+
+          &.is-secondary {
+            color: white;
+            img {
+              margin-left: 5px;
+            }
+          }
+
+          &.ml-10 {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+    //意見回饋 Card End
+    // __________________
+  }
+
+  .error-message {
+    text-align: right;
+    color: #ff4c36;
+    font-size: 14px;
+    margin: 1px 0;
+    img {
+      margin: 0 5px;
+    }
+  }
+}
+#riskModal {
+  .modal-content {
+    width: 960px;
+    .box {
+      padding: 30px 40px;
+
+      > section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .info {
+          width: 92%;
+
+          p {
+            text-align: left;
+            font-size: 18px;
+            color: $font-title;
+            span {
+              color: $primary;
+              font-weight: 500;
+              padding: 0 5px;
+            }
+
+            &.time {
+              color: $bg-grey-lightest;
+              text-align: left;
+              font-size: 16px;
+              padding-top: 15px;
+            }
+          }
+        }
+
+        .modal-table {
+          width: 100%;
+          margin-top: 20px;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          max-height: 360px;
+          line-height: 2.5;
+
+          .table {
+            margin-top: 0;
+            thead {
+              tr {
+                th {
+                  &:nth-child(6) {
+                    width: 14%;
+                  }
+                }
+              }
+            }
+            tbody {
+              tr {
+                &:not(.is-selected):nth-child(odd) {
+                  background-color: $bg-grey-lighter;
+                }
+
+                td {
+                  &:nth-child(1) {
+                    padding-left: 20px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .modal-tool {
+        margin-top: 53px;
+        button {
+          width: 126px;
+          min-height: 42px;
+        }
+      }
+    }
+  }
+}
+
+#addPetition {
+  .modal-content {
+    width: 960px;
+    .box {
+      padding: 30px 40px;
+
+      > section {
+        .modal-table {
+          width: 100%;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          max-height: 500px;
+          line-height: 2.5;
+
+          .table {
+            margin-top: 0;
+            thead {
+              tr {
+                th {
+                  &:nth-child(2) {
+                    width: 80%;
+                  }
+                  &:nth-child(3) {
+                    color: #585862 !important;
+                  }
+                }
+              }
+            }
+            tbody {
+              tr {
+                &:not(.is-selected):nth-child(odd) {
+                  background-color: $bg-grey-lighter;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .modal-tool {
+      button {
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+#riskScoreModal {
+  .modal-content {
+    width: 880px;
+
+    .box {
+      padding-left: 60px;
+
+      section {
+        margin: 30px 0 65px 0;
+
+        table {
+          thead tr th {
+            &.select-item {
+              cursor: pointer;
+              user-select: none;
+    
+              &:hover {
+                color: $primary !important;
+                svg {
+                  .triangle {
+                    fill: $primary;
+                    stroke: $primary;
+                  }
+                }
+              }
+            }
+
+            span {
+              padding: 5px 15px;
+
+              &.active {
+                background-color: white;
+                color: #6fba2a;
+                border-radius: 12px;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+
+        .button-group {
+          padding: 10px 0 0;
+          display: flex;
+          flex-wrap: wrap;
+
+          .is-secondary {
+            width: 118px;
+            padding: 11px 10px;
+            white-space: normal;
+            height: auto;
+  
+            & + .is-secondary {
+              margin-left: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#riskScoreNoticeItemModal {
+  .modal-content {
+    width: 1180px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        .modal-table {
+          table {
+            thead tr th {
+              padding: 15px 10px;
+              &:first-child {
+                padding-right: initial;
+              }
+            }
+            tbody tr {
+              td {
+                padding: 13px 10px;
+                color: $font-subcontain;
+                background-color: initial;
+                &.w-7 {
+                  width: 7%;
+                }
+                &.w-84 {
+                  width: 84%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#illustrate {
+  .modal-content {
+    width: 100%;
+    .box {
+      > section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .illustrate-img {
+          width: 489px;
+        }
+      }
+
+      .modal-tool {
+        .w-fixed-140 {
+          width: 140px;
+        }
+      }
+    }
+  }
+}
+
+#dealAfterCaseModal {
+  .modal-content {
+    width: 880px;
+
+    .box {
+      padding-left: 100px;
+      padding-right: 100px;
+
+      section {
+        margin: 45px 0 40px 0;
+
+        .columns .column {
+          label {
+            input[type="text"] {
+              width: 150px;
+              padding: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .modal-tool {
+    display: flex;
+    justify-content: center;
+    .button {
+      width: 114px;
+      font-size: 16px;
+    }
+  }
+}
+
+// Modal - 不給付通知函輸入
+#noPaymentLetterInput,
+#noPaymentLetterView {
+  .modal-content {
+    width: 90%;
+    max-height: inherit;
+    .box {
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .modal-title {
+        margin-bottom: 25px;
+        font-size: 24px;
+        color: #232323;
+        text-align: center;
+        font-weight: 600;
+        position: relative;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        textarea {
+          margin-top: 0;
+          resize: vertical;
+
+          &:disabled {
+            color: $font-title !important;
+          }
+        }
+
+        .letter {
+          padding: 0 40px;
+
+          .columns {
+            .column {
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .top {
+            border-bottom: 1px solid $font-memo;
+            padding-bottom: 10px;
+          }
+
+          .bottom {
+            padding-top: 20px;
+            .columns {
+              .column {
+                padding: 0 0 15px 0;
+
+                textarea {
+                  font-weight: 600;
+                  &.h-120 {
+                    height: 120px;
+                  }
+                  &.h-110 {
+                    height: 110px;
+                  }
+                }
+              }
+            }
+          }
+
+          .conclusion {
+            font-weight: 600;
+            line-height: 1.63;
+            margin-top: 20px;
+            margin-bottom: 40px;
+          }
+
+          .field {
+            margin-bottom: inherit;
+            font-weight: 600;
+            color: $font-title;
+            font-size: 16px;
+            margin-right: 25px;
+
+            &.ml-15 {
+              margin-left: 15px;
+            }
+            &.mr-0 {
+              margin-right: 0;
+            }
+            &.mr-40 {
+              margin-right: 40px;
+            }
+          }
+
+          input[type="text"] {
+            padding: 8px 10px;
+            font-weight: 600;
+            &::placeholder {
+              color: $font-memo;
+              font-weight: 500;
+            }
+            &.w-268 {
+              width: 268px;
+            }
+
+            &.w-216 {
+              width: 216px;
+            }
+            &:disabled {
+              color: $font-title !important;
+            }
+          }
+
+          .dropdown {
+            button {
+              min-height: inherit;
+              height: 38px;
+              border-radius: 12px;
+              padding-right: 8px;
+            }
+
+            &.w-180 {
+              width: 180px;
+            }
+
+            &.w-520 {
+              width: 520px;
+            }
+
+            &.disabled {
+              .dropdown-trigger {
+                button {
+                  color: $font-title !important;
+                }
+              }
+            }
+          }
+
+          .ml-15 {
+            margin-left: 15px;
+          }
+        }
+
+        .modal-table {
+          .table-title {
+            font-size: 18px;
+            color: $font-title;
+            font-weight: 500;
+            padding-left: 40px;
+          }
+          table {
+            thead {
+              tr th {
+                padding: 15px 10px;
+              }
+            }
+            tbody {
+              tr {
+                border-bottom: 1px solid $font-memo;
+                td {
+                  &.w-8 {
+                    width: 8%;
+                  }
+                  &.w-13 {
+                    width: 13%;
+                  }
+                  textarea {
+                    &.h-155 {
+                      height: 155px;
+                    }
+                    width: -webkit-fill-available;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .modal-tool {
+        margin-top: 45px;
+        text-align: center;
+        margin: 50px;
+        position: relative;
+        button {
+          position: relative;
+          width: 154px;
+          margin: 0 15px;
+          .time {
+            position: absolute;
+            top: -30px;
+            color: $font-subcontain;
+            font-size: 14px;
+          }
+          .has-error {
+            position: absolute;
+            bottom: -30px;
+          }
+          &.button.is-primary {
+            // box-shadow: 0 4px 10px 0 rgba(81, 110, 98, 0.6);
+            &:hover {
+              background-color: $primary-hover;
+            }
+          }
+          &.button.is-light {
+            color: $primary;
+            background: white;
+            border: 2px solid $primary-lighter;
+            // box-shadow: 0 4px 10px 0 rgba(175, 182, 179, 0.6);
+
+            &:hover {
+              background-color: $primary-lightest;
+            }
+          }
+        }
+      }
+    }
+    .is-readonly{
+      pointer-events: none;
+    }
+    .cursor-not-allowed {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Modal - 不給付條款_選擇模板
+#notPayLawTemplate {
+  .modal-content {
+    width: 1180px;
+    .box {
+      .modal-title {
+        margin-bottom: 25px;
+      }
+      .modal-subtitle {
+        color: $font-placeholder;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        .modal-table {
+          table {
+            thead tr th {
+              padding: 15px 10px;
+              &:first-child {
+                padding-right: initial;
+              }
+            }
+            tbody tr {
+              td {
+                padding: 13px 10px;
+                color: $font-subcontain;
+                background-color: initial;
+                &.w-7 {
+                  width: 7%;
+                }
+                &.w-84 {
+                  width: 84%;
+                }
+              }
+            }
+          }
+        }
+        .pagination {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+  .search-area {
+    position: absolute;
+    right: 30px;
+    top: 80px;
+    .ver-center {
+      p {
+        white-space: nowrap;
+      }
+      input:focus {
+        border: 2px solid #b7dc94;
+        box-shadow: none;
+      }
+      gap: 10px;
+    }
+  }
+}

@@ -1,0 +1,211 @@
+.treesure {
+  min-width: 462px;
+  position: relative;
+  left: -7.5px;
+
+  .field.has-addons.search {
+    justify-content: center;
+    margin: 30px 23px 35px 28px;
+
+    input {
+      min-height: 52px;
+      min-width: 280px;
+      &::placeholder{
+        color: $font-memo;
+      }
+    }
+
+    button {
+      min-height: 52px;
+      border-radius: 15px !important;
+    }
+  }
+
+  .tabs {
+    section {
+      width: 100%;
+      padding-top: 15px;
+      padding-bottom: 60px;
+      max-height: 65vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      white-space: normal;
+      .tab-content {
+        .evaluation-list {
+
+          &-item {
+            padding: 10px;
+            padding-left: 16px;
+            border-bottom: 1px solid #dcdcdc;
+            position: relative;
+
+            h2 {
+              color: #232323;
+              font-size: 16px;
+            }
+
+            >div {
+              display: flex;
+              align-items: center;
+              margin-top: 10px;
+
+              h3 {
+                color: #a3a3a3;
+                font-size: 14px;
+                flex-basis: 16%;
+                min-width: 70px;
+              }
+
+              span {
+                font-size: 16px;
+
+                &+h3 {
+                  margin-left: 4.5%;
+                }
+              }
+
+              strong {
+                font-size: 18px;
+                color: #232323;
+
+                span {
+                  font-size: 18px;
+                }
+              }
+
+              .keyword {
+                color: $primary;
+              }
+            }
+
+            a.button-open-web {
+              right: 3%;
+              bottom: 3%;
+
+            }
+          }
+        }
+
+        .list {
+
+          //樹寶-要點項目
+          &-item {
+            width: 100%;
+            padding: 0px 18px;
+            color: #232323;
+            position: relative;
+            .wrap {
+              width: 100%;
+              margin: auto;
+              position: relative;
+              border-bottom: #dcdcdc 1px solid;
+              padding-right: 60px;
+              h3 {
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1.5;
+                color: #232323;
+                margin: 15px 0 10px 0;
+              }
+
+              p {
+                margin: 0 0 15px 0;
+                font-weight: normal;
+                @include max-line(2);
+              }
+
+              span {
+                color: $primary;
+              }
+            }
+            a.button-open-web{
+              right: 5%;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+        }
+
+        .wiki {
+          padding: 0 18px;
+
+          a.category {
+            text-decoration: underline;
+            color: $primary;
+            justify-content: flex-start;
+            padding: 0;
+            font-size: 16px;
+          }
+
+          &-list {
+            margin-top: 20px;
+
+            &-item {
+              border-bottom: 1px solid #dcdcdc;
+              padding: 0 20px 15px 0;
+              position: relative;
+
+              h2 {
+                color: #232323;
+                font-size: 18px;
+                font-weight: 500;
+              }
+
+              h3 {
+                color: #a3a3a3;
+                margin: 2px 0;
+                font-size: 14px;
+              }
+
+              p {
+                font-size: 16px;
+                color: #232323;
+                max-width: 90%;
+                white-space: normal;
+                @include max-line(2);
+                font-weight: normal;
+              }
+
+              .keyword {
+                color: $primary;
+              }
+
+              a.button-open-web {
+                right: 2%;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+          }
+        }
+
+        a.button-open-web {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          transition: all .3s;
+          padding: 0;
+
+          svg {
+            -webkit-mask-image: url('~/assets/images/icon-btn-openweb.svg');
+            mask-image: url('~/assets/images/icon-btn-openweb.svg');
+            -webkit-mask-position: center;
+            -webkit-mask-repeat: no-repeat;
+            width: 20px;
+            height: 20px;
+            background-color: #4f4f4f;
+          }
+
+          &:hover {
+            background: $primary;
+
+            svg {
+              background-color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+header {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background: $primary-dark;
+  position: relative;
+  z-index: 41;
+
+  .header-logo {
+    width: 246px;
+    background-image: linear-gradient(to right, #545461, #474752 78%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 20px;
+      object-fit: contain;
+    }
+
+    p {
+      color: white;
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .header-gradient {
+    background-image: url("~/assets/images/header-gradient.svg");
+    background-repeat: no-repeat;
+    width: 223px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+    p {
+      color: white;
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .header-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 1485px;
+    flex-grow: 1;
+    background-image: linear-gradient(to right, #545461, #474752 78%);
+
+    &-datetime {
+      span {
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        color: #fff;
+      }
+    }
+
+    &-avatar {
+      margin: 0 35px;
+
+      img {
+        object-fit: contain;
+        max-width: 58px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.page-apply,
+.page-overview,
+.page-accounting,
+.page-beneficiary {
+  header {
+    .header-info {
+      justify-content: space-between;
+
+      .header-nav {
+        margin-left: 7%;
+
+        ul {
+          display: flex;
+
+          li {
+            border-left: 1px solid $bg-grey-lightest;
+
+            &:first-child {
+              border: none;
+            }
+
+            a {
+              color: white;
+              font-size: 16px;
+              font-weight: 500;
+              padding: 5px 15px;
+              border-radius: 12px;
+              margin: 0 30px;
+            }
+
+            .active {
+              background-color: white;
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

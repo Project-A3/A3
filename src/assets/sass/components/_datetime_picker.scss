@@ -1,0 +1,311 @@
+@import "../vendors/bulma-calendar";
+
+.datetimepicker {
+  border-radius: 20px;
+  box-shadow: none;
+  background-color: #fff;
+  max-width: 260px;
+  padding: 15px 0;
+  margin-top: 18px;
+  position: fixed !important;
+  border: 2px solid $primary-lighter;
+  z-index: 60;
+  .is-active,
+  .is-primary {
+    color: $primary !important;
+  }
+
+  .datetimepicker-footer-validate.button {
+    order: 2;
+    background-color: $primary !important;
+    color: white !important;
+    border-radius: 15px !important;
+    padding: 15px 22px;
+  }
+  .datetimepicker-footer-clear.button.is-small {
+    order: 1;
+    position: absolute;
+    left: 0;
+    bottom: 16px;
+    color: $primary !important;
+    font-size: 14px;
+    text-decoration: underline !important;
+    background-color: white !important;
+  }
+  .date-item.is-highlighted {
+    border: 1px solid $primary !important;
+    background: $primary !important;
+    color: white !important;
+    border-radius: 10px !important;
+  }
+
+  .datepicker-date.is-disabled {
+    cursor: not-allowed !important;
+  }
+  .datetimepicker-footer {
+    min-height: 35px;
+  }
+
+  .datetimepicker-selection-input-hours,
+  .datetimepicker-selection-input-minutes {
+    min-width: 50px;
+  }
+
+  .datetimepicker-header .datetimepicker-selection-day {
+    color: #77d323 !important;
+  }
+}
+
+.datetimepicker-dummy {
+  height: 3rem;
+
+  &.w-155 {
+    width: 155px;
+  }
+
+  &.h-43 {
+    height: 43px;
+  }
+}
+
+.datetimepicker.is-primary .datepicker-body .datepicker-dates .datepicker-days .datepicker-date .date-item {
+  border-radius: 10px;
+
+  &:hover {
+    border: none;
+    color: white;
+    background: $primary;
+  }
+}
+
+.datetimepicker-dummy .datetimepicker-dummy-wrapper,
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper.is-active {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input {
+  height: auto;
+  border: 2px solid $primary-lighter;
+}
+
+.datetimepicker.is-primary .datepicker-nav,
+.datetimepicker .datepicker-nav .datepicker-nav-previous,
+.datetimepicker .datepicker-nav .datepicker-nav-next,
+.datetimepicker .datepicker-nav .datepicker-nav-month,
+.datetimepicker .datepicker-nav .datepicker-nav-year {
+  background: transparent;
+  color: $font-contain !important;
+}
+
+.datetimepicker .datepicker-body .datepicker-dates .datepicker-days .datepicker-date {
+  background: transparent;
+  pointer-events: none;
+
+  button {
+    display: none;
+  }
+}
+
+.datetimepicker.is-primary .datepicker-body .datepicker-dates .datepicker-days .datepicker-date .date-item.is-today {
+  background: $primary-lightest;
+  color: #4f4f4f;
+  border: none;
+  border-radius: 50%;
+}
+
+.datepicker-nav-month {
+  order: 2;
+}
+.datepicker-nav-year {
+  margin-right: 5px;
+  order: 1;
+}
+.datepicker-nav-month,
+.datepicker-nav-year {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.datetimepicker .datepicker-nav .datepicker-nav-next svg polyline,
+.datetimepicker .datepicker-nav .datepicker-nav-previous svg polyline {
+  stroke-width: 1.5em;
+}
+
+.datetimepicker .datepicker-body .datepicker-weekdays .datepicker-date,
+.datetimepicker .datepicker-body .datepicker-dates .datepicker-days .datepicker-date .date-item {
+  font-size: 14px;
+  margin: 0;
+}
+
+.datetimepicker .datepicker-body .datepicker-dates .datepicker-days .datepicker-date .date-item {
+  color: white;
+}
+
+.datetimepicker .datepicker-body .datepicker-dates .datepicker-days .datepicker-date.is-current-month {
+  pointer-events: all;
+
+  button {
+    color: #4f4f4f;
+    display: block;
+  }
+}
+
+.datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child {
+  text-indent: 0;
+}
+
+.datetimepicker-clear-button {
+  display: none;
+}
+
+.datetimepicker.is-primary .datepicker-body .datepicker-dates .datepicker-days .datepicker-date .date-item.is-active {
+  background: $primary;
+  border: none;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper:before,
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper::before {
+  mask: url("~/assets/images/icon-calendar.svg");
+  -webkit-mask: url("~/assets/images/icon-calendar.svg");
+  background-color: $primary;
+  width: 24px;
+  height: 24px;
+  right: 7%;
+  top: 20%;
+  left: unset;
+  z-index: 1;
+}
+
+.datetimepicker.is-datetimepicker-default .datetimepicker-container::after,
+.datetimepicker.is-datetimepicker-default .datetimepicker-container::before {
+  display: none;
+}
+
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper:focus,
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper.is-focused,
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper:active,
+.datetimepicker-dummy.is-primary .datetimepicker-dummy-wrapper.is-active {
+  border: none;
+  box-shadow: none;
+}
+
+.datetimepicker .timepicker .timepicker-previous,
+.datetimepicker .timepicker span {
+  padding: 0 !important;
+}
+
+.datetimepicker .timepicker .timepicker-start .timepicker-input {
+  font-size: 1.7rem !important;
+}
+
+.datetimepicker.is-primary .timepicker-input,
+.datetimepicker.is-primary .timepicker-input-number,
+.datetimepicker.is-primary .timepicker-time-divider {
+  color: $primary !important;
+}
+.datetimepicker-footer {
+  button.button.is-small {
+    font-size: 1rem;
+  }
+}
+
+.datepicker-date.datepicker-range.datepicker-range-start .date-item,
+.datetimepicker.is-primary
+  .datepicker-body
+  .datepicker-dates
+  .datepicker-days
+  .datepicker-date.datepicker-range.datepicker-range-end
+  .date-item {
+  background-color: $primary !important;
+}
+.datetimepicker.is-primary .datepicker-body .datepicker-dates .datepicker-days .datepicker-date.datepicker-range,
+.datetimepicker.is-primary .datepicker-body .datepicker-dates .datepicker-days .datepicker-date.datepicker-range .date-item {
+  background: $primary-lightest;
+  font-weight: bold;
+  color: $font-contain;
+}
+.datetimepicker.is-primary
+  .datepicker-body
+  .datepicker-dates
+  .datepicker-days
+  .datepicker-date.datepicker-range.datepicker-range-end
+  .date-item {
+  color: white;
+  border-color: $primary;
+}
+.datetimepicker .datepicker-body .datepicker-months .datepicker-month,
+.datetimepicker .datepicker-body .datepicker-years .datepicker-year {
+  &:hover {
+    border: none;
+    background: $primary-lightest;
+    color: $primary;
+  }
+  &.is-active {
+    background: $primary;
+    border: none;
+    color: white !important;
+    span {
+      color: white;
+    }
+  }
+}
+
+.datetimepicker-dummy {
+  &.is-primary {
+    .datetimepicker-dummy-wrapper {
+      &.radius-14 {
+        border-radius: 14px;
+      }
+    }
+    &.disabled {
+      .datetimepicker-dummy-wrapper {
+        &::before {
+          background-color: $bg-grey-lightest;
+          cursor: not-allowed;
+        }
+
+        .datetimepicker-dummy-input {
+          background-color: $bg-grey-light;
+          border-color: $font-memo;
+          color: $bg-grey-lightest;
+          font-weight: 500;
+        }
+      }
+
+      &.disabled-light-bg {
+        .datetimepicker-dummy-wrapper {
+          &::before {
+            background-color: $primary;
+          }
+          .datetimepicker-dummy-input {
+            background-color: #f5f5f5 !important;
+            color: $font-memo;
+            font-weight: 500;
+            border-color: $primary-lighter;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+
+.datetimepicker.is-multiselect.is-primary
+  .datepicker-body
+  .datepicker-dates
+  .datepicker-days
+  .datepicker-date
+  .date-item.is-active {
+  background: none !important;
+  color: #4f4f4f !important;
+  // &:hover,
+  &.is-highlighted {
+    background: $primary !important;
+    color: white !important;
+    border-radius: 10px !important;
+  }
+}

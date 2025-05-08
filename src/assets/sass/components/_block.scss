@@ -1,0 +1,46 @@
+$block-shadow: 6px 6px 20px 0 rgba(170, 177, 174, 0.5);
+
+.block {
+  display: flex;
+  flex-direction: column;
+
+  .block-title-outside {
+    margin-bottom: 2px;
+    font-size: 18px;
+    color: #232323;
+    padding-left: 25px;
+    width: 100%;
+    font-weight: 500;
+
+    p {
+      font-size: 18px;
+      color: #232323;
+    }
+  }
+
+  .block-content {
+    border-radius: 15px;
+    width: 100%;
+    // box-shadow: $block-shadow;
+    font-size: 16px;
+    background-color: #fff;
+    flex-grow: 1;
+
+    .block-title-inside {
+      font-size: 18px;
+      color: #4f4f4f;
+      font-weight: 500;
+      .title-tool-button {
+        display: flex;
+        align-items: center;
+
+        button {
+          color: $primary;
+          margin: 5px;
+          min-height: 42px;
+          min-width: 82px;
+        }
+      }
+    }
+  }
+}

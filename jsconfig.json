@@ -1,0 +1,9 @@
+{
+  "include": ["./src/**/*"],
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  },
+  "compilerOptions": {
+    "paths": { "~/*": ["./src/*"] }
+  }
+}

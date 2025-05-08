@@ -1,0 +1,178 @@
+@import "../vendors/tui-calendar";
+$task-danger-color: #ff4c36;
+$task-warn-color: #ffc46d;
+$task-success-color: #6fba2a;
+
+.calendar {
+  position: relative;
+  min-height: 300px;
+  border-radius: 20px;
+
+  /* for monthly view */
+  .tui-full-calendar-month {
+    min-height: auto;
+  }
+
+  /* for weekly view, please double check it has 'container' as postfix */
+  .tui-full-calendar-week-container {
+    min-height: auto;
+  }
+
+  &-menu {
+    .calendar-navi {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: bold;
+      color: #232323;
+
+      &-title {
+        display: flex;
+        align-items: center;
+
+        .render-range {
+          margin: 7px;
+          font-weight: bold;
+          color: $primary;
+          cursor: pointer;
+
+          @media screen and (max-width: 1300px) {
+            padding-right: 40px;
+          }
+        }
+      }
+
+      &-button {
+        margin-left: -50px;
+
+        button {
+          border: none;
+          background-color: $primary-lightest;
+          padding: 1px;
+          height: 26px;
+
+          img {
+            width: 24px;
+          }
+
+          &.ms-10 {
+            margin-left: 10px;
+          }
+        }
+      }
+
+      .move-today {
+        border-radius: 15px;
+        background: $primary;
+        color: white;
+        font-weight: 600;
+        border: none;
+      }
+    }
+  }
+
+  #calendar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 45px;
+
+    .tui-full-calendar-weekday-grid-date {
+      font-weight: bold !important;
+    }
+
+    .tui-full-calendar-today {
+      background: $primary-light;
+      background-color: $primary-light;
+      border-radius: 15px;
+    }
+    .tui-full-calendar-weekday-grid-line.tui-full-calendar-near-month-day {
+      transition: background 0.3s;
+      cursor: pointer;
+      border-radius: 15px;
+      &:hover,
+      &.is-hover {
+        border: 2px solid $primary-lighter !important;
+      }
+      &.tui-full-calendar-today {
+        background: $primary-light !important;
+        span .tui-full-calendar-weekday-grid-date.tui-full-calendar-weekday-grid-date-decorator {
+          color: white;
+        }
+        &.is-selected {
+          background: $primary !important;
+        }
+      }
+      &.is-selected {
+        .tui-full-calendar-weekday-grid-header span {
+          // color: white !important;
+        }
+
+        background-color: $primary-lightest !important;
+      }
+    }
+    .tui-full-calendar-month-guide-block .tui-full-calendar-month-creation-guide {
+      border: none !important;
+    }
+    .tui-full-calendar-weekday-grid-date.tui-full-calendar-weekday-grid-date-decorator {
+      background: transparent;
+    }
+
+    .tui-full-calendar-weekday-grid-header {
+      text-align: center;
+
+      span {
+        margin: 0;
+        color: #5e6562;
+
+        // .tui-full-calendar-weekday-grid-date.tui-full-calendar-weekday-grid-date-decorator {
+        //   // color: white;
+        // }
+      }
+    }
+
+    .tui-full-calendar-weekday-schedule-title {
+      margin: 0 0 0 -11px !important;
+      padding-left: 0px !important;
+      text-align: center;
+    }
+    .tui-full-calendar-weekday-schedule {
+      height: 0 !important;
+    }
+    .tui-full-calendar-weekday-grid-line.tui-full-calendar-holiday-sat.tui-full-calendar-near-month-day,
+    .tui-full-calendar-weekday-grid-line.tui-full-calendar-holiday-sun.tui-full-calendar-near-month-day {
+      .tui-full-calendar-weekday-grid-header span {
+        color: #dcdcdc;
+      }
+    }
+  }
+  .tui-full-calendar-weekday-schedule-title {
+    height: 50px !important;
+    width: 70px !important;
+  }
+  .schedule-count {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50%;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-block;
+    &.danger {
+      background: $task-danger-color;
+    }
+
+    &.warn {
+      background: $task-warn-color;
+    }
+
+    &.success {
+      background: $task-success-color;
+    }
+  }
+}

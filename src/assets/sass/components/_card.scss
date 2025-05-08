@@ -1,0 +1,307 @@
+.card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 0 20px;
+  font-size: 16px;
+  margin: 0 18px 15px 15px;
+  position: relative;
+  // overflow-x: hidden;
+
+  h2 {
+    color: $primary;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px 0 10px 0;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &.is-expanded {
+    .hidden-parts {
+      display: block !important;
+    }
+  }
+
+  .part {
+    border-top: 1px solid $bg-grey;
+    padding: 10px 0;
+
+    &:empty {
+      border: none;
+    }
+
+    &.border-none {
+      border: none;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 0 10px 0;
+    }
+  }
+
+  //Firsr card
+  &.first-card {
+    top: -70px;
+    padding: 10px 20px !important;
+    .case-info {
+      color: $primary;
+      font-weight: 500;
+      font-size: 18px;
+
+      .tag {
+        padding: 1px 6px;
+        background-color: $primary;
+        color: white;
+        border-radius: 7px;
+        margin-right: 2px;
+        font-size: 14px;
+
+        &.is-orange {
+          background-color: $tag-orange;
+        }
+        
+        &.is-yellow {
+          background-color: $tag-yellow;
+        }
+
+        &.is-green {
+          background-color: $primary;
+        }
+
+        &.is-purple {
+          background-color: $tag-purple;
+        }
+      }
+    }
+    .sticky-case-info {
+      color: $primary;
+      font-weight: 500;
+    }
+
+    .sticky-tags {
+      padding: 1px 6px;
+      background-color: $primary;
+      color: white;
+      border-radius: 7px;
+      margin-right: 2px;
+      margin-bottom: 2px;
+      font-size: 14px;
+
+      &.is-orange {
+        background-color: $auxiliary-orange;
+      }
+    }
+  }
+
+  .tabs {
+    justify-content: flex-start;
+    overflow: visible !important;
+    user-select: auto !important;
+    ul {
+      justify-content: flex-start;
+      flex: 0;
+      margin-right: 30px;
+
+      li {
+        display: flex;
+        width: 140px;
+        justify-content: center;
+
+        a {
+          font-weight: 500;
+          display: block;
+          width: 140px;
+          text-align: center;
+
+          svg {
+            -webkit-mask-image: url("~/assets/images/icon-edited.svg");
+            mask-image: url("~/assets/images/icon-edited.svg");
+            -webkit-mask-position: center;
+            -webkit-mask-repeat: no-repeat;
+            width: 20px;
+            height: 20px;
+            background-color: #4f4f4f;
+          }
+
+          &:hover {
+            svg {
+              background-color: $primary;
+            }
+          }
+        }
+      }
+    }
+
+    section {
+      width: 100%;
+    }
+  }
+
+  .columns {
+    &.has-flex-column {
+      .column {
+        display: flex;
+        align-items: center;
+      }
+    }
+    .limit-width {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .column {
+      padding: 10px 0;
+
+      .w-fixed-160 {
+        display: inline-block;
+        width: 160px;
+      }
+
+      .w-fixed-210 {
+        display: inline-block;
+        width: 210px;
+      }
+      .w-fixed-300 {
+        display: inline-block;
+        width: 300px;
+      }
+
+      .field {
+        color: $bg-grey-lightest;
+        margin-right: 20px;
+        margin-bottom: 0;
+        &.sub-field {
+          color: $font-title;
+          margin-right: 5px;
+        }
+
+        &.text-underline {
+          text-decoration: underline;
+        }
+
+        &.mr-37 {
+          margin-right: 37px;
+        }
+
+        &.mr-12 {
+          margin-right: 12px;
+        }
+
+        &.mr-none {
+          margin: 0;
+        }
+
+        &.mr-80 {
+          margin-right: 80px;
+        }
+
+        &.mr-67 {
+          margin-right: 67px;
+        }
+
+        &.ml-12 {
+          margin-left: 12px;
+        }
+      }
+
+      .data {
+        color: $font-title;
+
+        &.w-fixed-55 {
+          display: inline-block;
+          width: 55px;
+        }
+
+        & + .data {
+          margin-left: 30px;
+        }
+
+        &.ml-02 + .ml-02 {
+          margin-left: 2px;
+        }
+        &:empty {
+          height: 100%;
+          width: 80%;
+          display: inline-block;
+        }
+        &.not-editable {
+          min-width: 20px;
+          min-height: 20px;
+        }
+      }
+      .mr-70 {
+        margin-right: 70px;
+      }
+      input[type="text"],
+      input[type="number"] {
+        padding: 8px 10px;
+      }
+      .datetimepicker-dummy-wrapper {
+        max-width: 150px;
+      }
+      .datetimepicker-dummy-wrapper.is-range {
+        width: 220px;
+        max-width: 220px;
+      }
+      .datetimepicker-dummy-input {
+        height: 40px !important;
+      }
+      .datetimepicker-dummy-wrapper::before {
+        top: 23% !important;
+      }
+
+      img {
+        vertical-align: middle;
+      }
+
+      &.border-right {
+        border-right: 1px solid $bg-grey;
+      }
+
+      &.padding-only-right {
+        padding: 0 26px 0 0;
+      }
+
+      &.padding-only-left {
+        padding: 0 0 0 26px;
+      }
+
+      &.fixed-width-143 {
+        width: 143px;
+      }
+
+      &.fixed-width-55 {
+        width: 55px;
+      }
+
+      &.has-margin {
+        margin: 10px 0;
+      }
+
+      &.mr-only-top {
+        margin-top: 20px;
+      }
+
+      &.mr-only-bot {
+        margin-bottom: 10px;
+      }
+    }
+
+    &.border-bot {
+      border-bottom: 1px solid $bg-grey;
+    }
+
+    &.has-padding {
+      padding: 10px 0;
+    }
+
+    &.mr-top {
+      margin-top: 10px;
+    }
+  }
+}

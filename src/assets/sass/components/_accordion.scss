@@ -1,0 +1,91 @@
+.accordion {
+  width: 100%;
+  padding: 15px;
+  background: #f6fbf2;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+}
+
+.accordion .link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  color: $font-subcontain;
+  font-size: 16px;
+  font-weight: normal;
+  border-bottom: 1px solid $bg-grey;
+  position: relative;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  &:hover {
+    font-weight: 700;
+  }
+}
+
+.accordion li:last-child .link {
+  border-bottom: 0;
+}
+
+.accordion li img {
+  
+}
+
+.accordion li.open .link {
+  color: $font-title;
+  font-weight: 600;
+}
+
+.accordion li.open img {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.accordion li.default .submenu {
+  display: block;
+  padding: 8px 0;
+}
+/**
+* Submenu
+-----------------------------*/
+.submenu {
+  // display: none;
+  overflow: hidden;
+  height: 0;
+  font-size: 16px;
+  transition: all .5s;
+}
+
+.submenu li {
+}
+
+.submenu a {
+  border-radius: 12px;
+  display: block;
+  text-decoration: none;
+  color: $font-title;
+  font-weight: 700;
+  padding: 8px;
+  padding-left: 12px;
+  -webkit-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+
+  &.is-active {
+    background: $primary;
+    color: white;
+    &:hover {
+      background: $primary;
+      color: white;
+    }
+  }
+}
+
+.submenu a:hover {
+  background: $primary-lightest;
+}

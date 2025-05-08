@@ -1,0 +1,63 @@
+//Primary Green
+$primary: #6fba2a;
+$primary-light: #8cc855;
+$primary-lighter: #B7DC94;
+$primary-lightest:#E2F1D4;
+$primary-hover: #5C9B23;
+$text-accent: #5C9B23;
+$primary-dark: #585862;
+
+//Secondary Blue
+$secondary: #2372bc;
+$secondary-light: #4f8ec9;
+$secondary-lighter: #91b8dd;
+$secondary-lightest: #d3e3f2;
+$secondary-accent: #004e97;
+$secondary-hover-light: #eff5fd;
+
+$link-color: $secondary;
+$link: $secondary;
+
+//Thirdly Color
+$auxiliary-yellow: #ffc46d;
+$auxiliary-yellow-dark: #eba237;
+$auxiliary-yellow-light: #fff9f0;
+$auxiliary-blue: #3eb4eb;
+$auxiliary-orange: #ff7848;
+$auxiliary-green: #16b77e;
+$auxiliary-purple: #7664ba;
+
+//Font color
+$font-title: #272734;
+$font-contain: #474752;
+$font-subcontain: #585862;
+$font-memo: #c9c9c9;
+$font-placeholder: #c9c9c9;
+
+//Background color
+$bg-grey: #dfdfdf;
+$bg-grey-light: #eeeeee;
+$bg-grey-lighter: #f7f7f7;
+$bg-grey-lightest: #898991;
+$bg-primary: #f6fbf2;
+$bg-secondary: #f0f9fe;
+
+//Warning color
+$warning: #ff4c36;
+$warning-light: #eb8200;
+$warning-accent: #c40000;
+$success:#8cc855;
+$danger: $warning;
+
+//Tag color
+$tag-yellow: #eba237;
+$tag-green: #00bb79;
+$tag-purple: #7a61c0;
+$tag-orange: #ff7848;
+$tag-blue: $secondary-light;
+
+
+$important: $warning;
+$less-important: #eb8200;
+$ordinary: $primary;
+$todo-finished: $font-memo;

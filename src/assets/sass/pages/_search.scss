@@ -1,0 +1,862 @@
+// Default Claim-history Search Page
+.page-search {
+  width: 100%;
+
+  main > section {
+    width: 100%;
+    border-right: none;
+    padding: 32px 25px 52px 25px;
+    height: calc(100vh - 50px);
+    > h2 {
+      font-size: 24px;
+      color: $font-title;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .container {
+      .card {
+        margin: 0;
+      }
+
+      .tabs {
+        margin-top: 24px;
+        justify-content: center;
+        user-select: auto;
+        & > ul {
+          justify-content: center;
+          flex: 0;
+          margin-bottom: 15px;
+
+          li {
+            width: 200px;
+          }
+        }
+
+        section {
+          width: 100%;
+        }
+      }
+
+      &.search-input {
+        .card {
+          .columns {
+            justify-content: center;
+            .column {
+              display: flex;
+              align-items: center;
+              padding: 30px 0;
+              font-size: 18px;
+              font-weight: 500;
+              color: $font-title;
+
+              & + .column {
+                margin-left: 60px;
+              }
+
+              span {
+                &.field {
+                  font-size: 18px;
+                  font-weight: 500;
+                  color: $font-title;
+                  margin-right: 15px;
+                  white-space: nowrap;
+                }
+              }
+              .radio-group {
+                margin-right: 20px;
+                label {
+                  &.has-tippy {
+                    text-decoration: underline;
+                  }
+                  .radio-button {
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    left: -5px;
+                  }
+                }
+              }
+
+              input[type="search"],
+              input[type="text"] {
+                height: 52px;
+                border-radius: 12px;
+                color: $font-title;
+
+                &::placeholder {
+                  color: $font-placeholder;
+                }
+              }
+
+              .datetimepicker-dummy {
+                .datetimepicker-dummy-wrapper {
+                  max-width: inherit;
+                  .datetimepicker-dummy-input {
+                    height: 52px !important;
+                  }
+                }
+              }
+
+              .dropdown {
+                height: 52px;
+                color: $font-title;
+                margin-left: 10px;
+
+                .dropdown-trigger {
+                  button {
+                    height: 52px;
+                    font-size: 16px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      &.search-result {
+        h3 {
+          font-size: 18px;
+          font-weight: 500;
+          color: $font-title;
+          margin-bottom: 12px;
+        }
+
+        .card {
+          padding: 10px 20px;
+        }
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-top: 20px;
+          &.ver-center {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        .data-horizontal-table {
+          margin-top: 15px;
+          .columns {
+            &.thead {
+              .column {
+                padding: 14px 12px;
+              }
+            }
+            .column {
+              &:last-child {
+                padding-right: 12px;
+              }
+
+              &.is-fixed-width {
+                flex: none;
+                width: 180px;
+              }
+
+              .field {
+                margin: 0;
+              }
+
+              .data {
+                a {
+                  color: $primary;
+                  text-decoration: underline;
+
+                  &:hover {
+                    font-weight: 500;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table {
+          margin-bottom: 0;
+          thead {
+            tr {
+              th {
+                padding: 15px 10px;
+
+                &:first-child {
+                  width: 3.5%;
+                }
+
+                &:last-child {
+                  padding-right: 20px;
+                }
+
+                &.w-25percent {
+                  width: 25%;
+                }
+
+                svg {
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                padding: 15px 10px;
+
+                &:last-child {
+                  padding-right: 20px;
+                }
+
+                &.has-border-left {
+                  border-left: 1px solid $bg-grey;
+                }
+
+                &.has-border-right {
+                  border-right: 1px solid $bg-grey;
+                }
+
+                a {
+                  display: inherit;
+                  padding: 0;
+                  color: $primary;
+                  text-decoration: underline;
+                  font-weight: 500;
+
+                  &.is-secondary {
+                    color: $secondary;
+                    font-weight: normal;
+
+                    &:hover {
+                      font-weight: 500;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          &.is-striped-odd tbody tr:not(.is-selected):nth-child(odd) {
+            background-color: $bg-grey-light;
+          }
+        }
+
+        .table-total {
+          background-color: white;
+          padding: 20px 15px;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          display: flex;
+          justify-content: flex-end;
+
+          .tile-content {
+            background-color: $bg-grey-lighter;
+            min-width: 600px;
+            border-radius: 15px;
+            padding: 5px 15px 5px 20px;
+
+            .tile {
+              &.is-ancestor {
+                margin: 0;
+                .is-parent {
+                  padding: 10px;
+                  &.is-vertical {
+                    align-items: flex-end;
+                    .is-child {
+                      margin-bottom: 0 !important;
+                      display: flex;
+                      align-items: center;
+
+                      & + .is-child {
+                        margin-top: 5px !important;
+                      }
+
+                      .columns {
+                        .column {
+                          padding: 0;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              .title {
+                font-size: 18px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                color: $font-title;
+              }
+              .field {
+                font-size: 16px;
+                color: $bg-grey-lightest;
+                font-weight: 500;
+                margin-bottom: 0;
+                display: inline-block;
+                width: 80px;
+              }
+              .amount {
+                font-size: 20px;
+                font-weight: 500;
+                color: $font-contain;
+                display: inline-block;
+                width: 140px;
+                text-align: right;
+              }
+              .dollar {
+                width: auto;
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+
+        .number-of-data-info {
+          margin-top: 15px;
+        }
+
+        .pagination {
+          margin-top: 5px;
+          .pagination-list {
+            border-bottom: none;
+
+            li {
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+
+      .w-10-percent {
+        width: 10% !important;
+      }
+
+      .w-15-percent {
+        width: 15% !important;
+      }
+
+      .w-30-percent {
+        width: 30%;
+      }
+
+      .w-45-percent {
+        width: 45% !important;
+      }
+
+      .w-040 {
+        width: 40%;
+      }
+
+      .w-160 {
+        width: 160px;
+      }
+
+      .w-180 {
+        width: 180px;
+      }
+
+      .w-190 {
+        width: 190px;
+      }
+
+      .w-200 {
+        width: 200px;
+      }
+
+      .w-240 {
+        width: 240px;
+      }
+
+      .w-250 {
+        width: 250px;
+      }
+
+      .w-260 {
+        width: 260px;
+      }
+
+      .w-300 {
+        width: 300px;
+      }
+
+      .w-350 {
+        width: 350px;
+      }
+
+      .w-420 {
+        width: 420px;
+      }
+
+      .ml-24 {
+        margin-left: 24px !important;
+      }
+
+      .mr-20 {
+        margin-right: 20px;
+      }
+
+      .mr-90 {
+        margin-right: 90px;
+      }
+
+      .mb-30 {
+        margin-bottom: 30px;
+      }
+
+      .mt-30 {
+        margin-top: 30px;
+      }
+
+      .mt-40 {
+        margin-top: 40px;
+      }
+
+      .pl-20 {
+        padding-left: 20px;
+      }
+
+      .pl-30 {
+        padding-left: 30px !important;
+      }
+    }
+
+    button {
+      &.big-btn {
+        width: 170px;
+        height: 52px;
+        font-weight: 500;
+
+        & + .big-btn {
+          margin-left: 15px;
+        }
+
+        a {
+          &.open-modal {
+            color: inherit;
+          }
+        }
+      }
+    }
+    .button-scroll-to-top {
+      left: 50%;
+      bottom: 5px;
+    }
+  }
+
+  // Not-Pay Search Page
+  &.search-notpay {
+    main > section {
+      .search-input {
+        margin-bottom: 50px;
+      }
+      .search-result {
+        table {
+          tbody {
+            tr td {
+              padding: 6px 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Special Search Page
+  &.search-special {
+    main > section {
+      .search-input {
+        margin-bottom: 20px;
+      }
+
+      .search-result {
+        table {
+          thead tr th {
+            &:last-child {
+              padding-right: 10px;
+            }
+          }
+          tbody tr td {
+            &:last-child {
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Insurance Search Page
+  &.search-insurance {
+    main > section {
+      .search-input {
+        margin-bottom: 50px;
+      }
+
+      .search-result {
+        table {
+          thead tr th {
+            &:last-child {
+              padding-right: 10px;
+            }
+          }
+          tbody tr td {
+            &:last-child {
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    &.personal-insurance {
+      main > section {
+        .search-input {
+          margin-bottom: 20px;
+        }
+        .search-result {
+          h3 {
+            padding-left: 20px;
+          }
+          table {
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+
+    &.group-insurance {
+      main > section {
+        .search-result {
+          table {
+            margin-top: 50px;
+
+            tbody tr td {
+              &:first-child {
+                a {
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Completion Search Page
+  &.search-completion {
+    main > section {
+      position: relative;
+      .function-switch {
+        position: absolute;
+        left: 25px;
+        top: 5%;
+
+        a {
+          padding: 10px 20px;
+          color: $primary;
+          font-weight: 500;
+          border-radius: 12px;
+          transition: 0.1s ease-in;
+
+          &:hover {
+            color: $primary-hover;
+          }
+
+          &.is-active {
+            background-color: $primary;
+            color: white;
+          }
+        }
+      }
+    }
+
+    &.completion-input {
+      main > section {
+        .search-input {
+          .card {
+            .columns {
+              .column {
+                margin-left: 40px;
+              }
+            }
+          }
+        }
+        .search-result {
+          h3 {
+            padding-left: 20px;
+          }
+
+          button {
+            &.has-icon-back-add {
+              padding: 15px;
+              height: 52px;
+
+              &::before {
+                right: 15px;
+              }
+
+              & + .has-icon-back-add {
+                margin-left: 20px;
+              }
+
+              a {
+                padding: 0;
+                width: 100%;
+                justify-content: flex-start;
+                &:hover {
+                  color: $font-contain;
+                }
+              }
+            }
+          }
+
+          .tabs {
+            margin-top: 40px;
+
+            .tab-content {
+              .card {
+                padding: 20px;
+                .columns {
+                  .column {
+                    padding: 0;
+                    .table-memo {
+                      color: $font-placeholder;
+                    }
+                    button {
+                      height: 52px;
+                      width: 175px;
+                      padding: 16px 15px;
+
+                      a {
+                        padding: 0;
+                        color: inherit;
+                        width: 100%;
+                        justify-content: flex-start;
+                      }
+                    }
+                  }
+                }
+
+                table {
+                  margin-top: 15px;
+
+                  thead tr th {
+                    &:last-child {
+                      padding: 15px 10px;
+                      width: 7%;
+                    }
+                  }
+
+                  tbody tr {
+                    &.not-selected {
+                      td {
+                        padding: 15px 10px;
+                        font-size: 20px;
+                        color: #858585;
+                        text-align: center;
+                      }
+                    }
+                    td {
+                      padding: 10px 10px;
+
+                      &.ver-center {
+                        display: flex;
+                        align-items: center;
+                      }
+
+                      input[type="text"] {
+                        height: 40px;
+
+                        &::placeholder {
+                          color: $font-placeholder;
+                        }
+                      }
+
+                      .dropdown {
+                        width: 280px;
+
+                        button {
+                          padding-right: 15px;
+                          &:hover {
+                            background-color: white;
+                          }
+
+                          span {
+                            &.is-primary {
+                              color: $primary;
+                            }
+                          }
+                        }
+
+                        &.w-134 {
+                          width: 134px;
+                        }
+                      }
+
+                      p {
+                        margin-top: 5px;
+                        font-size: 14px;
+                        padding-left: 12px;
+                      }
+
+                      a {
+                        display: inline-block;
+                      }
+
+                      .is-outline {
+                        padding: 0 30px;
+                        margin-right: 10px;
+                      }
+
+                      .datetimepicker-dummy {
+                        .datetimepicker-dummy-wrapper {
+                          background-color: transparent;
+                          &::before {
+                            right: 15px;
+                            top: 24%;
+                          }
+                          .datetimepicker-dummy-input {
+                            background-color: white;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                & + .card {
+                  margin-top: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.completion-search {
+      main > section {
+        .search-input {
+          margin-bottom: 50px;
+          .card {
+            padding: 10px 7%;
+            .columns {
+              justify-content: flex-start;
+              .column {
+                padding: 20px 0;
+                & + .column {
+                  margin-left: 40px;
+                }
+              }
+              &.second-columns {
+                border-top: 1px solid $bg-grey-light;
+                justify-content: flex-start;
+              }
+            }
+          }
+          @media screen and (min-width: 1900px) {
+            .card {
+              padding: 10px 10%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Modal Start
+#medicalDaysRecord {
+  .modal-content {
+    width: 960px;
+
+    .box {
+      section {
+        .data-horizontal-info {
+          padding: 0 30px;
+          margin-bottom: 30px;
+        }
+        .modal-table {
+          table {
+            thead tr th {
+              padding: 15px 10px;
+            }
+            tbody tr td {
+              padding: 12px 10px;
+            }
+          }
+        }
+      }
+      .modal-tool {
+        button {
+          width: 126px;
+        }
+      }
+    }
+  }
+}
+
+#addItems {
+  .modal-content {
+    width: 880px;
+
+    .box {
+      p {
+        &.memo {
+          font-weight: 500;
+          color: $font-memo;
+          text-align: center;
+        }
+      }
+
+      section {
+        margin-top: 40px;
+        padding-left: 30px;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+
+#submitSuccess {
+  .modal-content {
+    width: 520px;
+    .box {
+      .modal-title {
+        color: $primary;
+        margin-top: 50px;
+      }
+      section {
+        p {
+          color: $font-subcontain;
+          text-align: center;
+          font-weight: 500;
+        }
+      }
+      .modal-tool {
+        margin-top: 50px;
+      }
+    }
+  }
+}
+
+#submitFail {
+  .modal-content {
+    width: 520px;
+    .box {
+      .modal-title {
+        color: $warning;
+        margin-top: 50px;
+      }
+      section {
+        p {
+          color: $font-subcontain;
+          text-align: center;
+          font-weight: 500;
+        }
+      }
+      .modal-tool {
+        margin-top: 50px;
+      }
+    }
+  }
+}

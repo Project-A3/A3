@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(2 3.5)" fill="none" fill-rule="evenodd">
+        <rect stroke="#6FBA2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" y="2.04" width="20" height="14.96" rx="1.391"/>
+        <path stroke="#6FBA2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M.345 5.1h19.31"/>
+        <rect stroke="#6FBA2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x="3.416" width="1.366" height="2.72" rx=".683"/>
+        <rect stroke="#6FBA2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x="15.217" width="1.366" height="2.72" rx=".683"/>
+        <g fill="#6FBA2A">
+            <path d="M5.159 7.29a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1zM5.159 11.37a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1zM10.127 7.29a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1zM10.127 11.37a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1zM15.096 7.29a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1zM15.096 11.37a1.55 1.55 0 0 0-.142 3.093l.142.007a1.55 1.55 0 1 0 0-3.1z"/>
+        </g>
+    </g>
+</svg>

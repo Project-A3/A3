@@ -1,0 +1,105 @@
+//Number Of Data Infomation
+.number-of-data-info {
+  font-size: 16px;
+  color: $bg-grey-lightest;
+  span {
+    margin: 0 5px;
+  }
+}
+
+//Pagination
+.pagination {
+  &.is-primary {
+    .pagination-list {
+      li {
+        .pagination-previous,
+        .pagination-link,
+        .pagination-next {
+          height: 26px;
+          border-radius: 5px;
+          font-size: 18px;
+          font-weight: 500;
+          min-width: inherit;
+          border: none;
+        }
+
+        .pagination-previous {
+          background-color: transparent;
+          color: $primary;
+          transition: 0.2s ease-in;
+          position: relative;
+
+          &:hover {
+            color: $primary;
+          }
+          
+
+          &::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: absolute;
+            background-image: url('~/assets/images/icon-arrow-down-left.svg');
+            left: -20%;
+          }
+
+          
+        }
+        .pagination-previous.disabled, .pagination-previous[disabled] {
+          color: $font-memo;
+          opacity: 1;
+          cursor: not-allowed;
+          &::before {
+            background-image: url('~/assets/images/icon-arrow-down-left-disabled.svg');
+          }
+        }
+        .pagination-link {
+          min-width: 26px;
+          padding: 0 5px;
+          color: $font-memo;
+          transition: 0.2s ease-in;
+
+          &.is-current {
+            background-color: $primary;
+            color: white;
+            &:hover {
+              color: white;
+            }
+          }
+
+          &:hover {
+            color: $primary;
+          }
+        }
+        .pagination-next {
+          background-color: transparent;
+          color: $primary;
+          transition: 0.2s ease-in;
+          &:hover {
+            color: $primary;
+          }
+
+          &::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: absolute;
+            background-image: url('~/assets/images/icon-arrow-down-right.svg');
+            right: -20%;
+          }
+        }
+        .pagination-next.disabled, .pagination-next[disabled] {
+          color: $font-memo;
+          cursor: not-allowed;
+          &::before {
+            background-image: url('~/assets/images/icon-arrow-down-right-disabled.svg');
+          }
+        }
+      }
+    }
+  }
+}

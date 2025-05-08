@@ -1,0 +1,75 @@
+@import "../vendors/tippy";
+
+.tippy-box {
+  border-radius: 15px;
+  // box-shadow: 0 5px 15px 0 rgba(163, 163, 163, 0.7);
+  border: 2px solid $primary-lighter;
+  background-color: #fff;
+  pointer-events: auto;
+
+  .tippy-content {
+    font-size: 16px;
+    font-weight: 500;
+    color: #4f4f4f;
+    padding: 0;
+  }
+}
+
+.tippy-arrow {
+  color: inherit;
+}
+
+[data-tippy-root] {
+  pointer-events: auto !important;
+}
+
+.tippy-box[data-theme~="ellipsify"] {
+  padding: 15px 20px;
+  border: solid 2px #c9c9c9;
+  .tippy-content {
+    white-space: pre-line;
+  }
+}
+
+.tippy-box[data-theme~="gray"] {
+  padding: 15px 20px;
+  border: solid 2px #c9c9c9;
+}
+
+.tippy-box[data-theme~="treesure"] {
+  padding: 5px 9px;
+}
+
+.tippy-box[data-theme~="error"] {
+  padding: 20px 25px 18px 25px;
+  border-radius: 15px;
+  border: solid 1.5px #ff7848;
+  background-color: #fff;
+  * {
+    color: #e16b5d;
+  }
+}
+
+[data-tippy-content] {
+  cursor: pointer;
+}
+
+.tippy-dropdown-menu {
+  border-radius: 15px;
+  overflow: hidden;
+  // box-shadow: 0 5px 15px 0 rgba(163, 163, 163, 0.7);
+  // background-color: #fff;
+
+  .tippy-dropdown-item {
+    color: $font-subcontain;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 13px 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $primary-lightest;
+    }
+  }
+}

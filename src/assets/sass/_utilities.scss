@@ -1,0 +1,184 @@
+.scroll-fix {
+  position: sticky;
+  top: 0;
+}
+
+.scroll-fix[stuck] {
+  background: white;
+}
+
+.button-scroll-to-top {
+  background-color: #9b9ba0;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 15px;
+
+  /* place it at the bottom right corner */
+  position: fixed;
+  bottom: 20px;
+  left: 36.5%;
+  margin-left: -36.5px;
+  /* keep it at the top of everything else */
+  z-index: 19;
+  /* hide with opacity */
+  opacity: 0;
+  /* also add a translate effect */
+  transform: translateY(120px);
+  /* and a transition */
+  transition: all 0.5s ease;
+
+  &.show {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.is-in-aside {
+    bottom: 85px;
+    left: 85.5%;
+  }
+}
+
+.overflow-auto {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+.is-overlay {
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  opacity: 0.7;
+  background-color: #232323;
+  z-index: 40;
+}
+
+@mixin max-line($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.is-hidden-opacity {
+  opacity: 0;
+}
+
+.flex-fit-content {
+  flex: 1 1 auto;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-30-percent {
+  width: 30% !important;
+}
+
+.w-10-percent {
+  width: 10% !important;
+}
+
+.flex-basis-100 {
+  flex-basis: 100% !important;
+}
+
+.limit-width {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.overflow-visable {
+  overflow: visible !important;
+}
+
+a.disable-click {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+// .is-readonly {
+//   // pointer-events: none;
+//   // user-select: none;
+// }
+
+@font-face {
+  font-family: "EUDC";
+  src: url("/html/CM/css/hanlinks/eudc.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-eudc {
+  font-family: "EUDC" !important;
+  font-weight: bold !important;
+  input[type="text"] {
+    font-family: "EUDC" !important;
+    font-weight: bold !important;
+  }
+  h3 {
+    font-family: "EUDC" !important;
+    font-weight: bold !important;
+  }
+  h6 {
+    font-family: "EUDC" !important;
+    font-weight: bold !important;
+  }
+  p {
+    font-family: "EUDC" !important;
+    font-weight: bold !important;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.25), screen and (max-width: 1600px) {
+  body {
+    zoom: 0.8;
+    main,
+    main > aside,
+    main > section {
+      max-height: calc(125vh - 50px) !important;
+      height: calc(125vh - 50px) !important;
+    }
+    .is-overlay {
+      width: 100% !important;
+      height: 125vh !important;
+    }
+
+    .page-search {
+      main {
+        width: 100%;
+        overflow: auto;
+        & > section {
+          min-width: 1600px;
+          &.claim-records {
+            min-width: 1850px;
+          }
+          .tabs {
+            overflow-x: auto !important;
+          }
+        }
+      }
+    }
+  }
+}

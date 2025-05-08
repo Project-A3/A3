@@ -1,0 +1,21 @@
+$scrollbar-color: #cbd4d0;
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+  border-radius: 2px;
+  border-right: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}

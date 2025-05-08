@@ -1,0 +1,443 @@
+.page-overview {
+  width: 100%;
+
+  .hidden-parts {
+    display: none;
+  }
+
+  main {
+    > section {
+      height: 100vh;
+      .card {
+        padding: 20px 10px;
+
+        .columns {
+          padding-left: 10px;
+
+          &.x900-title {
+            margin-bottom: 10px;
+          }
+
+          .column {
+            h3 {
+              font-size: 18px;
+              color: $font-title;
+              font-weight: 500;
+            }
+            a {
+              color: $primary;
+
+              &.is-primary {
+                color: $primary;
+                font-weight: 500;
+              }
+      
+              &.is-warning {
+                color: $warning;
+                font-weight: 500;
+              }
+            }
+            .w-270 {
+              width: 270px;
+            }
+          }
+        }
+        table.is-white thead tr th:first-child {
+          padding-left: 12px;
+        }
+        table.is-white tr td:first-child {
+          padding-left: 24px;
+        }
+
+        .table-content {
+          & + .table-content {
+            margin-top: 10px;
+          }
+
+          .table-title {
+            color: #272734;
+            padding: 10px;
+
+            span {
+              margin-left: 3px;
+            }
+          }
+
+          table {
+            thead tr th:first-child {
+              padding: 0.5em 0.3em;
+              width: 95px;
+            }
+            tbody tr {
+              td {
+                button {
+                  width: 40px;
+                  height: 40px;
+                }
+                &:nth-child(2) {
+                  min-width: auto;
+                }
+              }
+            }
+          }
+
+          button {
+            padding: 10px 25px;
+            height: 42px;
+            &.is-outline:focus {
+              color: $primary;
+            }
+            & + button {
+              margin-left: 15px;
+            }
+          }
+        }
+
+        &.second-card {
+          .table-content {
+            table {
+              tbody tr {
+                &.active {
+                  background-color: $primary-lightest;
+                }
+                td {
+                  &:nth-child(2) {
+                    min-width: 150px;
+                    &.active {
+                      background-color: $primary-lightest;
+                    }
+                  }
+                  &:nth-child(4) {
+                    width: 5%;
+                  }
+
+                  &:nth-child(5) {
+                    width: 30%;
+                  }
+
+                  &:nth-child(7) {
+                    width: 5%;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.thirdly-card {
+          .table-content {
+            .table-title {
+              .dropdown {
+                width: 145px;
+
+                .dropdown-trigger {
+                  button {
+                    padding: 8px 15px;
+                    font-size: 16px;
+                  }
+                }
+              }
+            }
+
+            table {
+              margin-bottom: 20px;
+              thead tr {
+                th {
+                  vertical-align: middle;
+                  padding: 0 5px;
+                  line-height: normal;
+                }
+              }
+              tbody tr {
+                td {
+                  &:nth-child(1) {
+                    width: 6%;
+                  }
+                  &:nth-child(2) {
+                    width: 9%;
+                    min-width: 0;
+                  }
+                  &:nth-child(3) {
+                    width: 10%;
+                  }
+                  &:nth-child(4) {
+                    width: 8%;
+                  }
+                  &:nth-child(5) {
+                    width: 8%;
+                  }
+                  &:nth-child(6) {
+                    width: 9%;
+                  }
+                  &:nth-child(7) {
+                    width: 7%;
+                  }
+                  &:nth-child(8) {
+                    width: 10%;
+                  }
+                }
+              }
+            }
+
+            button {
+              padding: 10px 12px 10px 18px;
+              img {
+                margin-left: 17px;
+              }
+            }
+          }
+        }
+
+        &.x900-first-card {
+          .part {
+            margin-top: 10px;
+            table {
+              tbody tr td {
+                &:nth-child(2) {
+                  min-width: inherit;
+                }
+              }
+            }
+          }
+        }
+
+        &.x900-second-card {
+          .x900-title {
+            margin-bottom: 15px;
+          }
+          .table-content {
+            table {
+              tbody tr {
+                th {
+                  line-height: 1.38;
+                  &:nth-child(2) {
+                    width: 30%;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.x900-thirdly-card {
+          .table-content table {
+            tbody {
+              button {
+                &.is-outline {
+                  width: auto;
+                  height: 42px;
+                  color: $primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .button-scroll-to-top {
+    bottom: 80px;
+  }
+}
+
+// Modal Start
+#editPolicy {
+  .modal-content {
+    width: 1180px;
+  }
+  .modal-table {
+    table {
+      thead tr {
+        th {
+          padding-top: 15px;
+          padding-bottom: 15px;
+          &:last-child {
+            padding-right: 0;
+          }
+          label {
+            input[type="checkbox"] + span {
+              padding-left: 0;
+              padding-right: 28px;
+              background-position-x: 90%;
+              background-position-y: 40%;
+              background-size: 16px;
+            }
+          }
+        }
+      }
+      tbody tr {
+        &.checked {
+          background-color: $primary-lightest;
+        }
+        td {
+          padding: 12px 0;
+          label {
+            span {
+              display: initial;
+              width: 16px;
+            }
+            input[type="checkbox"] + span {
+              background-position-y: 50%;
+              background-size: 16px;
+              padding-left: 16px;
+            }
+          }
+
+          &:nth-child(4) {
+            width: 6%;
+          }
+          &:nth-child(5) {
+            width: 25%;
+          }
+          &:nth-child(6) {
+            width: 12%;
+          }
+          &:nth-child(7) {
+            width: 12%;
+          }
+        }
+      }
+    }
+  }
+
+  .modal-tool {
+    button {
+      width: 114px;
+    }
+  }
+}
+
+#beneficiaryModal,
+#addBeneficiary,
+#editBeneficiaryCash,
+#editBeneficiaryCathay,
+#editBeneficiaryRemittance,
+#editBeneficiaryRemittanceAdd,
+#editBeneficiaryCheque {
+  .modal-content {
+    width: 720px;
+
+    .part {
+      padding: 0 26px;
+
+      > .columns {
+        padding: 15px 0;
+
+        .column {
+          padding: 0;
+          display: flex;
+          align-items: center;
+
+          .field {
+            font-size: 18px;
+            font-weight: 500;
+            color: $font-title;
+          }
+
+          .w-40 {
+            width: 40px;
+          }
+          .w-160 {
+            width: 160px;
+          }
+          .w-120 {
+            width: 120px;
+          }
+          .w-144 {
+            width: 144px;
+          }
+          .w-265 {
+            width: 265px;
+          }
+
+          label {
+            margin-left: 20px;
+            span {
+              display: inline-block;
+              font-size: 16px;
+            }
+          }
+
+          .code-query {
+            color: $primary;
+            margin-left: 20px;
+            font-weight: 500;
+            text-decoration: underline;
+          }
+
+          input[type="search"],
+          input[type="text"],
+          .dropdown {
+            font-weight: 600;
+            color: $font-title;
+            height: 52px;
+
+            &::placeholder {
+              font-weight: normal;
+            }
+            &.w-160 {
+              width: 160px;
+            }
+
+            &.w-260 {
+              width: 260px;
+            }
+
+            &.w-330 {
+              width: 330px;
+            }
+
+            &.disabled {
+              .dropdown-trigger {
+                button {
+                  color: $font-placeholder;
+                }
+              }
+            }
+
+            &:disabled {
+              color: $font-placeholder;
+            }
+
+            .dropdown-trigger {
+              button {
+                font-weight: 600;
+                color: $font-title;
+              }
+            }
+          }
+        }
+      }
+
+      &.top {
+        padding-bottom: 20px;
+        border-bottom: 1px solid $font-memo;
+      }
+
+      &.bottom {
+        padding-top: 20px;
+      }
+    }
+  }
+}
+
+#addBeneficiaryAlert {
+  .modal-content {
+    width: 700px;
+
+    .box {
+      padding: 30px 120px;
+
+      h3 {
+        color: $warning;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      p {
+        color: $warning;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}

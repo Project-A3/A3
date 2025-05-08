@@ -1,0 +1,465 @@
+$button-focus-border-color: $primary-light;
+
+@keyframes AnimeGrade {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+button {
+  border: none;
+  border-width: 0px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:focus:not(:active) {
+    box-shadow: none !important;
+  }
+
+  &.is-primary,
+  &.is-light {
+    border-radius: 15px;
+    padding: 20px 35px;
+
+    &:hover {
+      background-color: #388967;
+    }
+
+    &.is-primary {
+      &.has-icon {
+        border-radius: 12px;
+        font-weight: 500;
+        padding: 10px 12px 10px 18px;
+      }
+    }
+
+    position: relative;
+
+    //Has-Icon-Back Button
+    &.has-icon-back {
+      justify-content: start;
+      width: 90px;
+      padding: 0 15px;
+
+      &::before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 10%;
+      }
+
+      //Calendar-Icon
+      &-calendar {
+        &::before {
+          background-image: url("~/assets/images/icon-calendar-w.svg");
+          right: 10%;
+        }
+      }
+
+      //Add-Icon
+      &-add {
+        &::before {
+          background-image: url("~/assets/images/icon-add.svg");
+          right: 10%;
+        }
+
+        &.disabled {
+          &::before {
+            background-image: url("~/assets/images/icon-add-light.svg");
+          }
+        }
+      }
+
+      &.disabled {
+        background-color: $font-memo;
+        cursor: not-allowed;
+      }
+    }
+
+    //Outline Button
+    &.is-outline {
+      background-color: white;
+      color: $font-subcontain;
+      font-weight: 500;
+      line-height: 1.63;
+      border: 2px solid $primary-lighter;
+      padding: 20px 10px;
+
+      &:hover {
+        background-color: $primary-lightest;
+        color: $font-subcontain;
+        border: 2px solid $primary-lighter;
+      }
+
+      &.text-is-color {
+        color: $primary;
+        font-weight: 500;
+
+        &:focus {
+          color: $primary;
+        }
+      }
+      &:focus {
+        border-color: $primary-lighter;
+        color: inherit;
+      }
+
+      &:disabled {
+        background-color: $bg-grey-light;
+        border-color: $font-memo;
+        color: $font-memo;
+        opacity: 1;
+      }
+    }
+  }
+  &.is-primary-lightest {
+    background: $primary-lightest;
+    border-radius: 12px;
+    padding: 5px;
+  }
+
+  //Secondary Button
+  &.is-secondary {
+    background-color: $secondary;
+    border-radius: 15px;
+    border: none;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    img {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background-color: $secondary-accent;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $font-memo;
+      color: white;
+      cursor: not-allowed;
+    }
+
+    &:focus {
+      color: white;
+    }
+
+    &.is-outline {
+      background-color: white;
+      border: 2px solid $secondary-light;
+      color: $font-contain;
+
+      &:hover {
+        background-color: $secondary-lightest;
+      }
+
+      &:focus {
+        border: 2px solid $secondary-light;
+      }
+
+      &:disabled {
+        border-color: $font-memo;
+      }
+
+      &.is-active {
+        background-color: $secondary-light;
+        color: white;
+        font-weight: 500;
+      }
+
+      &.is-light {
+        background-color: $secondary-lightest;
+
+        &:hover {
+          border: 2px solid $secondary-light;
+        }
+      }
+    }
+  }
+
+  //Thirdly Button
+  &.is-thirdly {
+    background-color: $auxiliary-yellow;
+    color: $primary-dark;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #feb03e;
+    }
+  }
+
+  //Icon Button
+  &.icon {
+    padding: 2px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    width: 32px;
+    height: 30px;
+    align-self: center;
+
+    //Edit-icon Button
+    &.edit {
+      background-image: url("~/assets/images/icon-edit.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: white;
+
+      &:hover {
+        background-color: $primary-lightest;
+      }
+
+      //Secondary Edit-icon Button
+      &.is-secondary {
+        background-image: url("~/assets/images/icon-edit-secondary.svg");
+        background-color: #eff5fd;
+
+        &:hover {
+          background-color: $secondary-lightest;
+        }
+
+        //Edit-complete
+        &.complete {
+          background-image: url("~/assets/images/icon-complete-secondary.svg");
+        }
+      }
+
+      //Thirdly Edit-icon Button
+      &.is-thirdly {
+        background-image: url("~/assets/images/icon-edit-thirdly.svg");
+        background-color: $auxiliary-yellow-light;
+      }
+    }
+
+    //Trash-icon Button
+    &.trash {
+      background-image: url("~/assets/images/icon-trash-grey.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: white;
+    }
+
+    //Paper-icon Button
+    &.paper {
+      background-image: url("~/assets/images/icon-paper.svg") !important;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+
+      &:hover {
+        background-color: $primary-lightest;
+      }
+    }
+
+    //toggle-icon Button
+    &.toggle {
+      background-image: url("~/assets/images/icon-plus.svg") !important;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+
+      &:hover {
+        background-color: $primary-lightest;
+      }
+
+      &.expand {
+        background-image: url("~/assets/images/icon-minus.svg") !important;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+
+        &:hover {
+          background-color: $primary-lightest;
+        }
+      }
+    }
+
+    //Open-icon Button
+    &.open {
+      background-image: url("~/assets/images/icon-open.svg") !important;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+
+      &:hover {
+        background-color: $primary-lightest;
+      }
+    }
+  }
+}
+
+.primary-button-light {
+  color: $font-subcontain;
+  border: 2px solid $primary-lighter;
+  padding: 5px 13px;
+  border-radius: 15px;
+  background: white;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.63;
+  transition: background 0.3s;
+
+  span {
+    font-size: 18px;
+    color: $primary;
+    margin: 5px;
+  }
+
+  &:hover {
+    background: $primary-lightest;
+    border: 2px solid $primary-lighter;
+  }
+
+  &.selected {
+    background: $primary !important;
+    border: $primary;
+    color: white;
+
+    span {
+      color: white;
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    color: $font-memo;
+    border: 2px solid $font-memo;
+    background-color: $bg-grey-light;
+    cursor: not-allowed;
+
+    span {
+      color: $font-memo;
+    }
+  }
+}
+
+.warning-button-light {
+  padding: 10px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px 0 rgba(147, 117, 21, 0.35);
+  background: white;
+  color: $warning-accent;
+  font-size: 16px;
+
+  &:hover {
+    box-shadow: 0 4px 10px 0 rgba(132, 105, 19, 0.35);
+    background: #fdf2d3;
+  }
+}
+
+//Card Collapse & Expand Button
+.card-toggle-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: center center url("~/assets/images/icon-expand.svg") no-repeat $bg-primary;
+
+  &.expand {
+    background: center center url("~/assets/images/icon-collapse.svg") no-repeat $primary;
+  }
+
+  &.is-blue {
+    background: center center url("~/assets/images/icon-expand-blue.svg") no-repeat #e0edfc;
+
+    &.expand {
+      background: center center url("~/assets/images/icon-collapse-white.svg") no-repeat $secondary-lighter;
+    }
+  }
+}
+
+//Drag Button
+.button-drag {
+  cursor: pointer;
+  position: absolute;
+  top: 26%;
+  left: calc(73% - 20px);
+  width: 29px;
+  height: 35px;
+  transition: all 0.5s;
+  background-color: $primary;
+  border-radius: 10.44px;
+  z-index: 20;
+  &.far-left {
+    left: calc(42.2% - 20px);
+  }
+
+  svg {
+    -webkit-mask-image: url("~/assets/images/icon-drag-btn-arrow.svg");
+    mask-image: url("~/assets/images/icon-drag-btn-arrow.svg");
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    width: 29px;
+    height: 35px;
+    background-color: $primary-lightest;
+  }
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &.decision-dragger {
+    z-index: 20;
+    transform: rotate(180deg);
+    left: calc(73% - 17px);
+    &.phase1 {
+      left: calc(50% - 4px);
+      transform: rotate(0deg);
+    }
+    &.phase2 {
+      left: calc(99% - 17px);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.hide-right {
+  .button-drag {
+    left: calc(99% - 20px);
+    transform: rotate(180deg);
+  }
+}
+
+//Text Button
+.text-button {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: $font-subcontain;
+  line-height: 1.63;
+
+  cursor: pointer;
+  transition: all 0.3s;
+
+  img {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: $primary;
+  }
+}

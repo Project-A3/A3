@@ -1,0 +1,343 @@
+$input-focus-color: $primary;
+$input-focus-border-color: transparent;
+$input-focus-box-shadow-size: 0 4px 10px 0;
+$input-focus-box-shadow-color: rgba(175, 182, 179, 0.6);
+
+body {
+  textarea {
+    outline: none;
+    border: none;
+    font-size: 16px;
+    border-radius: 15px;
+    background: #f6fbf2;
+    padding: 25px 20px;
+    width: 100%;
+    margin-top: 20px;
+    color: $font-contain;
+
+    &::placeholder {
+      font-size: 16px;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $font-placeholder;
+    }
+
+    &:disabled {
+      background: $font-memo;
+    }
+
+    &.resize-vertical {
+      resize: vertical;
+    }
+
+    //Is Light background
+    &.is-light {
+      border: 2px solid $primary-lighter;
+      background-color: white;
+      color: $font-subcontain;
+      padding: 17px 20px;
+
+      &:disabled {
+        background: $bg-grey-light;
+        border-color: $font-memo;
+        color: $bg-grey-lightest;
+      }
+    }
+
+    //Secondary color
+    &.is-secondary {
+      background-color: #eff5fd;
+    }
+    &.is-error {
+      color: inherit;
+      border: solid 1.5px #ff4c36 !important;
+      background-color: #ffedea;
+      &::placeholder {
+        color: lightcoral !important;
+      }
+    }
+  }
+
+  input[type="text"],
+  input[type="search"],
+  input[type="number"] {
+    padding: 15px 15px 15px 16px;
+    border-radius: 12px;
+    // box-shadow: 0 4px 10px 0 rgba(175, 182, 179, 0.6);
+    background-color: #fff;
+    outline: none;
+    border: 2px solid $primary-lighter;
+    width: 100%;
+    font-size: 16px;
+    line-height: normal;
+    color: $font-contain;
+
+    &::placeholder {
+      font-size: 16px;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $primary-lighter;
+    }
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      height: 1em;
+      width: 1em;
+      border-radius: 50em;
+      background: url("~/assets/images/icon-search-close.svg") no-repeat 50% 50%;
+      background-size: contain;
+      opacity: 0;
+      pointer-events: none;
+    }
+    &:focus::-webkit-search-cancel-button {
+      cursor: pointer;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    &.disagree-input {
+      border: none;
+      background-color: #eff5fd;
+
+      &::placeholder {
+        color: $bg-grey-lightest;
+      }
+    }
+
+    &:disabled {
+      background-color: $bg-grey-light;
+      color: $font-placeholder;
+      border: 2px solid $font-memo;
+
+      &::placeholder {
+        color: $font-memo;
+      }
+
+      &.disabled-light-bg {
+        background-color: #f5f5f5;
+        color: $font-memo;
+        font-weight: 500;
+        border-color: $primary-lighter;
+        cursor: not-allowed;
+      }
+    }
+
+    &.is-error {
+      color: inherit;
+      border: solid 1.5px #ff4c36;
+      background-color: #ffedea;
+      &::placeholder {
+        color: lightcoral;
+      }
+      &::-webkit-search-cancel-button {
+        background: url("~/assets/images/icon-search-close-error.svg") no-repeat 50% 50%;
+      }
+      & + img {
+        margin: 0;
+      }
+    }
+
+    &.has-text-right {
+      text-align: right;
+    }
+
+    &.p-10 {
+      padding: 10px;
+    }
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input.hide-arrows::-webkit-outer-spin-button,
+  input.hide-arrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"].hide-arrows {
+    -moz-appearance: textfield;
+  }
+
+  .field.has-addons.search {
+    button {
+      position: relative;
+      left: -10px;
+    }
+  }
+
+  .field.has-addons .control .input:not([disabled]):focus,
+  .field.has-addons .control .input:not([disabled]):hover {
+    z-index: auto !important;
+    border: 2px solid $primary;
+    box-shadow: none;
+  }
+
+  //Customer Input
+  input[type="text"] {
+    &.is-underline {
+      border: none;
+      border-bottom: 1px solid $font-contain;
+      border-radius: 0;
+      font-size: 16px;
+    }
+  }
+
+  // CheckBox
+  label {
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    input[type="checkbox"] + span {
+      display: inline-block;
+      padding-left: 30px;
+      user-select: none;
+      background-image: url("~/assets/images/checkbox-off.svg");
+      background-repeat: no-repeat;
+      background-position-y: 30%;
+    }
+
+    input[type="checkbox"]:checked + span {
+      background-image: url("~/assets/images/checkbox-checked.svg");
+      background-repeat: no-repeat;
+      background-position-y: 30%;
+    }
+
+    span {
+      color: $font-title;
+    }
+
+    &.is-16px {
+      input[type="checkbox"] + span {
+        background-size: 16px;
+        padding-left: 21px;
+        background-position-y: 40%;
+      }
+    }
+
+    &.disabled {
+      input[type="checkbox"] + span {
+        background-image: url("~/assets/images/checkbox-off-disabled.svg");
+      }
+      span {
+        user-select: none;
+        cursor: not-allowed;
+      }
+    }
+
+    // Is Dark Outline
+    &.is-dark-outline {
+      input[type="checkbox"] + span {
+        background-image: url("~/assets/images/checkbox-off-dark.svg");
+      }
+      input[type="checkbox"]:checked + span {
+        background-image: url("~/assets/images/checkbox-checked.svg");
+      }
+    }
+
+    //Secondary checkBox
+    &.is-secondary {
+      input[type="checkbox"] + span {
+        background-image: url("~/assets/images/checkbox-off-secondary.svg");
+      }
+      input[type="checkbox"]:checked + span {
+        background-image: url("~/assets/images/checkbox-checked-secondary.svg");
+      }
+    }
+
+    //Dark checkBox
+    &.is-dark {
+      input[type="checkbox"] + span {
+        background-image: url("~/assets/images/checkbox-off-dark.svg");
+      }
+      input[type="checkbox"]:checked + span {
+        background-image: url("~/assets/images/checkbox-checked-dark.svg");
+      }
+    }
+
+    //Light checkbox
+    &.is-light {
+      input[type="checkbox"] + span {
+        background-image: url("~/assets/images/checkbox-off-light.svg");
+      }
+      input[type="checkbox"]:checked + span {
+        background-image: url("~/assets/images/checkbox-checked-light.svg");
+      }
+      span {
+        color: white;
+      }
+    }
+  }
+
+  //Radio Button
+  .radio-group {
+    .radio-input {
+      visibility: hidden;
+    }
+
+    .radio-label {
+      cursor: pointer;
+      position: relative;
+
+      &.has-option {
+        padding-left: 10px;
+      }
+
+      .radio-button {
+        height: 16px;
+        width: 16px;
+        border: 2px solid $primary;
+        border-radius: 50%;
+        position: absolute;
+        left: -14px;
+        top: 0;
+
+        &::after {
+          content: "";
+          display: block;
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: $primary;
+          opacity: 0;
+          transition: opacity 0.2s;
+        }
+
+        &:hover {
+          border-color: $primary-hover;
+        }
+      }
+
+      //Dark radio button
+      &.is-dark {
+        .radio-button {
+          border: 2px solid $font-subcontain;
+        }
+      }
+    }
+    .radio-input:checked ~ .radio-label .radio-button::after {
+      opacity: 1;
+    }
+
+    //Disabled
+    .radio-input:disabled ~ .radio-label {
+      cursor: not-allowed;
+      .radio-button {
+        border-color: $bg-grey-lightest;
+
+        &::after {
+          background-color: $bg-grey-lightest;
+        }
+      }
+    }
+
+    & + .radio-group {
+      margin-left: 40px;
+    }
+  }
+}

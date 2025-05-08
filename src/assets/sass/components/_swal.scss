@@ -1,0 +1,33 @@
+.swal2-container {
+  .swal2-title {
+    font-size: 24px;
+    text-align: center;
+    & > span{
+      display: inline-block;
+      text-align: left;
+    }
+  }
+  .button {
+    min-height: 52px;
+    margin: 0 20px;
+    box-shadow: none;
+    border-radius: 15px;
+    padding: 20px 35px;
+    display: flex !important;
+    &.swal-primary {
+      background: $primary;
+      color: white;
+    }
+    &.swal-light {
+      background: white;
+      color: $primary;
+      border: 2px solid $primary-lighter;
+    }
+  }
+  .swal2-html-container {
+    white-space: pre-line;
+  }
+  .swal2-input {
+    width: auto !important;
+  }
+}

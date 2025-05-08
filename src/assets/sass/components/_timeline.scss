@@ -1,0 +1,261 @@
+$timeline-primary-color: $primary;
+$timeline-primary-color-hover: scale-color($timeline-primary-color, $lightness: 32%);
+$timeline-left-width: 13%;
+$timeline-past-color: #c6c6c6;
+
+
+/*==================================
+    TIMELINE
+==================================*/
+
+/*-- GENERAL STYLES
+    ------------------------------*/
+.timeline {
+  line-height: 1.4em;
+  list-style: none;
+  margin: 0;
+  padding: 0 21px;
+  width: 100%;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: inherit;
+  }
+}
+
+/*----- TIMELINE INFO -----*/
+
+.timeline-info {
+  width: $timeline-left-width;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 .5em 0;
+  color: $timeline-primary-color;
+}
+
+/*----- TIMELINE ITEM -----*/
+
+.timeline-item {
+  padding-left: 40px;
+  position: relative;
+  color: #a3a3a3;
+
+  &.is-current {
+    width: 18px;
+    font-weight: 600;
+
+    .timeline-content {
+      color: $timeline-primary-color;
+    }
+
+    .timeline-marker {
+      &:before {
+        background: $timeline-primary-color;
+        width: 18px;
+        height: 18px;
+      }
+
+      &:after {
+        top: 22px;
+      }
+    }
+  }
+
+  &.is-return {
+
+    .timeline-info {
+      color: #a3a3a3;
+    }
+    
+    .timeline-content {
+      background-color: #f9f9f9;
+      // border-radius: 15px;
+    }
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+
+
+/*----- TIMELINE MARKER -----*/
+
+.timeline-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+
+
+
+  &:before {
+    background: $timeline-past-color;
+    border: 3px solid transparent;
+    border-radius: 100%;
+    content: "";
+    display: block;
+    height: 15px;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 15px;
+    transition: background 0.3s ease-in-out,
+      border 0.3s ease-in-out;
+  }
+
+  &:after {
+    content: "";
+    width: 3px;
+    background: #CCD5DB;
+    display: block;
+    position: absolute;
+    top: 19px;
+    bottom: -6px;
+    left: 6px;
+  }
+
+  .timeline-item:last-child &:after {
+    content: none;
+  }
+}
+
+// .timeline-item:not(.period):hover .timeline-marker:before {
+//   background: transparent;
+//   border: 3px solid $timeline-primary-color;
+// }
+
+/*----- TIMELINE CONTENT -----*/
+
+.timeline-content {
+  padding-bottom: 40px;
+
+  .timeline-title {
+    float: left;
+    margin-right: 24px;
+
+    +p {
+      padding-left: 22%;
+    }
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*----- TIMELINE PERIOD -----*/
+
+.period {
+  padding: 0;
+
+  .timeline-info {
+    display: none;
+  }
+
+  .timeline-marker {
+
+    &.is-current {
+      width: 18px;
+      
+
+      &:before {
+        width: 18px;
+      }
+    }
+
+    &:before {
+      background: transparent;
+      content: "";
+      width: 12px;
+      height: auto;
+      border: none;
+      border-radius: 0;
+      top: 0;
+      bottom: 30px;
+      position: absolute;
+      border-top: 3px solid #CCD5DB;
+      border-bottom: 3px solid #CCD5DB;
+    }
+
+    &:after {
+      content: "";
+      height: 32px;
+      top: auto;
+    }
+  }
+
+  .timeline-content {
+    padding: 40px 0 70px;
+  }
+
+  .timeline-title {
+    margin: 0;
+  }
+}
+
+/*----------------------------------------------
+        MOD: TIMELINE SPLIT
+    ----------------------------------------------*/
+
+.timeline-split {
+  @media (min-width: 768px) {
+    .timeline {
+      display: table;
+    }
+
+    .timeline-item {
+      display: table-row;
+      padding: 0;
+    }
+
+    .timeline-info,
+    .timeline-marker,
+    .timeline-content,
+    .period .timeline-info {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .timeline-marker {
+      position: relative;
+    }
+
+    .timeline-content {
+      padding-left: 20px;
+    }
+
+    .timeline-info {
+      padding-right: 10px;
+      text-align: right;
+    }
+
+    .period .timeline-title {
+      position: relative;
+      left: -45px;
+    }
+  }
+}
+
+/*----------------------------------------------
+        MOD: MARKER OUTLINE
+    ----------------------------------------------*/
+
+.marker-outline {
+  .timeline-marker {
+    &:before {
+      background: transparent;
+      border-color: $timeline-primary-color;
+    }
+  }
+
+  .timeline-item:hover .timeline-marker:before {
+    background: $timeline-primary-color;
+  }
+}
