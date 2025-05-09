@@ -7,10 +7,10 @@ export default function useMoment() {
    * @param {dateTime} dateTime 西元時間
    * @returns 民國時間
    */
-  const getROCDate = (dateTime, formatter = 'MM-DD', yearSep = '-') => {
+  const getROCDate = (dateTime, formatter = 'DD/MM', yearSep = '/') => {
     if (dateTime === '' || dateTime === null || typeof dateTime === 'undefined') return '';
 
-    return moment(dateTime).year() - 1911 + yearSep + moment(dateTime).format(formatter);
+    return  moment(dateTime).format(formatter) + yearSep + moment(dateTime).year();
   };
 
   /**

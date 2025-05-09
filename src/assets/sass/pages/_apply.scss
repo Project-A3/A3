@@ -98,7 +98,7 @@
 
       .card {
         &:last-child {
-          margin-bottom: 50px;
+          // margin-bottom: 50px;
         }
 
         .tabs {
@@ -172,6 +172,10 @@
             height: 22px;
           }
         }
+      }
+
+      .half-card {
+        max-width: 50%;
       }
 
       .second-card {

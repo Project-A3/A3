@@ -1,41 +1,76 @@
 <template>
-    <div class="card sticky half-card">
-        <div class="columns">
-            <div class="column">
-                <span class="field">Dữ liệu cơ bản của đại lý</span>
-            </div>
-        </div>
+    <div class="card half-card">
+        <h2 class="sticky-basic-info">Dữ liệu cơ bản của đại lý</h2>
+
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Mã đại lý</span>
-                <span class="data">{{ basicData.TRUSTEE_EE_ID }}</span>
+                <div style="display: flex; align-items: center;">
+                    <FormInput type="text" class="w-330" v-model="basicData.TRUSTEE_EE_ID"></FormInput>
+                    <button type="button" class="button button-enter-case" style="margin-left: 8px;">
+                        Tìm
+                    </button>
+                </div>
             </div>
             <div class="column">
                 <span class="field">Họ tên</span>
-                <span class="data">{{ basicData.TRUSTEE_NAME }}</span>
+                <FormInput type="text" class="w-330" v-model="basicData.TRUSTEE_NAME"></FormInput>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Điện thoại liên lạc</span>
-                <span class="data">#</span>
+                <div style="display: flex; align-items: center;">
+                    <EditableInput  
+                        :inputStyle="{
+                            width: '80px'
+                        }"
+                        type="text" 
+                        v-model="basicData.TRUSTEE_PHONE_REGION"
+                    ></EditableInput>
+                    -
+                    <EditableInput 
+                        type="text" 
+                        v-model="basicData.TRUSTEE_PHONE"
+                        :inputStyle="{
+                            width: '140px'
+                        }"
+                    ></EditableInput>
+                    #
+                    <EditableInput 
+                        type="text" 
+                        v-model="basicData.TRUSTEE_EXTENSION"
+                        :inputStyle="{
+                            width: '80px'
+                        }"
+                    ></EditableInput>
+                </div>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Điện thoại di động</span>
-                <span class="data">{{ basicData.TRUSTEE_MOBILE }}</span>
+                <EditableInput type="text" v-model="basicData.TRUSTEE_MOBILE"></EditableInput>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Email</span>
-                <span class="data">{{ basicData.TRUSTEE_EMAIL }}</span>
+                <EditableInput 
+                    type="text" 
+                    v-model="basicData.TRUSTEE_EMAIL"
+                    :inputStyle="{
+                        width: '300px'
+                    }"
+                ></EditableInput>
             </div>
         </div>
     </div>
 </template>
 <script setup>
+import FormInput from '~/components/Form/FormInput.vue';
+import EditableInput from '~/components/Editable/EditableInput.vue';
+
 const props = defineProps({
     basicData: {
         type: Object,

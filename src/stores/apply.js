@@ -1,7 +1,11 @@
-import { cloneDeep, difference, differenceBy, differenceWith, isEqual } from 'lodash-es';
+import { cloneDeep, differenceWith, isEqual } from 'lodash-es';
 import { defineStore } from 'pinia';
 import {
   apiReadApplicationData,
+  apiReadBasicData
+} from '~/common/api';
+import { useLanguageStore } from './language';
+/*先註解 import {
   apiQueryOcrReasonsList,
   apiQueryClaimCatList,
   apiGetSchoolCityList,
@@ -33,12 +37,12 @@ import {
   apiGetDisbELBWList,
   apiGetDisbFuncListByPart,
   apiGetDisbFuncListByELBW,
-  apiReadBasicData,
   apiCheckHPolicyNo,
   apiGetCountryList,
   apiGetInKindPaymentList
 } from '~/common/api';
-import { LifeGroupClassify } from '~/common/utils/enum';
+import { LifeGroupClassify } from '~/common/utils/enum';*/
+
 
 export const useApplyStore = defineStore('apply', {
   state: () => ({
@@ -189,12 +193,12 @@ export const useApplyStore = defineStore('apply', {
     isManager: false,
     reviewerInfo: null,
     inKindPaymentList: null,
-    isShowInKindPayArea: false
+    isShowInKindPayArea: false,
   }),
   getters: {
-    // 取得目前所得類別清單
+    /*先註解// 取得目前所得類別清單
     getCurrentClaimCat(state) {
-      switch (state.currentLifeGropClfy) {
+       switch (state.currentLifeGropClfy) {
         // 個人險
         case LifeGroupClassify.Person:
           return state.claimCategories.PERSON_CLAM_CATS;
@@ -216,7 +220,7 @@ export const useApplyStore = defineStore('apply', {
     icdCodeName: (state) =>
       state.diagData?.DIAG_DATA?.length > 0
         ? state.diagData.DIAG_DATA[0]?.CFM_ICD_CODE1 + state.diagData.DIAG_DATA[0]?.CFM_ICD_NAME1
-        : ''
+        : ''*/
   },
   actions: {
     /**
@@ -228,8 +232,9 @@ export const useApplyStore = defineStore('apply', {
         apiReadBasicData([applyNo])
       ]);
 
+      console.log('apply.js getBasicData responses>>>');
       console.log(responses);
-      let basicDataResult = responses[0].data.result;
+      let basicDataResult = responses[0].data.result.applyData;
 
       for(const key of Object.keys(this.basicData)){
         this.basicData[key] = basicDataResult[key];
@@ -242,17 +247,25 @@ export const useApplyStore = defineStore('apply', {
      */
     async getAllData(applyNo) {
       const responses = await Promise.all([
-        apiReadApplicationData([applyNo]),
-        apiGetDiePlaceAreaList()
+        apiReadApplicationData([applyNo])/*先註解,
+        apiGetDiePlaceAreaList()*/
       ]);
+      console.log('apply.js getAllData responses>>>');
       console.log(responses);
 
-      // const response = await apiReadApplicationData([applyNo]);
       let result = responses[0].data.result;
-      this.basicData = result.BASIC;
-      if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
-      this.claimData = result.CLAIM;
-      this.diagData = result.DIAG;
+      if (!result.IS_SUCCESS) {
+        let errorMessage = result.RTN_MSG;
+        var warningMessage = '';
+
+        return { errorMessage, warningMessage };
+      }
+      let applyData = result.BASIC.applyData;
+      this.basicData = applyData;
+      this.applyNo = result.BASIC.applyData.PROCESS_NUM;
+      //先註解 if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
+      this.claimData = applyData;
+       /*先註解 this.diagData = result.DIAG;
       this.receiptData = result.RECEIPT;
       this.highSettlementData = result.HIGHSETTLEMENT;
       this.inKindPayData = result.INKINDPAY;
@@ -296,8 +309,10 @@ export const useApplyStore = defineStore('apply', {
 
       if (responses[1].data.result.IS_SUCCESS) {
         this.diePlaceArea = responses[1].data.result.PLACE_AREA_LIST;
-      }
-
+      }*/
+      
+      let errorMessage = '';
+      var warningMessage = '';
       return { errorMessage, warningMessage };
     },
 
@@ -338,14 +353,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {事故原因類型} type
      */
     async getAccidentReasons(type) {
-      try {
+      /*先註解 try {
         const response = await apiQueryOcrReasonsList([type]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.OCR_RESN_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得所有索賠類別
@@ -353,7 +368,7 @@ export const useApplyStore = defineStore('apply', {
     async getClaimCategories() {
       if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
         return this.getCurrentClaimCat;
-      try {
+      /*先註解 try {
         const response = await apiQueryClaimCatList();
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
@@ -363,7 +378,7 @@ export const useApplyStore = defineStore('apply', {
         return this.getCurrentClaimCat;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得投保學校縣市
@@ -371,7 +386,7 @@ export const useApplyStore = defineStore('apply', {
     async getSchoolCities() {
       // 如果已經有資料就直接回傳，不再Call APi
       if (this.schoolCities) return this.schoolCities;
-      try {
+      /*先註解 try {
         const response = await apiGetSchoolCityList();
         const result = response.data.result;
         console.log(result);
@@ -381,7 +396,7 @@ export const useApplyStore = defineStore('apply', {
         return result.SCHOOL_CITY_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 查詢投保學校
@@ -390,14 +405,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} keyword 學校關鍵字
      */
     async getSchools(city, code, keyword) {
-      try {
+      /*先註解 try {
         const response = await apiGetSchool([city, code, keyword]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.SCHOOL_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得醫院縣市
@@ -405,7 +420,7 @@ export const useApplyStore = defineStore('apply', {
     async getHospitalCities() {
       // 如果已經有資料就直接回傳，不再Call APi
       if (this.hospitalCities) return this.hospitalCities;
-      try {
+      /*先註解 try {
         const response = await apiGetHospitalAreaList();
         const result = response.data.result;
         console.log(result);
@@ -415,7 +430,7 @@ export const useApplyStore = defineStore('apply', {
         return result.HOSP_AREA_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 查詢醫院
@@ -423,20 +438,20 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} keyword 醫院關鍵字
      */
     async getHospitals(localCode, keyword) {
-      try {
+      /*先註解 try {
         const response = await apiGetHospital([localCode, keyword]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.HOSP_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得手術主科別
      */
     async getOpMainDeps() {
-      try {
+      /*先註解 try {
         if (this.opMainDeps) return this.opMainDeps;
         const response = await apiGetMainDepList();
         const result = response.data.result;
@@ -445,7 +460,7 @@ export const useApplyStore = defineStore('apply', {
         return result.MAIN_DEP_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -453,21 +468,21 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} mainDpCode 主科別代碼
      */
     async getOpSubDeps(mainDpCode) {
-      try {
+      /*先註解 try {
         const response = await apiGetSubDepList([mainDpCode]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.SUB_DEP_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
      * 取得疾病類別
      */
     async getICDClasses() {
-      try {
+      /*先註解 try {
         if (this.ICDClasses) return this.ICDClasses;
         const response = await apiGetICDClass();
         const result = response.data.result;
@@ -476,7 +491,7 @@ export const useApplyStore = defineStore('apply', {
         return result.ICD_LEVEL1;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -486,14 +501,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} code 疾病代碼
      */
     async searchICD(name, keyword, code) {
-      try {
+      /*先註解 try {
         const response = await apiSearchICD([name, keyword, code]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.ICD_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -501,7 +516,7 @@ export const useApplyStore = defineStore('apply', {
      */
     async getCancerCategories() {
       if (this.cancerCategories) return this.cancerCategories;
-      try {
+      /*先註解 try {
         const response = await apiGetCancerCatList();
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
@@ -509,14 +524,14 @@ export const useApplyStore = defineStore('apply', {
         return result.CANCER_CAT_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
      * 取得國籍
      */
     async getCountryOptions() {
-      try {
+      /*先註解 try {
         const response = await apiGetCountryList(); 
         const result = response.data.result;
       
@@ -524,7 +539,7 @@ export const useApplyStore = defineStore('apply', {
         return result.DATA;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -532,7 +547,7 @@ export const useApplyStore = defineStore('apply', {
      */
     async getBoneDays() {
       if (this.boneDays) return this.boneDays;
-      try {
+      /*先註解 try {
         const response = await apiGetBoneDayList();
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
@@ -540,7 +555,7 @@ export const useApplyStore = defineStore('apply', {
         return result.BONE_DAY_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -549,14 +564,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} keyword 關鍵字
      */
     async searchOP(part, keyword) {
-      try {
+      /*先註解 try {
         const response = await apiSearchOP([part, keyword]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.OP_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得手術險別/等級
@@ -564,14 +579,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} value 參數
      */
     async getOPProdOrGrad(type, value) {
-      try {
+      /*先註解 try {
         let response = type === 'PROD' ? await apiGetOpProd([value]) : await apiGetOpGrad([value]);
         let result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result[type === 'PROD' ? 'opProdList' : 'opGradList'];
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -579,14 +594,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} policyNo 保單號碼
      */
     async GetEmpDegreeSel(policyNo) {
-      try {
+      /*先註解 try {
         let response = await apiGetEmpDegreeSel([policyNo]);
         let result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.EMP_DEGREE_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -595,17 +610,16 @@ export const useApplyStore = defineStore('apply', {
     async getDiePlaceArea() {
       // 如果已經有資料就直接回傳，不再Call APi
       if (this.diePlaceArea) return this.diePlaceArea;
-      try {
+      /*先註解 try {
         const response = await apiGetDiePlaceAreaList();
         const result = response.data.result;
-        console.log(result);
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
 
         this.diePlaceArea = result.PLACE_AREA_LIST;
         return result.PLACE_AREA_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -613,28 +627,28 @@ export const useApplyStore = defineStore('apply', {
      */
     async getFullDisabilityList() {
       if (this.fullDisabilityList) return this.fullDisabilityList;
-      try {
+      /*先註解 try {
         const response = await apiGetFullDisbList();
         const result = response.data.result;
         this.fullDisabilityList = result.FULL_DISB_LIST;
         return result.FULL_DISB_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得重大疾病項目
      */
     async getHeavyDisabilityList() {
       if (this.heavyDisabilityList) return this.heavyDisabilityList;
-      try {
+      /*先註解 try {
         const response = await apiGetHeavyDisbList();
         const result = response.data.result;
         this.heavyDisabilityList = result.HEVY_DIS_LIST;
         return result.HEVY_DIS_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
     /**
      * 取得會用到的失能項目List
@@ -643,7 +657,7 @@ export const useApplyStore = defineStore('apply', {
      * @returns
      */
     async getDisbList(apiName, param) {
-      try {
+      /*先註解 try {
         let response, result;
         let returnList = [];
         switch (apiName) {
@@ -683,7 +697,7 @@ export const useApplyStore = defineStore('apply', {
         return returnList;
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     /**
@@ -691,7 +705,7 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} type GRAV/STEM/CON
      */
     async getSpecialDisease(type) {
-      try {
+      /*先註解 try {
         switch (type) {
           case 'GRAV': {
             if (this.gravItemList) return this.gravItemList;
@@ -728,7 +742,7 @@ export const useApplyStore = defineStore('apply', {
         }
       } catch (e) {
         throw e;
-      }
+      }*/
     },
 
     generatePageData(applyNo, QUES_TYPE = 'X', QUES_ANSWER = 'X') {
@@ -827,9 +841,9 @@ export const useApplyStore = defineStore('apply', {
      * 檢核學團險件保單號碼
      */
     async checkHPolicyNo() {
-      const response = await apiCheckHPolicyNo([this.claimData.POLICY_NO]);
+      /*先註解 const response = await apiCheckHPolicyNo([this.claimData.POLICY_NO]);
       const result = response.data.result;
-      return result;
+      return result;*/
     },
 
     /**
@@ -837,7 +851,7 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} applyNo 受理編號
      */
     async savePageData(applyNo, QUES_TYPE = 'X', QUES_ANSWER = 'X') {
-      let requestData = this.generatePageData(applyNo, QUES_TYPE, QUES_ANSWER);
+      /*先註解 let requestData = this.generatePageData(applyNo, QUES_TYPE, QUES_ANSWER);
       // 呼叫API儲存
       const response = await apiSaveClamData(requestData.data);
       const result = response.data.result;
@@ -855,16 +869,16 @@ export const useApplyStore = defineStore('apply', {
         });
       }
       result.DATA = requestData;
-      return result;
+      return result;*/
     },
 
     /**
      * 異動儲存
      */
     async saveReDealPageData(data) {
-      const response = await apiSaveReDealClamData(data);
+      /*先註解 const response = await apiSaveReDealClamData(data);
       const result = response.data.result;
-      return result;
+      return result;*/
     },
 
     /**
@@ -1035,9 +1049,9 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} receiptKind 收據種類
      */
     async getReceiptItems(hospitalCode, receiptKind, isSchool) {
-      const respose = await apiGetReceiptItem([hospitalCode, receiptKind, isSchool]);
+      /*先註解 const respose = await apiGetReceiptItem([hospitalCode, receiptKind, isSchool]);
       const result = respose.data.result;
-      return result;
+      return result;*/
     },
 
     /**
@@ -1046,7 +1060,8 @@ export const useApplyStore = defineStore('apply', {
     async getInKindPaymentList() {
       // 如果已經有資料就直接回傳，不再Call APi
       if (this.inKindPaymentList) return this.inKindPaymentList;
-      try {
+      /*先註解 try {
+        //debugger;
         const response = await apiGetInKindPaymentList();
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
@@ -1055,7 +1070,7 @@ export const useApplyStore = defineStore('apply', {
         return result.IN_KIND_PAYMENT_LIST;
       } catch (e) {
         throw e;
-      }
+      }*/
     }
   }
 });

@@ -10,27 +10,13 @@
       <RequestInfo :basicData="basicData" style="flex: 1;"></RequestInfo>
     </div>
 
-    <EventInfo :basicData="basicData"></EventInfo>
+    <!--先註解  Second Card 事故/索賠資料-->
+    <ClaimArea :claimData="basicData"></ClaimArea> 
 
     <div style="display: flex">
       <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
       <OtherInfo :basicData="basicData" style="flex: 1;"></OtherInfo>
     </div>
-
-    <!-- <div style="display: flex; gap: 16px; width: 100%;">
-      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
-      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
-    </div>
-
-    <div style="display: flex; gap: 16px; width: 100%;">
-      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
-      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
-    </div> -->
-    <!--其他
-    <OtherInfo :basicData="basicData"></OtherInfo>-->
-
-    <!--先註解  Second Card 事故/索賠資料
-    <ClaimArea :claimData="claimData"></ClaimArea> -->
 
     <!--先註解  Third Card 診斷書
     <DiagArea :diagData="diagData"></DiagArea> -->
@@ -70,7 +56,7 @@ import BasicInfo from '~/components/BasicInfo.vue';
 import InsrdInfo from './InsrdInfo.vue';
 import TrusteeInfo from './TrusteeInfo.vue';
 import RequestInfo from './RequestInfo.vue';
-import EventInfo from './EventInfo.vue';
+import ClaimArea from './ClaimArea.vue';
 /*先註解 import TrusteeInfo from '~/components/TrusteeInfo.vue';
 import OtherInfo from '~/components/OtherInfo.vue';
 import LifeCycleHook from '~/components/LifeCycleHook.vue';
@@ -78,13 +64,14 @@ import useSwal from '~/composables/useSwal';*/
 import { useApplyStore } from '~/stores/apply';
 /*先註解 import { useDecisionStore } from '~/stores/decision';
 import { useFooterStore } from '~/stores/footer';
-import ClaimArea from './ClaimArea.vue';
+
 import DiagArea from './DiagArea.vue';
 import HighSettlementArea from './HighSettlementArea.vue';
 import InKindPayArea from './InKindPayArea.vue';
 import ReceiptArea from './ReceiptArea.vue';*/
 import SubHeader from './SubHeader.vue';
 import OtherInfo from './OtherInfo.vue';
+import '~/assets/sass/main.scss';
 
 const props = defineProps({
     applyNo: {

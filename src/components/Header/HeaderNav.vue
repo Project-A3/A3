@@ -8,19 +8,19 @@
           :class="{ active: currentActiveTab === 'APPLY' }"
           @click="onClickNav('APPLY')"
         >
-          申請資料
+          <cathay-translate code="Component_HeaderNav_001" />
           <img v-if="currentActiveTab === 'APPLY' && currentTabHasError" src="/src/assets/images/icon-warn.svg" alt="ERROR" />
         </a>
       </li>
       <li>
         <a href="javascript:void(0)" :class="{ active: currentActiveTab === 'OVERVIEW' }" @click="onClickNav('OVERVIEW')">
-          保單概況
+          <cathay-translate code="Component_HeaderNav_002" />
           <img v-if="currentActiveTab === 'OVERVIEW' && (currentTabHasError | overviewHasError)" src="/src/assets/images/icon-warn.svg" alt="ERROR" />
         </a>
       </li>
       <li>
         <a href="javascript:void(0)" :class="{ active: currentActiveTab === 'ACCOUNTING' }" @click="onClickNav('ACCOUNTING')">
-          核算結果
+          <cathay-translate code="Component_HeaderNav_003" />
           <img
             v-if="currentActiveTab === 'ACCOUNTING' && currentTabHasError"
             src="/src/assets/images/icon-warn.svg"
@@ -30,7 +30,7 @@
       </li>
       <li>
         <a href="javascript:void(0)" :class="{ active: currentActiveTab === 'BENEFICIARY' }" @click="onClickNav('BENEFICIARY')">
-          受益人分配
+          <cathay-translate code="Component_HeaderNav_004" />
           <img
             v-if="currentActiveTab === 'BENEFICIARY' && currentTabHasError"
             src="/src/assets/images/icon-warn.svg"

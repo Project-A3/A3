@@ -1,6 +1,8 @@
 <template>
   <div class="block user-block">
-    <p class="block-title-outside is-invisible"><cathay-translate code="Component_UserInfo_001" /></p>
+    <p class="block-title-outside is-invisible">
+      <cathay-translate code="Component_UserInfo_001" />
+    </p>
     <div class="block-content">
       <div class="user-info">
         <div class="user-name font-eudc">{{ userInfo.EMP_NAME }}</div>
@@ -21,24 +23,35 @@
           </div>
           <div class="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a v-for="businessAgent in businessAgents" :key="businessAgent.AGNT_ID" class="dropdown-item">
+              <a
+                v-for="businessAgent in businessAgents"
+                :key="businessAgent.AGNT_ID"
+                class="dropdown-item"
+              >
                 <div class="md-checkbox">
                   <input
                     :id="businessAgent.AGNT_ID"
                     type="checkbox"
                     :value="businessAgent.AGNT_ID"
                     v-model="checkedAgents"
-                    :disabled="checkedAgents.length === 1 && checkedAgents[0] === businessAgent.AGNT_ID"
+                    :disabled="
+                      checkedAgents.length === 1 &&
+                      checkedAgents[0] === businessAgent.AGNT_ID
+                    "
                   />
                   <label :for="businessAgent.AGNT_ID">
                     <span v-if="businessAgent.AGNT_ROLE == '1'" class="font-eudc">{{
-                      language.translate('Common_Client_002')
+                      language.translate("Common_Client_002")
                     }}</span>
                     <span v-else-if="businessAgent.AGNT_ROLE == '2'" class="font-eudc">{{
-                      language.translate('Common_Client_003') + '-' + businessAgent.SHOW_NAME
+                      language.translate("Common_Client_003") +
+                      "-" +
+                      businessAgent.SHOW_NAME
                     }}</span>
-                     <span v-else-if="businessAgent.AGNT_ROLE == '3'" class="font-eudc">{{
-                      language.translate('Common_Client_008') + '-' + businessAgent.SHOW_NAME
+                    <span v-else-if="businessAgent.AGNT_ROLE == '3'" class="font-eudc">{{
+                      language.translate("Common_Client_008") +
+                      "-" +
+                      businessAgent.SHOW_NAME
                     }}</span>
                   </label>
                 </div>
@@ -51,55 +64,57 @@
   </div>
 </template>
 <script setup>
-  import { debouncedWatch } from '@vueuse/core';
-  import { storeToRefs } from 'pinia';
-  import { UserRoleEnum } from '~/common/utils/enum';
-  import { useHomeStore } from '~/stores/home';
-  import { useLanguageStore } from '~/stores/language';
+import { debouncedWatch } from "@vueuse/core";
+import { storeToRefs } from "pinia";
+import { UserRoleEnum } from "~/common/utils/enum";
+import { useHomeStore } from "~/stores/home";
+import { useLanguageStore } from "~/stores/language";
 
-  const language = useLanguageStore();
-  const homeStore = useHomeStore();
-  const { userInfo, userRole, getAllagents, currentBusinessAgents } = storeToRefs(homeStore);
+const language = useLanguageStore();
+const homeStore = useHomeStore();
+const { userInfo, userRole, getAllagents, currentBusinessAgents } = storeToRefs(
+  homeStore
+);
 
-  // 代理人 預設只勾個人
-  const businessAgents = getAllagents.value;
-  const checkedAgents = ref([businessAgents[0].AGNT_ID]);
-  sessionStorage.setItem('checkedAgents', checkedAgents.value.join('_'));
-  // 目前勾選的代理人名稱
-  const checkedAgentsName = computed(() =>
-    businessAgents
-      .filter((agent) => checkedAgents.value.includes(agent.AGNT_ID))
-      .map((agent) => agent.SHOW_NAME ?? language.translate('Common_Client_002'))
-      .join(',')
-  );
+// 代理人 預設只勾個人
+const businessAgents = getAllagents.value;
+const checkedAgents = ref([businessAgents[0].AGNT_ID]);
+sessionStorage.setItem("checkedAgents", checkedAgents.value.join("_"));
+// 目前勾選的代理人名稱
+const checkedAgentsName = computed(() =>
+  businessAgents
+    .filter((agent) => checkedAgents.value.includes(agent.AGNT_ID))
+    .map((agent) => agent.SHOW_NAME ?? language.translate("Common_Client_002"))
+    .join(",")
+);
 
-  // 勾選代理人後要將勾選的代理人帶入參數重新呼叫一次API
-  debouncedWatch(
-    checkedAgents,
-    async () => {
-      try {
-        homeStore.showLoading();
-        // console.log('change');
-        await homeStore.changeBusinessAgents(checkedAgents.value);
-        // 預設先清除
-        sessionStorage.removeItem('checkedAgents');
-        sessionStorage.setItem('checkedAgents', checkedAgents.value.join('_'));
-      } catch (e) {
-        throw e;
-      } finally {
-        homeStore.hideLoading();
-      }
-    },
-    { debounce: 100 }
-  );
+// 勾選代理人後要將勾選的代理人帶入參數重新呼叫一次API
+debouncedWatch(
+  checkedAgents,
+  async () => {
+    try {
+      homeStore.showLoading();
+      // console.log('change');
+      await homeStore.changeBusinessAgents(checkedAgents.value);
+      // 預設先清除
+      sessionStorage.removeItem("checkedAgents");
+      sessionStorage.setItem("checkedAgents", checkedAgents.value.join("_"));
+    } catch (e) {
+      throw e;
+    } finally {
+      homeStore.hideLoading();
+    }
+  },
+  { debounce: 100 }
+);
 
-  defineExpose({
-    userInfo,
-    businessAgents,
-    checkedAgents,
-    checkedAgentsName,
-    userRole,
-    UserRoleEnum
-  });
+defineExpose({
+  userInfo,
+  businessAgents,
+  checkedAgents,
+  checkedAgentsName,
+  userRole,
+  UserRoleEnum,
+});
 </script>
 <style lang="scss"></style>

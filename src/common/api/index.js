@@ -17,7 +17,6 @@ export const apiGetServerName = () => apiClient.post('AA_E3Z100.getServerName');
  */
 export const apiGetPersonalData = (params) => apiClient.post('AA_B3Z100.getPersonalData', params);
 export const apiGetPersonalDataCnt = (params) => apiClient.post('AA_B3Z100.getPersonalDataCnt', params);
-
 /**
  * 取得登入者資料
  * @param {Array} params ['查詢人員']

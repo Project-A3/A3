@@ -36,7 +36,7 @@
 <script setup>
   import { isEmpty } from 'lodash-es';
   import iconArrowDownLight from '~/assets/images/icon-arrow-down-light.svg';
-  import iconArrowDown from '~/assets/images/icon-arrow-down.svg';
+  import iconArrowDown from '~/assets/images/icon-arrow-down-primary.svg';
   import iconArrowDownBlue from '~/assets/images/icon-arrow-down-blue.svg';
   const props = defineProps({
     options: {
@@ -47,7 +47,7 @@
     onSelected: {
       type: Function,
       required: false,
-      default: (value) => console.log(value)
+      default: (value) => console.log('haha',value)
     },
     onCleared: {
       type: Function,

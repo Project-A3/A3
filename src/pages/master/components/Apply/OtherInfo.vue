@@ -1,10 +1,7 @@
 <template>
-    <div class="card sticky half-card">
-        <div class="columns">
-            <div class="column">
-                <span class="field">Khác</span>
-            </div>
-        </div>
+    <div class="card half-card">
+        <h2 class="sticky-basic-info">Khác</h2>
+
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Nhân viên tiếp nhận</span>

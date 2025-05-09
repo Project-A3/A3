@@ -190,14 +190,10 @@
       mainTarget.classList.remove('hide-right');
     }
   };
+  
   const router = useRouter();
   const onClickApplyNo = (data) => {
-    let flag = 'FLAG=0';
-
-    if (data.APLY_STS == '20' || data.APLY_STS == '40' || data.APLY_STS == '45' || data.APLY_STS == '50' ) {
-      flag += '&LINK_STATUS=' + data.APLY_STS;
-    }
-    window.open(`/servlet/HttpDispatcher/AAA4_0100/prompt?newTxRequest=true&${flag}&PROCESS_NUM=${data.APLY_NO}`);
+    router.push({ name: 'master-page', params: { page: 'apply' }, query: { q: data.APLY_NO } });
   };
 
   const { sortName, isSortDesc, setSort, reSort } = useTableSort(signData, {

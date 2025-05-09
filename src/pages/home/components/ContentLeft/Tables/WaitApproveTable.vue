@@ -102,7 +102,7 @@
             <td width="330" class="has-left-border limit-width w-330">
               <EllipseTippy displayBlock>
                 <div class="tag-container limit-width w-300">
-                  <span v-for="tag in waitApprove.CASE_TAG" :class="homeStore.getTagColorClass(tag.TAG_COLOR)">
+                  <span v-for="tag in waitApprove.CASE_TAG" :class="homeStore.getTagColorClass(tag.TAG_COLOR)" v-bind:key="tag.TAG_NAME">
                     {{ tag.TAG_NAME }}
                   </span>
                 </div>

@@ -73,7 +73,7 @@
 
   const cathayData = reactive(props.cmrRep_mapList);
   const { sortName, isSortDesc, setSort } = useTableSort(cathayData);
-
+  
   const onClickApplyNo = (data) => {
     window.open(`/servlet/HttpDispatcher/AAA1_3000/prompt?newTxRequest=true&FLAG=0&PROCESS_NUM=${data.APLY_NO}`);
   };

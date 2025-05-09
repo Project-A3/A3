@@ -1,10 +1,6 @@
 <template>
-  <div class="card sticky">
-    <div class="columns">
-      <div class="column">
-        <span class="field"><cathay-translate code="Component_InsrdInfo_001" /></span>
-      </div>
-    </div>
+  <div class="card half-card">
+    <h2 class="sticky-basic-info"><cathay-translate code="Component_InsrdInfo_001"/></h2>
     <div class="columns non-sticky-columns has-flex-column">
       <div class="column">
         <span class="field"><cathay-translate code="Component_InsrdInfo_002" /></span>
@@ -14,13 +10,13 @@
     <div class="columns non-sticky-columns has-flex-column">
       <div class="column">
         <span class="field"><cathay-translate code="Component_InsrdInfo_003" /></span>
-        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }} {{ basicData.INSRD_ADD_PART1 }}{{ basicData.INSRD_ADD_PART2 }}{{ basicData.INSRD_ADD_PART3 }}{{ basicData.INSRD_ADD_PART4 }}{{ basicData.INSRD_ADD_PART5 }}{{ basicData.INSRD_ADD_PART6 }}{{ basicData.INSRD_ADD_PART7 }}{{ basicData.INSRD_ADD_PART8 }}</span>
+        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }} {{ basicData.INSRD_ADDR }}</span>
       </div>
     </div>
     <div class="columns non-sticky-columns has-flex-column">
       <div class="column">
         <span class="field"><cathay-translate code="Component_InsrdInfo_004" /></span>
-        <span class="data">{{ basicData.REQUEST_ADDRESS }}</span>
+        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }} {{ basicData.INSRD_ADDR }}</span>
       </div>
     </div>
     <div class="columns non-sticky-columns has-flex-column">
@@ -41,12 +37,6 @@
         <span class="data">{{ basicData.INSRD_EMAIL }}</span>
       </div>
     </div>
-    <div class="columns non-sticky-columns has-flex-column">
-        <div class="column">
-          <span class="field">a</span>
-          <span class="data">a</span>
-        </div>
-      </div>
   </div>
 </template>
 <script setup>

@@ -3,7 +3,7 @@
     <HeaderLogo></HeaderLogo>
     <div class="header-gradient"><p>{{serverName}}</p></div>
     <div class="header-info">
-      <HeaderNav v-if="props.currentActiveTab !== '' " :currentActiveTab="props.currentActiveTab"></HeaderNav>
+      <HeaderNav v-if="props.currentActiveTab !== ''" :currentActiveTab="props.currentActiveTab"></HeaderNav>
       <HeaderLanguage></HeaderLanguage>
       <!--<HeaderSearch></HeaderSearch>-->
     </div>

@@ -4,20 +4,14 @@
     <button class="card-toggle-btn"></button>
 
     <!-- 事故/索賠資料 -->
-    <h2 class="sticky-basic-info">事故/索賠資料</h2>
+    <h2 class="sticky-basic-info">Dữ liệu sự kiện và loại yêu cầu</h2>
 
-    <div class="part border-none">
+     <div class="part border-none">
       <div class="columns has-flex-column">
-        <!-- <div class="column is-one-quarter">
-          <span class="field">申請險別</span>
-          <span class="data not-editable">
-            {{ handleProdCat(claimData.PROD_CAT) }}
-          </span>
-        </div> -->
         <div class="column is-one-quarter">
           <span class="field">申請種類</span>
           <EditableDropdown
-            v-model="claimData.CFM_APLY_KIND"
+            
             :options="[
               { name: '疾病', value: '1' },
               { name: '意外', value: '2' }
@@ -28,9 +22,7 @@
         <div class="column is-one-quarter pr-2">
           <span class="field">事故原因</span>
           <EditableModal
-            v-model:modelText="ocrReason"
-            v-model:modelValue="claimData.OCR_RESN"
-            v-model:modelValue2="claimData.OCR_RESN_NAME"
+           
             :modal="{
               component: AccidentReasonModal,
               id: 'manualApprovedEditReason',
@@ -41,22 +33,19 @@
         </div>
         <div class="column">
           <span class="field">事故原因內容</span>
-          <span class="data not-editable font-eudc">{{ claimData.OCR_RESN_CTX }}</span>
+          <span class="data not-editable font-eudc">{{  }}</span>
         </div>
       </div>
       <div class="columns has-flex-column">
         <div class="column is-half pr-2">
           <span class="field">索賠類別</span>
           <EditableModal
-            v-model:modelText="claimCatText"
-            v-model:modelValue="claimData.CFM_CLAM_CAT"
-            v-model:modelValue2="claimData.CFM_CLAM_CAT_NAME"
             :editingStyle="{ maxWidth: '500px' }"
             :modal="{
               component: ClaimCategoryModal,
               id: 'modifyCategoryModal',
               data: {
-                prodCat: claimData.PROD_CAT
+                prodCat: ''
               }
             }"
             :schema="string().required('請選擇索賠類別')"
@@ -66,17 +55,16 @@
           <span class="field has-tippy mr-37" data-tippy-content="資料資料" :schema="string().required('請輸入事故日期')"
             >事故日</span
           >
-          <EditableDatePicker v-model="claimData.OCR_DATE"></EditableDatePicker>
+          <EditableDatePicker></EditableDatePicker>
         </div>
         <div class="column is-one-quarter">
           <span class="field">事故職等</span>
           <EditableDropdown
             :editingWidth="110"
-            v-model="claimData.JOB_ID"
             :schema="
               string()
                 .nullable()
-                .test('required', '請選擇事故職等', (value) => !(claimData.CFM_APLY_KIND === '2' && (!value || !value.trim())))
+                .test('required', '請選擇事故職等', (value) => !('2' === '2' && (!value || !value.trim())))
             "
             :options="[
               { name: '1', value: '1' },
@@ -91,8 +79,7 @@
         </div>
       </div>
     </div>
-
-    <!-- 檢警資料 -->
+<!--
     <div class="part" v-if="!isLifeSchool && claimData.policeRept">
       <h3>檢警資料</h3>
 
@@ -194,11 +181,9 @@
       </div>
     </div>
 
-    <!-- 無記名附約 & 團險資料 -->
     <div class="part multiline-data-area">
       <div class="columns is-multiline">
         <template v-if="hasNoNameList || isLifeGroup">
-          <!-- 無記名附約 -->
           <GroupEditable class="is-half" v-if="hasNoNameList" ref="noNameGroup" disableGroupClick>
             <h3>無記名附約</h3>
             <table class="table is-fullwidth apply-table">
@@ -246,7 +231,6 @@
                     <EditableInput v-model="noName.PROD_ID" :schema="string().max(4, '最多4個字')"></EditableInput>
                   </td>
                   <td class="is-flex is-align-items-center" style="min-width: 120px">
-                    <!-- <span data-editing-type="2" data-delete-button="true">{{ noName.ROLE }}</span> -->
                     <EditableDropdown
                       v-model="noName.ROLE"
                       :editingWidth="111"
@@ -302,7 +286,6 @@
                     <EditableInput v-model="noNameG.POLICY_NO" :schema="string().max(12, '最多12個字')"></EditableInput>
                   </td>
                   <td>
-                    <!-- <span data-editing-type="2" data-delete-button="true">{{ noName.ROLE }}</span> -->
                     <EditableDropdown
                       v-model="noNameG.ROLE"
                       :editingWidth="111"
@@ -366,7 +349,7 @@
                 </tr>
               </tbody>
             </table>
-            <!-- 新增附約 Button -->
+
             <div class="columns">
               <div class="column is-offset-9">
                 <div class="dropdown is-primary">
@@ -397,7 +380,6 @@
             </div>
           </GroupEditable>
 
-          <!-- 團險資料 -->
           <div class="column is-half" v-if="isLifeGroup">
             <h3>團險資料</h3>
 
@@ -442,19 +424,7 @@
               </GroupEditable>
             </div>
             <div class="columns has-flex-column" v-if="claimData.EMP_ID != null">
-              <!-- <div class="column is-half">
-              <span class="field">事故者為員工之</span>
-              <EditableDropdown
-                v-model="claimData.RLAT_CODE"
-                :options="[
-                  { name: '本人', value: '0' },
-                  { name: '配偶', value: '1' },
-                  { name: '子女', value: '2' },
-                  { name: '父母', value: '3' },
-                  { name: '配偶父母', value: '4' }
-                ]"
-              ></EditableDropdown>
-            </div> -->
+            
               <div class="column is-half">
                 <span class="field">員工ID</span>
                 <EditableInput
@@ -477,19 +447,9 @@
                 <EditableDatePicker v-model="claimData.EMP_BRDY"></EditableDatePicker>
               </div>
             </div>
-            <!-- <div class="columns has-flex-column">
-            <div class="column is-half">
-              <span class="field">團險保單號碼</span>
-              <EditableInput :inputWidth="160" v-model="claimData.POLICY_NO"></EditableInput>
-            </div>
-            <div class="column">
-              <span class="field">等級</span>
-              <EditableInput v-model="claimData.LEVEL"></EditableInput>
-            </div>
-          </div> -->
           </div>
         </template>
-        <!-- 學團資料 -->
+
         <div class="column is-half" v-if="isLifeSchool">
           <h3>學團資料</h3>
           <div class="columns" v-if="claimData.SCH_ZIP_CODE != null || claimData.SCH_ADDR != null">
@@ -556,7 +516,6 @@
           </div>
         </div>
 
-        <!-- 聯絡資訊 -->
         <div class="column is-half hidden-parts">
           <h3>{{ isLifeGroup ? '員工' : '事故人' }}聯絡資訊</h3>
           <div class="columns" v-if="basicData.OCR_ZIP_CODE != null || basicData.OCR_ADDR != null">
@@ -723,7 +682,7 @@
             </div>
           </div>
         </div>
-        <!-- 送件人/理專資訊 -->
+
         <div class="column is-half hidden-parts">
           <h3>送件人/理專資訊</h3>
 
@@ -811,14 +770,11 @@
           </div>
           <div class="columns has-flex-column">
             <div class="column p-0">
-              <!-- 理專 -->
               <div class="column" v-if="claimData.TRN_IS_SPC_AGNT === 'Y' && claimData.SPC_TEL_NO != null">
                 <span class="field">電話</span>
                 <EditableInput v-model="claimData.SPC_TEL_NO"></EditableInput>
               </div>
-              <!-- 寄件人電話 -->
               <template v-else>
-                <!-- 團險 寄件人電話 -->
                 <template v-if="isLifeGroup">
                   <GroupEditable
                     class="is-half p-0 w-100"
@@ -886,7 +842,6 @@
                     ></EditableInput>
                   </div>
                 </template>
-                <!--個、學團險 寄件人電話 -->
                 <template v-else-if="claimData.TEL_NO_1 != null || claimData.TEL_NO_2 != null || claimData.TEL_NO_3 != null">
                   <span class="field">電話</span>
                   <GroupEditable class="p-0">
@@ -928,7 +883,6 @@
           </div>
         </div>
 
-        <!-- 其他 -->
         <div class="column is-half hidden-parts">
           <h3>其他</h3>
           <div class="columns">
@@ -951,7 +905,6 @@
       </div>
     </div>
 
-    <!-- 新增按鈕 -->
     <div class="part" :class="{ 'border-none': !hasNoNameList || !claimData.policeRept }">
       <div class="columns">
         <div class="column">
@@ -965,8 +918,8 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </div>-->
+  </div> 
 </template>
 <script setup>
   import EditableDropdown from '~/components/Editable/EditableDropdown.vue';

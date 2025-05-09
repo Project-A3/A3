@@ -16,9 +16,9 @@ routes.unshift({
   path: '/',
   redirect: '/home'
 });
-
+const mode = import.meta.env.MODE;
 const router = createRouter({
-  history: import.meta.env.MODE === 'production' ? createWebHashHistory() : createWebHistory(),
+  history: mode === 'production' || mode === 'deploy' ? createWebHashHistory() : createWebHistory(),
   routes
 });
 

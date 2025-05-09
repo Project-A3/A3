@@ -65,7 +65,7 @@ export default function useDatetimePicker(element, customOption = {}) {
   if (!option.readonly) userInput.removeAttribute('readonly');
 
   // 民國年格式
-  let ROCFormat = option.type === 'datetime' ? 'MM-DD HH:mm' : 'MM-DD';
+  let ROCFormat = option.type === 'datetime' ? 'MM-DD HH:mm' : 'DD/MM/YYYY';
   let CEFormat = 'YYYY-' + ROCFormat;
 
   class DatetimePicker {

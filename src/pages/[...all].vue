@@ -13,8 +13,11 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
   // export default {};
+  import routes from 'virtual:generated-pages';
+
+  console.log(routes);
 </script>
 <style lang="scss" scoped>
 
