@@ -31,165 +31,164 @@
   </div>
 </template>
 <script setup>
-  import Header from '~/components/Header/Header.vue';
-  //先註解 import Overview from './components/Overview/index.vue';
-  import Apply from './components/Apply/index.vue';
-  /*先註解 import Accounting from './components/Accounting/index.vue';
-  import Beneficiary from './components/Beneficiary/index.vue';*/
-  import { isEmpty, toUpper } from 'lodash-es';
-  import { shallowRef } from 'vue';
-  import { useRouter, useRoute } from 'vue-router';
-  /*先註解 import ModalContainer from '~/components/ModalContainer.vue';
-  import AsideFooter from '~/components/Footer/AsideFooter.vue';
-  import MainFooter from '~/components/Footer/MainFooter.vue';
-  import QuickSearchWrapper from '~/components/QuickSearch/QuickSearchWrapper.vue';*/
-  import { AsideState } from '~/common/utils/enum';
-  /*先註解 import initMasterUI from '../../common/ui/master';
-  import DecisionWrapper from '~/components/Decision/DecisionWrapper.vue';*/
-  import { useApplyStore } from '~/stores/apply';
-  import useSwal from '~/composables/useSwal';
-  /*先註解 import { useFooterStore } from '~/stores/footer';
-  import { useQuickSearchStore } from '~/stores/quickSearch';
-  import { useDecisionStore } from '~/stores/decision';*/
+import Header from '~/components/Header/Header.vue';
+//先註解 import Overview from './components/Overview/index.vue';
+import Apply from './components/Apply/index.vue';
+/*先註解 import Accounting from './components/Accounting/index.vue';
+import Beneficiary from './components/Beneficiary/index.vue';*/
+import { isEmpty, toUpper } from 'lodash-es';
+import { shallowRef } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+/*先註解 import ModalContainer from '~/components/ModalContainer.vue';
+import AsideFooter from '~/components/Footer/AsideFooter.vue';
+import MainFooter from '~/components/Footer/MainFooter.vue';
+import QuickSearchWrapper from '~/components/QuickSearch/QuickSearchWrapper.vue';*/
+import { AsideState } from '~/common/utils/enum';
+/*先註解 import initMasterUI from '../../common/ui/master';
+import DecisionWrapper from '~/components/Decision/DecisionWrapper.vue';*/
+import { useApplyStore } from '~/stores/apply';
+import useSwal from '~/composables/useSwal';
+/*先註解 import { useFooterStore } from '~/stores/footer';
+import { useQuickSearchStore } from '~/stores/quickSearch';
+import { useDecisionStore } from '~/stores/decision';*/
 
-  const { $swal } = useSwal();
-  const applyStore = useApplyStore();
- /*先註解  const footerStore = useFooterStore();
-  const decisionStore = useDecisionStore();
-  console.log('in the page component');
-  // reset quicksearchStore，以免首頁有搜尋過
-  useQuickSearchStore().$reset();
-  onActivated(() => {
-    initMasterUI();
-  });*/
+const { $swal } = useSwal();
+const applyStore = useApplyStore();
+/*先註解  const footerStore = useFooterStore();
+ const decisionStore = useDecisionStore();
+ console.log('in the page component');
+ // reset quicksearchStore，以免首頁有搜尋過
+ useQuickSearchStore().$reset();
+ onActivated(() => {
+   initMasterUI();
+ });*/
 
-  const activeComponent = shallowRef(null);
-  const router = useRouter();
-  const route = useRoute();
-  // 目前是哪一頁
-  let page = route.params.page;
-  /*先註解 // 是否readonly
-  const isReadonly = ref(false);*/
-  // 查詢的受理編號
-  const applyNo = route.query?.q;  
-  // 將受理編號傳進component
-  const sendToProps = { applyNo };
-  console.log('[page].vue page>>>' + page);
-  console.log('[page].vue applyNo>>>' + applyNo);
-  if (isEmpty(applyNo)) {
-    console.error('網址錯誤，沒有受理編號!');
-    router.push({ name: 'all' });
-    // throw '網址錯誤，沒有受理編號!';
+const activeComponent = shallowRef(null);
+const router = useRouter();
+const route = useRoute();
+// 目前是哪一頁
+let page = route.params.page;
+/*先註解 // 是否readonly
+const isReadonly = ref(false);*/
+// 查詢的受理編號
+const applyNo = route.query?.q;
+// 將受理編號傳進component
+const sendToProps = { applyNo };
+console.log('[page].vue page>>>' + page);
+console.log('[page].vue applyNo>>>' + applyNo);
+if (isEmpty(applyNo)) {
+  console.error('網址錯誤，沒有受理編號!');
+  router.push({ name: 'all' });
+  // throw '網址錯誤，沒有受理編號!';
+}
+const changeComponent = (p) => {
+  switch (p) {
+    /*先註解 case 'overview':
+       activeComponent.value = Overview;
+       break;*/
+    case 'apply':
+      activeComponent.value = Apply;
+      break;
+    /*先註解 case 'accounting':
+      activeComponent.value = Accounting;
+      break;
+    case 'beneficiary':
+      activeComponent.value = Beneficiary;
+      break;
+    default:
+      router.push({ name: 'all' });
+      break;*/
   }
-  const changeComponent = (p) => {
-    switch (p) {
-     /*先註解 case 'overview':
-        activeComponent.value = Overview;
-        break;*/
-      case 'apply':
-        activeComponent.value = Apply;
-        break;
-      /*先註解 case 'accounting':
-        activeComponent.value = Accounting;
-        break;
-      case 'beneficiary':
-        activeComponent.value = Beneficiary;
-        break;
-      default:
-        router.push({ name: 'all' });
-        break;*/
-    }
-  };
-  const currentActiveTab = ref(toUpper(page));
-  const asideState = ref(AsideState.Decision);
+};
+const currentActiveTab = ref(toUpper(page));
+const asideState = ref(AsideState.Decision);
 
-  provide('AsideState', asideState);
-  provide('ApplyNo', applyNo);
-  /*先註解 provide('IsReadonly', isReadonly);
+provide('AsideState', asideState);
+provide('ApplyNo', applyNo);
+/*先註解 provide('IsReadonly', isReadonly);
 
-  // 取得儲存時間
-  footerStore.getSaveTime(applyNo);*/
+// 取得儲存時間
+footerStore.getSaveTime(applyNo);*/
 
-  const isLoading = inject('isLoading');
+const isLoading = inject('isLoading');
 
-  try {
-    isLoading.value = true;
-    // 取得登入者是否為覆核人員 or 主管
-    /*先註解let reviewerInfo = await footerStore.getReviewerInfo(applyNo);
-    applyStore.reviewerInfo = reviewerInfo;*/
-    // 呼叫API取得申請資料
-    let { errorMessage, warningMessage } = await applyStore.getAllData(applyNo);
-    if (!isEmpty(errorMessage.trim())) throw errorMessage.trim();
-    else if (!isEmpty(warningMessage)) $swal.warning(warningMessage);
-    /*先註解 isLoading.value = false;
-    // 如果不能編輯，把readonly設true
-    isReadonly.value = reviewerInfo.isReviewer;
+try {
+  isLoading.value = true;
+  // 取得登入者是否為覆核人員 or 主管
+  /*先註解let reviewerInfo = await footerStore.getReviewerInfo(applyNo);
+  applyStore.reviewerInfo = reviewerInfo;*/
+  // 呼叫API取得申請資料
+  let { errorMessage, warningMessage } = await applyStore.getAllData(applyNo);
+  if (!isEmpty(errorMessage.trim())) throw errorMessage.trim();
+  else if (!isEmpty(warningMessage)) $swal.warning(warningMessage);
+  /*先註解 isLoading.value = false;
+  // 如果不能編輯，把readonly設true
+  isReadonly.value = reviewerInfo.isReviewer;
 
-    // 如果STEP_STS是2，要開啟核算結果
-    if (reviewerInfo.STEP_STS === '2') {
-      currentActiveTab.value = 'ACCOUNTING';
-      page = 'accounting';
-      router.replace({
-        params: { page: 'accounting' },
-        query: { q: applyNo, readonly: reviewerInfo.STEP_STS }
-      });
-    }*/
-  } catch (e) {
-    $swal.fail(e);
-    // 失敗返回個人化首頁
-    router.replace({ name: 'home' });
-  } finally {
-    isLoading.value = false;
-  }
+  // 如果STEP_STS是2，要開啟核算結果
+  if (reviewerInfo.STEP_STS === '2') {
+    currentActiveTab.value = 'ACCOUNTING';
+    page = 'accounting';
+    router.replace({
+      params: { page: 'accounting' },
+      query: { q: applyNo, readonly: reviewerInfo.STEP_STS }
+    });
+  }*/
+} catch (e) {
+  $swal.fail(e);
+  // 失敗返回個人化首頁
+  router.replace({ name: 'home' });
+} finally {
+  isLoading.value = false;
+}
 
-  // 置換Component
-  changeComponent(page);
+// 置換Component
+changeComponent(page);
 
-  // 監聽路由變化切換tab
-  watch(
-    () => route.params.page,
-    async (params) => {
-      if (route.name === 'master-page') {
-        console.log('[page].vue page>>>' + params);
-        console.log('[page].vue page>>>' + page);
-        if (page !== params) {
-          changeComponent(params);
-          page = params;
-          currentActiveTab.value = toUpper(page);
-        }
+// 監聽路由變化切換tab
+watch(
+  () => route.params.page,
+  async (params) => {
+    if (route.name === 'master-page') {
+      console.log('[page].vue page>>>' + params);
+      console.log('[page].vue page>>>' + page);
+      if (page !== params) {
+        changeComponent(params);
+        page = params;
+        currentActiveTab.value = toUpper(page);
       }
     }
-  );
+  }
+);
 
-   /* 先註解
-  // 監聽是否disable整頁
-  // watch(
-  //   () => route.query?.readonly,
-  //   async (readonly) => {
-  //     isReadonly.value = readonly >= 0;
-  //   }
-  //   // { immediate: true }
-  // );
+/* 先註解
+// 監聽是否disable整頁
+// watch(
+//   () => route.query?.readonly,
+//   async (readonly) => {
+//     isReadonly.value = readonly >= 0;
+//   }
+//   // { immediate: true }
+// );
 
-  const onExitSearchCallback = () => {
-    asideState.value = AsideState.Decision;
-  };
+const onExitSearchCallback = () => {
+ asideState.value = AsideState.Decision;
+};
 
-  // 於覆核如擬後立即關閉視窗卡控提示訊息
-  const onBeforeUnload = (event) => {
-    if(decisionStore.enableBeforeunload) {
-      event.preventDefault()      
-      event.returnValue = ''    
-    }  
-  };
+// 於覆核如擬後立即關閉視窗卡控提示訊息
+const onBeforeUnload = (event) => {
+ if(decisionStore.enableBeforeunload) {
+   event.preventDefault()      
+   event.returnValue = ''    
+ }  
+};
 
-  onMounted(() => {
-    window.addEventListener('beforeunload', onBeforeUnload) 
-  });
+onMounted(() => {
+ window.addEventListener('beforeunload', onBeforeUnload) 
+});
 
-  onBeforeUnmount(() => {
-    window.removeEventListener('beforeunload', onBeforeUnload);
-  });*/
-  console.log(123123)
+onBeforeUnmount(() => {
+ window.removeEventListener('beforeunload', onBeforeUnload);
+});*/
 </script>
 <style lang="scss"></style>
