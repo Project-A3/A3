@@ -1944,7 +1944,9 @@ import OpProdModal from './Modals/OpProdModal.vue';
   const { getROCDate, getDate, isSameOrAfter } = useMoment();
   const diagData = toRef(props, 'diagData');
   // 只顯示不是D的
+  // thêm dữ liệu ảo showingDiags
   const showingDiags = computed(() =>
+ 
     diagData.value?.DIAG_DATA ? diagData.value?.DIAG_DATA.filter((e) => e.ACT_CD !== 'D') : []
   );
 
