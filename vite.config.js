@@ -4,7 +4,7 @@ import MultiInput from 'rollup-plugin-multi-input';
 import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
 import Pages from 'vite-plugin-pages';
-
+import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const config = {
@@ -53,6 +53,7 @@ export default defineConfig(({ command, mode }) => {
       AutoImport({
         imports: ['vue', 'vue-router']
       })
+      ,vueDevTools()
     ]
   };
   
