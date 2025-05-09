@@ -1,26 +1,50 @@
 <template>
-  <LifeCycleHook :onKeydownSave="saveData">
+   <!--先註解 <LifeCycleHook :onKeydownSave="saveData">
+    <LifeCycleHook>-->
     <SubHeader></SubHeader>
+   
+    <BasicInfo :basicData="basicData" :applyNo="props.applyNo"></BasicInfo>
 
-    <!-- First-Card 基本資料-->
-    <BasicInfo :basicData="basicData" :applyNo="props.applyNo" :isEditable="true"></BasicInfo>
+    <div style="display: flex">
+      <InsrdInfo :basicData="basicData" style="flex: 1;"></InsrdInfo>
+      <RequestInfo :basicData="basicData" style="flex: 1;"></RequestInfo>
+    </div>
+
+    <EventInfo :basicData="basicData"></EventInfo>
+
+    <div style="display: flex">
+      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
+      <OtherInfo :basicData="basicData" style="flex: 1;"></OtherInfo>
+    </div>
+
+    <!-- <div style="display: flex; gap: 16px; width: 100%;">
+      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
+      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
+    </div>
+
+    <div style="display: flex; gap: 16px; width: 100%;">
+      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
+      <TrusteeInfo :basicData="basicData" style="flex: 1;"></TrusteeInfo>
+    </div> -->
+    <!--其他
+    <OtherInfo :basicData="basicData"></OtherInfo>-->
+
+    <!--先註解  Second Card 事故/索賠資料
+    <ClaimArea :claimData="claimData"></ClaimArea> -->
+
+    <!--先註解  Third Card 診斷書
+    <DiagArea :diagData="diagData"></DiagArea> -->
+
+    <!--先註解  Fourth Card 收據
+    <ReceiptArea :receiptData="receiptData"></ReceiptArea> -->
+
+    <!--先註解  Sixth Card 實物給付
+    <InKindPayArea :inKindPayData="inKindPayData"></InKindPayArea> -->
     
-    <!-- Second Card 事故/索賠資料 -->
-    <ClaimArea :claimData="claimData"></ClaimArea>
-
-    <!-- Third Card 診斷書 -->
-    <DiagArea :diagData="diagData"></DiagArea>
-
-    <!-- Fourth Card 收據 -->
-    <ReceiptArea :receiptData="receiptData"></ReceiptArea>
-
-    <!-- Sixth Card 實物給付 -->
-    <InKindPayArea :inKindPayData="inKindPayData"></InKindPayArea>
-    
-    <!-- Fifth Card 大額給付 -->
-    <HighSettlementArea :highSettlementData="highSettlementData"></HighSettlementArea>
-  </LifeCycleHook>
-  <!-- checkbox preload -->
+    <!--先註解 Fifth Card 大額給付
+    <HighSettlementArea :highSettlementData="highSettlementData"></HighSettlementArea> 
+  </LifeCycleHook>-->
+  <!--先註解 checkbox preload
   <div class="is-none">
     <label>
       <input type="checkbox" />
@@ -30,41 +54,49 @@
       <input type="checkbox" checked />
       <span></span>
     </label>
-  </div>
+  </div> -->
 </template>
 <script>
-  export default {
+  /*先註解 export default {
     name: 'Apply',
     inheritAttrs: false,
     customOptions: {}
-  };
+  };*/
 </script>
 <script setup>
-  import { isEmpty } from 'lodash-es';
+//先註解 import { isEmpty } from 'lodash-es';
 import { storeToRefs } from 'pinia';
 import BasicInfo from '~/components/BasicInfo.vue';
+import InsrdInfo from './InsrdInfo.vue';
+import TrusteeInfo from './TrusteeInfo.vue';
+import RequestInfo from './RequestInfo.vue';
+import EventInfo from './EventInfo.vue';
+/*先註解 import TrusteeInfo from '~/components/TrusteeInfo.vue';
+import OtherInfo from '~/components/OtherInfo.vue';
 import LifeCycleHook from '~/components/LifeCycleHook.vue';
-import useSwal from '~/composables/useSwal';
+import useSwal from '~/composables/useSwal';*/
 import { useApplyStore } from '~/stores/apply';
-import { useDecisionStore } from '~/stores/decision';
+/*先註解 import { useDecisionStore } from '~/stores/decision';
 import { useFooterStore } from '~/stores/footer';
 import ClaimArea from './ClaimArea.vue';
 import DiagArea from './DiagArea.vue';
 import HighSettlementArea from './HighSettlementArea.vue';
 import InKindPayArea from './InKindPayArea.vue';
-import ReceiptArea from './ReceiptArea.vue';
+import ReceiptArea from './ReceiptArea.vue';*/
 import SubHeader from './SubHeader.vue';
+import OtherInfo from './OtherInfo.vue';
 
-  const props = defineProps({
+const props = defineProps({
     applyNo: {
       type: String,
       required: true
     }
   });
-  const { $swal } = useSwal();
-  const footerStore = useFooterStore();
+
+  //先註解 const { $swal } = useSwal();
+  //先註解 const footerStore = useFooterStore();
   const applyStore = useApplyStore();
-  const decisionStore = useDecisionStore();
+  /*先註解 const decisionStore = useDecisionStore(); */
 
   // 改成在[page]呼叫
   // const isLoading = inject('isLoading');
@@ -73,13 +105,16 @@ import SubHeader from './SubHeader.vue';
   // let message = await applyStore.getAllData(props.applyNo);
   // if (!isEmpty(message.trim())) $swal.fail(message);
   // isLoading.value = false;
-  const { basicData, claimData, diagData, receiptData, highSettlementData, inKindPayData, isLifeSchool } = storeToRefs(applyStore);
+  //先註解 const { basicData, claimData, diagData, receiptData, highSettlementData, inKindPayData, isLifeSchool } = storeToRefs(applyStore);
+  const { basicData } = storeToRefs(applyStore);
 
+  
   // 重新讀取基本資料
   applyStore.showLoading();
   await applyStore.getBasicData(props.applyNo);
   applyStore.hideLoading();
-
+  
+/* 先註解
   // 設定Footer資料
   footerStore.setFooterData({
     applyNo: props.applyNo,
@@ -244,7 +279,7 @@ import SubHeader from './SubHeader.vue';
     if(onRiskinfo || offRiskinfo){
       decisionStore.refreshRiskinfo(riskInfo);
     }
-  };
+  };*/
   // onMounted(async () => {
   //   // preload image
   //   let image = new Image();
