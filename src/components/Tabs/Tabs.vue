@@ -27,9 +27,20 @@
   const slots = useSlots();
   const tabRef = ref(null);
   // await nextTick();
-  let slotDefault = computed(() => (slots.default()[0].props ? slots.default() : slots.default()[0].children));
-  const tabProps = computed(() => slotDefault.value.map((m) => m.props));
-  // console.log(slots.default());
+  //0100644068 Doan Ngoc Thanh comment
+  // let slotDefault = computed(() => (slots.default()[0].props ? slots.default() : slots.default()[0].children));
+  // const tabProps = computed(() => slotDefault.value.map((m) => m.props));
+  // Start Doan Ngoc Thanh edit code
+  let slotDefault = computed(() => {
+    const defaultSlot = slots.default();
+    if (Array.isArray(defaultSlot)) {
+      return defaultSlot[0].props ? defaultSlot : defaultSlot[0]?.children || [];
+    }
+    return [];
+  });
+  const tabProps = computed(() => Array.isArray(slotDefault.value) ? slotDefault.value.map((m) => m.props) : []);
+  // End Doan Ngoc Thanh edit code
+  console.log(slots.default());
   // console.log(tabProps);
   const tabIds = reactive([]);
   const onTabClick = (index, id) => {
