@@ -27,12 +27,12 @@
       <div class="column ml-5">
         <span class="field mr-12"><cathay-translate code="Component_BasicInfo_005" /></span>
         <span class="data">
-          {{ getROCDate(basicData.REQUEST_BIRTH_DATE) }} (<span :class="{ 'has-text-danger': ocrAge < 18 }"> {{ ocrAge }} <cathay-translate code="Component_BasicInfo_006" /></span>)
+          {{ getROCDate(basicData.INSURED_BIRTHDAY) }} (<span :class="{ 'has-text-danger': ocrAge < 18 }"> {{ ocrAge }} <cathay-translate code="Component_BasicInfo_006" /></span>)
         </span>
       </div>
       <div class="column ml-5">
         <span class="field"><cathay-translate code="Component_BasicInfo_007" /></span>
-        <span class="data font-eudc">{{ basicData.CTN_SNAME }}</span>
+        <span class="data font-eudc">{{ getCountryLangKey(basicData.CTN_SNAME) }}</span>
       </div>
       <div class="column">
         <div v-for="tag in basicData.CASE_TAG" class="tag sticky-tags" :key="tag.TAG_NAME">
@@ -43,6 +43,7 @@
   </div>
 </template>
 <script setup>
+import { getCountryLangKey } from '~/common/utils/country';
 import useMoment from '~/composables/useMoment.js';
 
   const { getROCDate, getOcrAge } = useMoment();
@@ -54,17 +55,11 @@ import useMoment from '~/composables/useMoment.js';
     applyNo: {
       type: String,
       required: true
-    },
-    claimData: {
-      type: Object,
-      required: true,
-      default: {}
     }
   });
   
   const basicData = toRef(props, 'basicData');
   const applyNo = toRef(props, 'applyNo');
-  const claimData = toRef(props, 'claimData');
-  const ocrAge = computed(() => getOcrAge(claimData.value.INSURED_DATE, basicData.value.REQUEST_BIRTH_DATE));
+  const ocrAge = computed(() => getOcrAge(basicData.value.INSURED_DATE, basicData.value.INSURED_BIRTHDAY));
 
 </script>
