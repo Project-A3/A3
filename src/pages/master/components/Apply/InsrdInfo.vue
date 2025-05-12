@@ -10,13 +10,15 @@
     <div class="columns non-sticky-columns has-flex-column">
       <div class="column">
         <span class="field"><cathay-translate code="Component_InsrdInfo_003" /></span>
-        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }} {{ basicData.INSRD_ADDR }}</span>
+        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }}</span>
+        <span class="data">{{ basicData.INSRD_ADDR }} </span>
       </div>
     </div>
     <div class="columns non-sticky-columns has-flex-column">
       <div class="column">
         <span class="field"><cathay-translate code="Component_InsrdInfo_004" /></span>
-        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }} {{ basicData.INSRD_ADDR }}</span>
+        <span class="data">{{ basicData.INSRD_POSTAL_CODE1 }}{{ basicData.INSRD_POSTAL_CODE2 }}</span>
+        <span class="data">{{ basicData.INSRD_ADDR }} </span>
       </div>
     </div>
     <div class="columns non-sticky-columns has-flex-column">

@@ -5,45 +5,50 @@
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Mối quan hệ của người yêu cầu</span>
-                <span class="data">
                     <BaseDropdown 
-                        :options= "listRltpOptions"
+                        :options="listRltp"
                         class="height-limit is-outline sign-level"
-                        :onSelected="onDropdownSelected" 
+                        @selected="eventListRltp" 
                         v-model="basicData.REQUEST_BEN_RLTP"
                     ></BaseDropdown>
-                    
-                </span>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Tên người yêu cầu</span>
-                <span class="data">
-                    <FormInput type="text" class="w-330" v-model="basicData.REQUEST_NAME"></FormInput>
-                </span>
+                    <FormInput 
+                        type="text" 
+                        class="w-330" 
+                        v-model="basicData.REQUEST_NAME"
+                    ></FormInput>
             </div>
             
             <div class="column">
                 <span class="field">Ngày sinh</span>
-                <DatetimePicker v-model="basicData.REQUEST_BIRTH_DATE" style="width: 180px"></DatetimePicker>
+                <DatetimePicker 
+                    v-model="basicData.REQUEST_BIRTH_DATE" 
+                    style="width: 180px"
+                ></DatetimePicker>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Loại giấy chứng nhận</span>
-                <span class="data">
                     <BaseDropdown 
                         :options="listCrtType" 
+                        @selected="eventListCrtType"
                         v-model="basicData.REQUEST_CERTI_TYPE" 
                         class="height-limit is-outline sign-level"
                     ></BaseDropdown>
-                </span>
             </div>
             <div class="column">
                 <span class="field">Mã giấy chứng nhận</span>
                 <span class="data">
-                    <FormInput type="text" class="w-330" v-model="basicData.REQUEST_CERTI_NUM"></FormInput>
+                    <FormInput 
+                    type="text" 
+                    class="w-330" 
+                    v-model="basicData.REQUEST_CERTI_NUM"
+                    ></FormInput>
                 </span>
             </div>
         </div>
@@ -56,22 +61,32 @@
                     :inputStyle="{
                         width: '100%'
                     }"
+                    :schema="string().required('Không được để trống')"
+                    fitContent="true"
                     ></EditableInput>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Điện thoại liên lạc</span>
-                <span class="data">
-                    <EditableInput type="text" class="w-330" v-model="basicData.REQUEST_TELEPHONE_NUM"></EditableInput>
-                </span>
+                    <EditableInput 
+                        type="text" 
+                        class="w-330" 
+                        v-model="basicData.REQUEST_TELEPHONE_NUM"
+                    ></EditableInput>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Điện thoại di động</span>
                 <span class="data">
-                    <EditableInput type="text" class="w-330" v-model="basicData.REQUEST_MOBILE_NUM"></EditableInput>
+                    <EditableInput 
+                        type="text" 
+                        class="w-330" 
+                        v-model="basicData.REQUEST_MOBILE_NUM"
+                        fitContent="true"
+                        :schema="string().required('Không được để trống').max(10, 'Số điện thoại không hợp lệ')"
+                        ></EditableInput>
                 </span>
             </div>
         </div>
@@ -79,7 +94,8 @@
             <div class="column">
                 <span class="field">Email</span>
                 <span class="data">
-                    <EditableInput type="text" class="w-160" v-model="basicData.REQUEST_EMAIL"></EditableInput>
+                    <EditableInput type="text"                     :schema="string().required('Không được để trống')"
+                     class="w-160" v-model="basicData.REQUEST_EMAIL"></EditableInput>
                 </span>
             </div>
         </div>
@@ -89,9 +105,12 @@
 import BaseDropdown from '~/components/BaseDropdown.vue';
 import FormInput from '~/components/Form/FormInput.vue';
 import { useLanguageStore } from '~/stores/language';
-import useMoment from '~/composables/useMoment.js';
 import EditableInput from '~/components/Editable/EditableInput.vue';
 import DatetimePicker from '~/components/DatetimePicker.vue';
+import { string } from 'yup';
+import useSwal from '~/composables/useSwal';
+import { toRef, ref } from 'vue';
+
 
 const props = defineProps({
     basicData: {
@@ -100,19 +119,13 @@ const props = defineProps({
     }
 });
 
+const { $swal } = useSwal();
 const basicData = toRef(props, 'basicData');
 let theBasicData = basicData.value;
-// let INSRD_PHONE_REGION = theBasicData.INSRD_PHONE_REGION;
+
 const language = useLanguageStore();
 
-const { getROCDate } = useMoment();
-const listRltpOptions = ref([
-    {
-        langKey: 'Stores_Relationship_000', // 事故人身分證
-        name: language.translate('Stores_Relationship_000'), // 事故人身分證
-        value: '0',
-        selected: theBasicData.REQUEST_BEN_RLTP === '0'
-    },
+const listRltp = ref([
     {
         langKey: 'Stores_Relationship_001', // 事故人出生證
         name: language.translate('Stores_Relationship_001'), // 事故人出生證
@@ -146,12 +159,6 @@ const listRltpOptions = ref([
 ]);
 const listCrtType = ref([
     {
-        langKey: 'Stores_Relationship_000', // 事故人身分證
-        name: language.translate('Stores_Relationship_000'), // 事故人身分證
-        value: '0',
-        selected: theBasicData.REQUEST_CERTI_TYPE === '0'
-    },
-    {
         langKey: 'Stores_QuickSearch_002', // 事故人身分證
         name: language.translate('Stores_QuickSearch_002'), // 事故人身分證
         value: '1',
@@ -178,24 +185,35 @@ const listCrtType = ref([
 ]);
 
 
-const onDropdownSelected = (value) => {
-    theBasicData.REQUEST_CERTI_TYPE = value;
-
+const eventListRltp = (value) => {
     if (value === '0') {
-        alert('事故人身分證');
-    } 
-    if (value !== '1') {
+        $swal.fail('Vui lòng chọn mối quan hệ của người yêu cầu!!');
+    } else if (value === '1') {
+        theBasicData.REQUEST_NAME = theBasicData.INSURED_NAME;
+        theBasicData.REQUEST_BIRTH_DATE =  theBasicData.INSURED_BIRTHDAY;
+        theBasicData.REQUEST_CERTI_TYPE = theBasicData.INSURED_CERTI_TYPE;
+        theBasicData.REQUEST_CERTI_NUM = theBasicData.INSURED_ID;
+        theBasicData.REQUEST_ADDRESS = theBasicData.INSRD_ADDR;
+        theBasicData.REQUEST_MOBILE_NUM = theBasicData.INSRD_MOBILE;
+        theBasicData.REQUEST_EMAIL = theBasicData.INSRD_EMAIL;
+    } else {
         theBasicData.REQUEST_NAME = '';
         theBasicData.REQUEST_BIRTH_DATE = '';
-        theBasicData.REQUEST_CERTI_TYPE = '0';
-        listCrtType.value.forEach(option => {
-            option.selected = option.value === '0';
-        });
+        theBasicData.REQUEST_CERTI_TYPE = '';
         theBasicData.REQUEST_CERTI_NUM = '';
         theBasicData.REQUEST_ADDRESS = '';
         theBasicData.REQUEST_MOBILE_NUM = '';
         theBasicData.REQUEST_TELEPHONE_NUM = '';
         theBasicData.REQUEST_EMAIL = '';
     }
+
 };
+
+const eventListCrtType = (value) => {
+    if (value === '0') {
+        $swal.fail('Vui lòng chọn loại giấy chứng nhận');
+    } 
+};
+
+
 </script>

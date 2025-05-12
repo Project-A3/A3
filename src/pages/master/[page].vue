@@ -190,6 +190,5 @@
   onBeforeUnmount(() => {
     window.removeEventListener('beforeunload', onBeforeUnload);
   });*/
-  console.log(123123)
 </script>
 <style lang="scss"></style>

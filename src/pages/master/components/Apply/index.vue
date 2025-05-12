@@ -55,6 +55,7 @@
 <script setup>
 //先註解 import { isEmpty } from 'lodash-es';
 import { storeToRefs } from 'pinia';
+import initUI from '~/common/ui/initial';
 import BasicInfo from '~/components/BasicInfo.vue';
 import InsrdInfo from './InsrdInfo.vue';
 import TrusteeInfo from './TrusteeInfo.vue';
@@ -251,12 +252,18 @@ const highSettlementData = ref({
     },
   ],
 });
+
+
+  onActivated(() => {
+    initUI();
+  });
   // End 0100644068 Doan Ngoc Thanh mockup data
   // 重新讀取基本資料
   applyStore.showLoading();
   await applyStore.getBasicData(props.applyNo);
   applyStore.hideLoading();
-  
+
+
 /* 先註解
   // 設定Footer資料
   footerStore.setFooterData({

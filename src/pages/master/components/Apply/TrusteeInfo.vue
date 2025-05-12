@@ -79,20 +79,5 @@ const props = defineProps({
 });
 
 const basicData = toRef(props, 'basicData');
-let theBasicData = basicData.value;
-let INSRD_PHONE_REGION = theBasicData.INSRD_PHONE_REGION;
-let INSRD_PHONE = theBasicData.INSRD_PHONE;
-let INSRD_EXTENSION = theBasicData.INSRD_EXTENSION;
-let PHONE = '';
-if (INSRD_PHONE_REGION && INSRD_PHONE) {
-    PHONE = INSRD_PHONE_REGION + '-' + INSRD_PHONE;
-    if (INSRD_EXTENSION) {
-        PHONE += '#' + INSRD_EXTENSION;
-    }
-} else if (INSRD_PHONE && INSRD_EXTENSION) {
-    PHONE = INSRD_PHONE + '#' + INSRD_EXTENSION;
-} else if (INSRD_PHONE) {
-    PHONE = INSRD_PHONE;
-}
 
 </script>
