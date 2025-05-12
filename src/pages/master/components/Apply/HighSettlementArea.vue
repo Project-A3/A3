@@ -8,12 +8,12 @@
     <button class="card-toggle-btn expand"></button>
 
     <!-- 大額給付 -->
-    <h2>大額給付</h2>
+    <h2><cathay-translate code="Component_HighSettlementArea_001"/></h2>
 
     <div class="part border-none">
       <div class="columns has-flex-column">
         <div class="column">
-          <span class="field has-tippy">符合大額給付狀態發生日</span>
+          <span class="field has-tippy"> <cathay-translate code="Component_HighSettlementArea_002"/></span>
           <EditableDatePicker
             v-model="highSettlementData.CFM_DISB_DATE"
             :schema="
@@ -726,84 +726,84 @@
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('DEATH_DATA')"
           >
-            新增死亡給付
+            <cathay-translate code="Component_HighSettlementArea_003"/>
           </button>
           <button
             v-if="!highSettlementData.FULLDISB_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('FULLDISB_DATA')"
           >
-            新增完全失能項目
+             <cathay-translate code="Component_HighSettlementArea_004"/>
           </button>
           <button
             v-if="!highSettlementData.DISB_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('DISB_DATA')"
           >
-            新增失能給付
+             <cathay-translate code="Component_HighSettlementArea_005"/>
           </button>
           <button
             v-if="!highSettlementData.HEVY_DIS_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('HEVY_DIS_DATA')"
           >
-            新增重大疾病或特定傷病給付
+          <cathay-translate code="Component_HighSettlementArea_006"/>
           </button>
           <button
             v-if="!highSettlementData.LONG_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('LONG_DATA')"
           >
-            新增長期看護
+          <cathay-translate code="Component_HighSettlementArea_007"/>
           </button>
           <button
             v-if="!highSettlementData.WAIVER_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('WAIVER_DATA')"
           >
-            新增豁免表示
+          <cathay-translate code="Component_HighSettlementArea_008"/>
           </button>
           <button
             v-if="!highSettlementData.BURN_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('BURN_DATA')"
           >
-            新增燒燙傷表示
+          <cathay-translate code="Component_HighSettlementArea_009"/>
           </button>
           <button
             v-if="!highSettlementData.PERIOD_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('PERIOD_DATA')"
           >
-            新增定期給付保險金
+          <cathay-translate code="Component_HighSettlementArea_010"/>
           </button>
           <button
             v-if="!highSettlementData.LIFEEND_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('LIFEEND_DATA')"
           >
-            新增生命末期
+          <cathay-translate code="Component_HighSettlementArea_011"/>
           </button>
           <button
             v-if="!highSettlementData.FEMALE_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('FEMALE_DATA')"
           >
-            新增婦女津貼
+          <cathay-translate code="Component_HighSettlementArea_012"/>
           </button>
           <button
             v-if="!highSettlementData.SPECIAL_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('SPECIAL_DATA')"
           >
-            新增特殊
+          <cathay-translate code="Component_HighSettlementArea_013"/>
           </button>
           <button
             v-if="!isShowInKindPayArea"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addInKindPayArea()"
           >
-            新增實物給付
+          <cathay-translate code="Component_HighSettlementArea_014"/>
           </button>
         </div>
       </div>
