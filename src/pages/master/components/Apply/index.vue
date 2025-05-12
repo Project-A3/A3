@@ -25,7 +25,7 @@
     <DiagArea :diagData="diagData"></DiagArea> -->
 
     <!--先註解  Fourth Card 收據
-    <ReceiptArea :receiptData="receiptData"></ReceiptArea> -->
+    <ReceiptArea :receiptData="receiptData"></ReceiptArea> -->  
 
     <!--先註解  Sixth Card 實物給付
     <InKindPayArea :inKindPayData="inKindPayData"></InKindPayArea> -->
