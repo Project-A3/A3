@@ -16,6 +16,10 @@
     <ErrorTippy :errors="errors" @click.native="onClickField"></ErrorTippy>
   </div>
 </template>
+<script>
+  import { useLanguageStore } from "~/stores/language";
+  const  language=useLanguageStore();
+  </script>
 <script setup>
   import { isEmpty } from 'lodash-es';
   import useEditableField from '~/composables/useEditableField';
@@ -46,7 +50,7 @@
     placeholder: {
       type: String,
       required: false,
-      default: '請選擇'
+      default: language.translate("Component_HighSettlementArea_061")
     },
     placeholderOnlyTrigger: {
       type: Boolean,

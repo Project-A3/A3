@@ -28,11 +28,17 @@
     <ErrorTippy :errors="errors" @click.native="onClickField"></ErrorTippy>
   </div>
 </template>
+<script>
+  import { useLanguageStore } from "~/stores/language";
+  const  language=useLanguageStore();
+</script>
 <script setup>
   import useEditableField from '~/composables/useEditableField';
   import BaseDropdown from '../BaseDropdown.vue';
   import ErrorTippy from './ErrorTippy.vue';
+
   const props = defineProps({
+   
     fitContent: {
       type: Boolean,
       required: false,
@@ -66,7 +72,7 @@
     nonSelectedText: {
       type: String,
       required: false,
-      default: '請選擇'
+      default: language.translate("Component_HighSettlementArea_061")
     },
     // 監聽的欄位，有變動要Refresh option
     watchValue: {

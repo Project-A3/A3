@@ -5,7 +5,7 @@
       <!-- 查詢區域 -->
       <div class="columns pr-6 pl-1">
         <div class="column p-0">
-          <input class="font-eudc" v-model="hospitalName" type="text" placeholder="請輸入醫院名稱（非必填）" />
+          <input class="font-eudc" v-model="hospitalName" type="text" placeholder="ÉG" />
         </div>
         <div class="is-4 column p-0 ml-4">
           <FormDropdown
