@@ -61,7 +61,6 @@
                     :inputStyle="{
                         width: '100%'
                     }"
-                    :schema="string().required('Không được để trống')"
                     fitContent="true"
                     ></EditableInput>
             </div>
@@ -79,24 +78,23 @@
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Điện thoại di động</span>
-                <span class="data">
                     <EditableInput 
                         type="text" 
-                        class="w-330" 
                         v-model="basicData.REQUEST_MOBILE_NUM"
-                        fitContent="true"
-                        :schema="string().required('Không được để trống').max(10, 'Số điện thoại không hợp lệ')"
                         ></EditableInput>
-                </span>
             </div>
         </div>
         <div class="columns non-sticky-columns has-flex-column">
             <div class="column">
                 <span class="field">Email</span>
-                <span class="data">
-                    <EditableInput type="text"                     :schema="string().required('Không được để trống')"
-                     class="w-160" v-model="basicData.REQUEST_EMAIL"></EditableInput>
-                </span>
+                    <EditableInput 
+                    type="text" 
+                    v-model="basicData.REQUEST_EMAIL"
+                    :inputStyle="{
+                        width: '50%'
+                    }"
+                    fitContent="true"
+                    ></EditableInput>
             </div>
         </div>
     </div>
@@ -122,7 +120,7 @@ const props = defineProps({
 const { $swal } = useSwal();
 const basicData = toRef(props, 'basicData');
 let theBasicData = basicData.value;
-
+console.log('theBasicData', theBasicData);
 const language = useLanguageStore();
 
 const listRltp = ref([
@@ -186,20 +184,36 @@ const listCrtType = ref([
 
 
 const eventListRltp = (value) => {
-    if (value === '0') {
-        $swal.fail('Vui lòng chọn mối quan hệ của người yêu cầu!!');
-    } else if (value === '1') {
+     if (value === '1') {
         theBasicData.REQUEST_NAME = theBasicData.INSURED_NAME;
         theBasicData.REQUEST_BIRTH_DATE =  theBasicData.INSURED_BIRTHDAY;
         theBasicData.REQUEST_CERTI_TYPE = theBasicData.INSURED_CERTI_TYPE;
+        
+        listCrtType.value.forEach((item) => {
+            if (item.value === theBasicData.INSURED_CERTI_TYPE) {
+                item.selected = true;
+            } else {
+                item.selected = false;
+            }
+        });
+
         theBasicData.REQUEST_CERTI_NUM = theBasicData.INSURED_ID;
         theBasicData.REQUEST_ADDRESS = theBasicData.INSRD_ADDR;
         theBasicData.REQUEST_MOBILE_NUM = theBasicData.INSRD_MOBILE;
         theBasicData.REQUEST_EMAIL = theBasicData.INSRD_EMAIL;
     } else {
         theBasicData.REQUEST_NAME = '';
-        theBasicData.REQUEST_BIRTH_DATE = '';
-        theBasicData.REQUEST_CERTI_TYPE = '';
+        theBasicData.REQUEST_BIRTH_DATE = null;
+        theBasicData.REQUEST_CERTI_TYPE = '1';
+
+        listCrtType.value.forEach((item) => {
+            if (item.value === '1') {
+                item.selected = true;
+            } else {
+                item.selected = false;
+            }
+        });
+
         theBasicData.REQUEST_CERTI_NUM = '';
         theBasicData.REQUEST_ADDRESS = '';
         theBasicData.REQUEST_MOBILE_NUM = '';

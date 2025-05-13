@@ -891,3 +891,10 @@ export const apiSemiAutomatic330 = (params) => apiClient.post('AA_B3Z330.semiAut
 export const apiSaveNotExecReason = (params) => apiClient.post('AA_A0Z026.saveNotExecReason', params);
 
 //#endregion
+
+
+export const apiGetTrusteeEEID = (params) => apiClient.post('AA_B3Z100.getTrusteeEEID', params);
+
+//#endregion
+
+

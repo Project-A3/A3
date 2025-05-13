@@ -2,7 +2,8 @@ import { cloneDeep, differenceWith, isEqual } from 'lodash-es';
 import { defineStore } from 'pinia';
 import {
   apiReadApplicationData,
-  apiReadBasicData
+  apiReadBasicData,
+  apiGetTrusteeEEID
 } from '~/common/api';
 import { useLanguageStore } from './language';
 /*先註解 import {
@@ -1071,6 +1072,21 @@ export const useApplyStore = defineStore('apply', {
       } catch (e) {
         throw e;
       }*/
-    }
+    }, 
+
+    /**
+     * 取得員工等級
+     * @param {String} trusteeEEID 保單號碼
+     */
+    async getTrusteeEEID(trusteeEEID) {
+      try {
+        let response = await apiGetTrusteeEEID([trusteeEEID]);
+        let result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        return result.EmpInfo;
+      } catch (e) {
+        throw e;
+      }
+    },
   }
 });

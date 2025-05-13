@@ -20,6 +20,8 @@
   });
   const pickerRef = ref(null);
   const emit = defineEmits(['update:modelValue']);
+
+  let datetimePicker;
   onMounted(() => {
     const isRange = props.option?.isRange;
     if (isRange && props.modelValue) {
@@ -29,11 +31,14 @@
     }
     props.option.showClearButton = true;
     props.option.maxDate = new Date();
-    const { datetimePicker } = useDatetimePicker(pickerRef.value, props.option);
+
+    const dp = useDatetimePicker(pickerRef.value, props.option);
+    datetimePicker = dp.datetimePicker;
 
     if (props.modelValue) {
       datetimePicker.value(props.modelValue);
     }
+    
 
     datetimePicker.onSave = async (CEDate, ROCDate) => {
       console.log('save');
@@ -53,6 +58,15 @@
       emit('update:modelValue', CEDate);
     };
   });
+
+  watch(
+    () => props.modelValue,
+    (newVal) => {
+      if (datetimePicker && datetimePicker.value) {
+        datetimePicker.value(newVal);
+      }
+    }
+  );
 </script>
 
 <style lang="scss" scoped></style>

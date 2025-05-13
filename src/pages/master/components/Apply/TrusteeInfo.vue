@@ -7,7 +7,12 @@
                 <span class="field">Mã đại lý</span>
                 <div style="display: flex; align-items: center;">
                     <FormInput type="text" class="w-330" v-model="basicData.TRUSTEE_EE_ID"></FormInput>
-                    <button type="button" class="button button-enter-case" style="margin-left: 8px;">
+                    <button 
+                        type="button" 
+                        class="button is-primary" 
+                        style="margin-left: 8px;" 
+                        @click="fetchTrusteeEEID"
+                        >
                         Tìm
                     </button>
                 </div>
@@ -71,6 +76,10 @@
 import FormInput from '~/components/Form/FormInput.vue';
 import EditableInput from '~/components/Editable/EditableInput.vue';
 
+import { useApplyStore } from '~/stores/apply';
+
+const applyStore = useApplyStore();
+
 const props = defineProps({
     basicData: {
         type: Object,
@@ -80,4 +89,10 @@ const props = defineProps({
 
 const basicData = toRef(props, 'basicData');
 
+const fetchTrusteeEEID = async () => {
+    let trustee = await applyStore.getTrusteeEEID(props.basicData.TRUSTEE_EE_ID);
+    basicData.value.TRUSTEE_NAME = trustee.map.EMP_NAME;
+    basicData.value.TRUSTEE_MOBILE = trustee.map.MOBILE;
+    basicData.value.TRUSTEE_EMAIL = trustee.map.EMAIL;
+};
 </script>
