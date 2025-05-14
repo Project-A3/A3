@@ -1,7 +1,8 @@
 <template>
   <div class="card is-full third-card is-expanded" id="ApplyThirdCard" ref="diagArea">
     <button class="card-toggle-btn expand"></button>
-    <h2>診斷書</h2>
+
+    <h2><cathay-translate code="Component_DiagArea_01"/></h2>
     <Tabs @onTabClick="onTabChanged" ref="diagTabs" class="folder-style">
       <Tab
         v-for="(diag, diagIndex) in showingDiags"
@@ -14,10 +15,10 @@
           <!-- 診斷書1 -->
           <!-- 基本資料 -->
           <div class="part border-none">
-            <h3>基本資料</h3>
+            <h3> <cathay-translate code="Component_DiagArea_02"/></h3>
             <div class="columns has-flex-column">
               <div class="column is-3">
-                <span class="field">醫生科別</span>
+                <span class="field"> <cathay-translate code="Component_DiagArea_03"/></span>
                 <EditableModal
                   v-model:modelText="diag.CFM_MAIN_DEPNM"
                   v-model:modelText2="diag.CFM_SUB_DEPNM"
@@ -32,11 +33,11 @@
                 ></EditableModal>
               </div>
               <div class="column is-3">
-                <span class="field">醫師姓名</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_04"/></span>
                 <EditableInput v-model="diag.DOC_NAME" :schema="string().required('請輸入姓名')"></EditableInput>
               </div>
               <div class="column is-4">
-                <span class="field">醫院中文</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_05"/></span>
                 <EditableModal
                   v-model:modelText="diag.HOSP_NAME"
                   v-model:modelValue="diag.HOSP_CODE"
@@ -50,7 +51,8 @@
               </div>
               <div class="column is-2 hor-right p-0">
                 <button :disabled="!diag.HOSP_CODE" @click="onClickDiagVideo(diag.HOSP_CODE)" class="button apply-btn">
-                  正版診斷書影像
+                  
+                  <cathay-translate code="Component_DiagArea_06"/>
                 </button>
               </div>
             </div>
@@ -58,10 +60,10 @@
 
           <!-- 診斷資料 -->
           <div class="part">
-            <h3>診斷資料</h3>
+            <h3>     <cathay-translate code="Component_DiagArea_07"/></h3>
             <div class="columns has-flex-column">
               <div class="column">
-                <span class="field">診斷內容</span>
+                <span class="field"> <cathay-translate code="Component_DiagArea_08"/></span>
                 <EditableInput
                   :inputWidth="800"
                   v-model="diag.DIAG_CTX"
@@ -71,7 +73,7 @@
             </div>
             <div class="columns has-flex-column">
               <GroupEditable ref="icdGroups">
-                <span class="field">診斷病名</span>
+                <span class="field"> <cathay-translate code="Component_DiagArea_09"/></span>
                 <div class="columns">
                   <div class="column">
                     <EditableModal
@@ -189,7 +191,7 @@
             <!-- 癌症資料 -->
             <div class="columns has-flex-column" v-if="diag.CANCER_DATA">
               <div class="column is-3">
-                <span class="field has-tippy" data-tippy-content="資料資料">癌症分類</span>
+                <span class="field has-tippy" data-tippy-content="資料資料"> <cathay-translate code="Component_DiagArea_10"/></span>
                 <EditableModal
                   v-model:modelText="diag.CANCER_DATA[0].CFM_CANCER_NAME"
                   v-model:modelValue="diag.CANCER_DATA[0].CFM_CANCER_NO"
@@ -201,7 +203,7 @@
                 ></EditableModal>
               </div>
               <div class="column is-3">
-                <span class="field">癌症期別</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_11"/></span>
                 <EditableDropdown
                   v-model="diag.CANCER_DATA[0].CFM_CANCER_STG"
                   :options="[
@@ -217,7 +219,7 @@
                 ></EditableDropdown>
               </div>
               <div class="column is-6">
-                <span class="field">罹癌日期</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_12"/></span>
                 <EditableDatePicker v-model="diag.CANCER_DATA[0].CFM_CANCER_DATE"></EditableDatePicker>
               </div>
             </div>
@@ -225,14 +227,14 @@
               <div class="column is-3"></div>
               <div class="column is-3"></div>
               <div class="column is-6 has-text-danger">
-                若商品同時符合罹癌豁免保費條件，需於大額給付畫面<br>-輸入「符合發生日」並點選「豁免表示+癌症表示」。
+                 <cathay-translate code="Component_DiagArea_13"/><br>  <cathay-translate code="Component_DiagArea_14"/>
               </div>
             </div>
             <!-- //TODO: 尚未確認 -->
             <div class="columns" v-if="!diag.CANCER_DATA">
               <div class="column pt-1">
                 <button class="button apply-btn" @click="addCancerData(diag)">
-                  <span>新增癌症資料</span>
+                  <span> <cathay-translate code="Component_DiagArea_15"/> </span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -241,10 +243,10 @@
 
           <!-- 骨折換算資料 -->
           <div class="part" v-if="!hasBoneData || (diag.BONE_CODE_DATA?.length > 0 && diag.BONE_CODE_DATA[0]?.CFM_BONE_CODE)">
-            <h3>骨折換算資料</h3>
+            <h3> <cathay-translate code="Component_DiagArea_16"/></h3>
             <div class="columns has-flex-column" v-if="diag.BONE_CODE_DATA && diag.BONE_CODE_DATA.length > 0">
               <div class="column is-half">
-                <span class="field has-tippy" data-tippy-content="資料資料">骨折換算</span>
+                <span class="field has-tippy" data-tippy-content="資料資料"><cathay-translate code="Component_DiagArea_17"/> </span>
                 <EditableModal
                   v-model:modelText="diag.BONE_CODE_DATA[0].CFM_BONE_NAME"
                   v-model:modelValue="diag.BONE_CODE_DATA[0].CFM_BONE_CODE"
@@ -259,7 +261,7 @@
             <div class="columns" v-if="!diag.BONE_CODE_DATA">
               <div class="column pt-1">
                 <button class="button apply-btn" @click="addBoneCodeData(diag)">
-                  <span>新增骨折換算</span>
+                  <span> <cathay-translate code="Component_DiagArea_18"/></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -268,7 +270,7 @@
 
           <!-- 就醫資料 -->
           <div class="part">
-            <h3>就醫資料</h3>
+            <h3><cathay-translate code="Component_DiagArea_19"/></h3>
           </div>
           <!-- 住院起訖 -->
           <div v-show="diag.MEDICAL_DATA.STAY_HOSP_INTERVAL">
@@ -280,26 +282,26 @@
                   <div class="column is-half border-right padding-only-right">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none">序號</span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20"/></span>
                       </div>
                       <div class="column is-5 p-0">
-                        <span class="field">日期區間</span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field">連結收據</span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_22"/></span>
                       </div>
                     </div>
                   </div>
                   <div class="column is-half padding-only-left">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none">序號</span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20"/></span>
                       </div>
                       <div class="column is-5 p-0">
-                        <span class="field">日期區間</span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field">連結收據</span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_22"/></span>
                       </div>
                     </div>
                   </div>
@@ -311,7 +313,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field mr-1">住院起訖</span>
+                <span class="field mr-1"><cathay-translate code="Component_DiagArea_23"/></span>
                 <EllipseTippy
                   :content="diag.MEDICAL_DATA.STAY_HOSP_NOTICE"
                   v-if="diag.MEDICAL_DATA.STAY_HOSP_NOTICE"
@@ -372,7 +374,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addStayHospital">
-                  <span>新增</span>
+                  <span><cathay-translate code="Component_DiagArea_24"/></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -383,7 +385,7 @@
           <div class="part" v-show="diag.MEDICAL_DATA.DAY_HOSP_INTERVAL">
             <div class="columns">
               <div class="column">
-                <span class="field">日間病房</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_25"/></span>
                 <!--// 有日間病房資料就勾有-->
                 <span class="data">
                   <img
@@ -391,7 +393,7 @@
                     src="/src/assets/images/icon-checkmark-check.svg"
                     alt="CHECKMARK"
                   />
-                  <template v-else>無</template>
+                  <template v-else><cathay-translate code="Component_DiagArea_26"/></template>
                 </span>
               </div>
             </div>
@@ -404,26 +406,26 @@
                   <div class="column is-half border-right padding-only-right">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none">序號</span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_27"/></span>
                       </div>
                       <div class="column is-5 p-0">
-                        <span class="field">日期區間</span>
+                         <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field">總日數</span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_33"/></span>
                       </div>
                     </div>
                   </div>
                   <div class="column is-half padding-only-left">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none">序號</span>
+                         <span class="field"><cathay-translate code="Component_DiagArea_34"/></span>
                       </div>
                       <div class="column is-5 p-0">
-                        <span class="field">日期區間</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_35"/></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field">總日數</span>
+                         <span class="field"><cathay-translate code="Component_DiagArea_36"/></span>
                       </div>
                     </div>
                   </div>
@@ -435,7 +437,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field">日間病房</span>
+                   <span class="field"><cathay-translate code="Component_DiagArea_37"/></span>
               </div>
 
               <!--表格內容 -->
@@ -505,7 +507,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addDayWard">
-                  <span>新增</span>
+                  <span><cathay-translate code="Component_DiagArea_38"/></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -516,7 +518,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
-                <span class="field">燒燙傷病房起訖</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_39"/></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -556,7 +558,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.ICU_INTERVAL">
             <div class="columns is-vcentered">
               <div class="column is-narrow fixed-width-143">
-                <span class="field">加護病房起訖</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_40"/></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.ICU_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -595,7 +597,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.HOME_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
-                <span class="field">在家療養</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_41"/></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.HOME_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -634,7 +636,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.CLINIC_DATA">
             <div class="columns is-vcentered">
               <div class="column is-narrow fixed-width-143">
-                <span class="field mr-1">門診日期</span>
+                <span class="field mr-1"> <cathay-translate code="Component_DiagArea_42"/></span>
                 <EllipseTippy
                   :content="diag.MEDICAL_DATA.CLINIC_DATA_NOTICE"
                   v-if="diag.MEDICAL_DATA.CLINIC_DATA_NOTICE"
@@ -675,7 +677,7 @@
                       
                     </EditableDatePicker>
 										<label class="is-editing mx-2 is-flex is-align-items-center">
-                      <EditableCheckbox v-model="clinic.CFM_BURN_CODE"></EditableCheckbox><span class="ml-1">燒燙傷</span>
+                      <EditableCheckbox v-model="clinic.CFM_BURN_CODE"></EditableCheckbox><span class="ml-1"><cathay-translate code="Component_DiagArea_43"/> </span>
                     </label>																						   
                   </div>
                 </div>
@@ -687,7 +689,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.RAD_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
-                <span class="field">放射日期</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_44"/></span>
               </div>
               <GroupEditable
                 class="p-0"
@@ -726,7 +728,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.CHEM_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
-                <span class="field">化療日期</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_45"/> </span>
               </div>
               <GroupEditable
                 class="p-0"
@@ -769,24 +771,24 @@
               <div class="column is-11 p-0">
                 <div class="columns">
                   <div class="column is-1 hor-center">
-                    <span class="field mr-none">序號</span>
+                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_46"/> </span>
                   </div>
                   <div class="column is-narrow">
                     <div class="w-fixed-160">
-                      <span class="field">日期</span>
+                      <span class="field"><cathay-translate code="Component_DiagArea_47"/> </span>
                     </div>
                   </div>
                   <div class="column is-4">
-                    <span class="field">手術代碼/名稱</span>
+                    <span class="field"><cathay-translate code="Component_DiagArea_48"/> </span>
                   </div>
                   <div class="column is-1">
-                    <span class="field">癌症手術</span>
+                    <span class="field"><cathay-translate code="Component_DiagArea_49"/> </span>
                   </div>
                   <div class="column">
-                    <span class="field">險別</span>
+                    <span class="field"><cathay-translate code="Component_DiagArea_50"/> </span>
                   </div>
                   <div class="column" style="min-width: 155px">
-                    <span class="field">倍數</span>
+                    <span class="field"><cathay-translate code="Component_DiagArea_51"/> </span>
                   </div>
                 </div>
               </div>
@@ -796,7 +798,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field">手術日期</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_52"/> </span>
               </div>
 
               <!--表格內容 -->
@@ -899,7 +901,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addOp">
-                  <span>新增</span>
+                  <span><cathay-translate code="Component_DiagArea_53"/></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -913,11 +915,11 @@
               <div class="column is-11 p-0">
                 <div class="columns">
                   <div class="column is-1 hor-center">
-                    <span class="field mr-none">序號</span>
+                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_54"/></span>
                   </div>
                   <div class="column">
                     <div>
-                      <span class="field">起訖時間</span>
+                      <span class="field"><cathay-translate code="Component_DiagArea_55"/></span>
                     </div>
                   </div>
                   <div class="column"></div>
@@ -927,7 +929,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field">急診時間起訖</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_56"/></span>
               </div>
 
               <!--表格內容 -->
@@ -951,7 +953,7 @@
                         </div>
                       </div>
                       <div class="column p-0 is-7">
-                        <span class="field mr-12 is-editing">緊急轉送</span>
+                        <span class="field mr-12 is-editing"><cathay-translate code="Component_DiagArea_57"/></span>
                         <EditableCheckbox v-model="emgy.CFM_IS_EMGY"></EditableCheckbox>
                         <button
                           class="button is-primary-lightest ml-5 is-editing"
@@ -969,7 +971,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addEmgy">
-                  <span>新增</span>
+                  <span><cathay-translate code="Component_DiagArea_58"/></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -977,7 +979,7 @@
           </div>
           <div class="columns has-flex-column" v-if="diag.MEDICAL_DATA.CFM_OTP_CNT !== null">
             <div class="column">
-              <span class="field">門診次數</span>
+              <span class="field"><cathay-translate code="Component_DiagArea_59"/></span>
               <EditableInput
                 :inputWidth="80"
                 v-model="diag.MEDICAL_DATA.CFM_OTP_CNT"
@@ -997,7 +999,7 @@
                 <div class="dropdown is-primary height-limit">
                   <div class="dropdown-trigger">
                     <button class="button apply-btn" aria-haspopup="true" aria-controls="dropdown-menu">
-                      <span>新增就醫項目</span>
+                      <span><cathay-translate code="Component_DiagArea_60"/></span>
                       <img src="/src/assets/images/icon-arrow-down-light.svg" alt="ARROW" />
                     </button>
                   </div>
@@ -1008,77 +1010,77 @@
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.STAY_HOSP_INTERVAL = []"
-                        >住院起訖</a
+                        ><cathay-translate code="Component_DiagArea_61"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.DAY_HOSP_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.DAY_HOSP_INTERVAL = []"
-                        >日間病房</a
+                        ><cathay-translate code="Component_DiagArea_62"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.BURN_HOSP_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL = []"
-                        >燒燙傷病房起訖</a
+                        ><cathay-translate code="Component_DiagArea_63"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.ICU_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.ICU_INTERVAL = []"
-                        >加護病房起訖</a
+                        ><cathay-translate code="Component_DiagArea_64"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.HOME_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.HOME_INTERVAL = []"
-                        >在家療養</a
+                        ><cathay-translate code="Component_DiagArea_65"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.CLINIC_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.CLINIC_DATA = []"
-                        >門診日期</a
+                        ><cathay-translate code="Component_DiagArea_66"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.RAD_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.RAD_DATA = []"
-                        >放射日期</a
+                        > <cathay-translate code="Component_DiagArea_67"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.CHEM_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.CHEM_DATA = []"
-                        >化療日期</a
+                        > <cathay-translate code="Component_DiagArea_68"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.OPER_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.OPER_DATA = []"
-                        >手術日期</a
+                        > <cathay-translate code="Component_DiagArea_69"/></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.EMGY_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.EMGY_DATA = []"
-                        >急診時間起訖</a
+                        > <cathay-translate code="Component_DiagArea_70"/></a
                       >
                       <a
                         v-if="diag?.MEDICAL_DATA?.CFM_OTP_CNT === undefined || diag.MEDICAL_DATA.CFM_OTP_CNT === null"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.CFM_OTP_CNT = ''"
-                        >門診次數</a
+                        > <cathay-translate code="Component_DiagArea_71"/></a
                       >
                     </div>
                   </div>
@@ -1090,19 +1092,19 @@
           <div class="hidden-parts">
             <!-- 額外資料 -->
             <div class="part">
-              <h3>額外資料</h3>
+              <h3> <cathay-translate code="Component_DiagArea_72"/></h3>
 
               <div class="columns has-flex-column">
                 <div class="column is-3" v-if="diag?.CFM_IS_BONE === 'Y' | diag?.CFM_IS_BONE === 'N'">
-                  <span class="field mr-12">骨髓移植</span>
+                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_73"/></span>
                   <EditableCheckbox v-model="diag.CFM_IS_BONE"></EditableCheckbox>
                 </div>
                 <div class="column is-4" v-if="diag?.EXTRA_DATA?.IS_SEVERE_RA === 'Y' | diag?.EXTRA_DATA?.IS_SEVERE_RA === 'N'">
-                  <span class="field mr-12">重度類風溼性關節炎</span>
+                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_74"/></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_SEVERE_RA"></EditableCheckbox>
                 </div>
                 <div class="column is-5" v-if="diag?.EXTRA_DATA?.IS_SLE === 'Y' | diag?.EXTRA_DATA?.IS_SLE === 'N'">
-                  <span class="field mr-12">全身性紅斑狼瘡症</span>
+                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_75"/></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_SLE"></EditableCheckbox>
                 </div>
               </div>
@@ -1112,7 +1114,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.OBSERV_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">留院觀察</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_76"/></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.OBSERV_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1151,7 +1153,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">出國住院</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_77"/></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1190,7 +1192,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.REHAB_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">復健日期</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_78"/></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1229,7 +1231,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.HD_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">洗腎日期</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_79"/></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1268,7 +1270,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.SHORTERM_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">暫留日期</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_80"/></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1316,15 +1318,15 @@
                 "
               >
                 <div class="column is-3" v-if="diag?.EXTRA_DATA?.IS_ILL_CARD === 'Y' | diag?.EXTRA_DATA?.IS_ILL_CARD === 'N'">
-                  <span class="field mr-67">重大傷病卡</span>
+                  <span class="field mr-67"> <cathay-translate code="Component_DiagArea_81"/></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_ILL_CARD"></EditableCheckbox>
                 </div>
                 <div class="column is-4" v-if="diag?.EXTRA_DATA?.IS_MASS_POISON === 'Y' | diag?.EXTRA_DATA?.IS_MASS_POISON === 'N'">
-                  <span class="field mr-12">集體食物中毒</span>
+                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_82"/></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_MASS_POISON"></EditableCheckbox>
                 </div>
                 <div class="column is-5" v-if="diag?.EXTRA_DATA?.IS_OVERSEAS === 'Y' | diag?.EXTRA_DATA?.IS_OVERSEAS === 'N'">
-                  <span class="field mr-12">出差出國</span>
+                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_83"/></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_OVERSEAS"></EditableCheckbox>
                 </div>
               </div>
@@ -1334,7 +1336,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.HOSPICE_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">安寧病房</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_84"/></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.HOSPICE_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1379,26 +1381,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"> <cathay-translate code="Component_DiagArea_85"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">接種日期</span>
+                          <span class="field"> <cathay-translate code="Component_DiagArea_86"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">疫苗接種種類</span>
+                          <span class="field"> <cathay-translate code="Component_DiagArea_87"/></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"> <cathay-translate code="Component_DiagArea_88"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">接種日期</span>
+                          <span class="field"> <cathay-translate code="Component_DiagArea_89"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">疫苗接種種類</span>
+                          <span class="field"> <cathay-translate code="Component_DiagArea_90"/></span>
                         </div>
                       </div>
                     </div>
@@ -1410,7 +1412,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field">疫苗接種</span>
+                  <span class="field"> <cathay-translate code="Component_DiagArea_91"/></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1473,7 +1475,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addVaccination">
-                    <span>新增</span>
+                    <span>新增 <cathay-translate code="Component_DiagArea_92"/></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1490,26 +1492,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_93"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">篩選日期</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_94"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">癌症篩選種類</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_95"/></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_96"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">篩選日期</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_97"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">癌症篩選種類</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_98"/></span>
                         </div>
                       </div>
                     </div>
@@ -1521,7 +1523,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field">癌症篩選</span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_99"/></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1588,7 +1590,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addCancerScreening">
-                    <span>新增</span>
+                    <span><cathay-translate code="Component_DiagArea_100"/></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1605,26 +1607,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_101"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">治療日期</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_102"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">癌症藥物種類</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_103"/></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none">序號</span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_104"/></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field">治療日期</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_105"/></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field">癌症藥物種類</span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_106"/></span>
                         </div>
                       </div>
                     </div>
@@ -1636,7 +1638,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field">癌症藥物</span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_107"/></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1707,7 +1709,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addCancerDrug">
-                    <span>新增</span>
+                    <span><cathay-translate code="Component_DiagArea_108"/></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1718,7 +1720,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field">法定傳染病</span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_109"/></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1762,12 +1764,12 @@
                   class="button is-danger is-outlined mr-5"
                   @click="deleteDiag(diag.DIAG_SER_NO)"
                 >
-                  <span>刪除診斷書 {{ diagIndex + 1 }}</span>
+                  <span><cathay-translate code="Component_DiagArea_110"/> {{ diagIndex + 1 }}</span>
                   </button>
                   <div class="dropdown is-primary height-limit">
                     <div class="dropdown-trigger">
                       <button class="button apply-btn" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>新增額外項目</span>
+                        <span><cathay-translate code="Component_DiagArea_111"/></span>
                         <img src="/src/assets/images/icon-arrow-down-light.svg" alt="ARROW" />
                       </button>
                     </div>
@@ -1778,112 +1780,113 @@
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.CFM_IS_BONE = 'Y'"
-                          >骨髓移植</a
+                          ><cathay-translate code="Component_DiagArea_112"/></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_SEVERE_RA != 'Y' & diag?.EXTRA_DATA?.IS_SEVERE_RA != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_SEVERE_RA = 'Y'"
-                          >重度類風溼性關節炎</a
+                          ><cathay-translate code="Component_DiagArea_113"/></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_SLE != 'Y' & diag?.EXTRA_DATA?.IS_SLE != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_SLE = 'Y'"
-                          >全身性紅斑狼瘡症</a
+                          ><cathay-translate code="Component_DiagArea_114"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.OBSERV_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.OBSERV_INTERVAL = []"
-                          >留院觀察</a
+                          ><cathay-translate code="Component_DiagArea_115"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.OVERSEAS_HOSP_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL = []"
-                          >出國住院</a
+                          ><cathay-translate code="Component_DiagArea_116"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.REHAB_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.REHAB_DATA = []"
-                          >復健日期</a
+                          ><cathay-translate code="Component_DiagArea_117"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.HD_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.HD_DATA = []"
-                          >洗腎日期</a
+                          >  <cathay-translate code="Component_DiagArea_79"/></a
                         >
+                      
                         <a
                           v-if="!diag?.EXTRA_DATA?.SHORTERM_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.SHORTERM_DATA = []"
-                          >暫留日期</a
+                          ><cathay-translate code="Component_DiagArea_118"/></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_ILL_CARD != 'Y' & diag?.EXTRA_DATA?.IS_ILL_CARD != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_ILL_CARD = 'Y'"
-                          >重大傷病卡</a
+                          ><cathay-translate code="Component_DiagArea_119"/></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_MASS_POISON != 'Y' & diag?.EXTRA_DATA?.IS_MASS_POISON != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_MASS_POISON = 'Y'"
-                          >集體食物中毒</a
+                          ><cathay-translate code="Component_DiagArea_120"/></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_OVERSEAS != 'Y' & diag?.EXTRA_DATA?.IS_OVERSEAS != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_OVERSEAS = 'Y'"
-                          >出差出國</a
+                          ><cathay-translate code="Component_DiagArea_121"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.HOSPICE_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.HOSPICE_INTERVAL = []"
-                          >安寧病房</a
+                          ><cathay-translate code="Component_DiagArea_122"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.VACCINE_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.VACCINE_DATA = []"
-                          >疫苗接種</a
+                          ><cathay-translate code="Component_DiagArea_123"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.CANCER_SCR_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.CANCER_SCR_DATA = []"
-                          >癌症篩選</a
+                          ><cathay-translate code="Component_DiagArea_124"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.CANCER_DRUG_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.CANCER_DRUG_DATA = []"
-                          >癌症藥物</a
+                          ><cathay-translate code="Component_DiagArea_125"/></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.NOTIF_DISEASE_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL = []"
-                          >法定傳染病</a
+                          ><cathay-translate code="Component_DiagArea_126"/></a
                         >
                       </div>
                     </div>
@@ -1896,13 +1899,15 @@
       </Tab>
       <template v-slot:buttons>
         <button class="button apply-btn no-bg-btn" @click="addDiagArea">
-          <span>新增診斷書</span>
+          <span><cathay-translate code="Component_DiagArea_127"/></span>
           <img src="/src/assets/images/icon-add.svg" alt="ADD" />
         </button>
       </template>
     </Tabs>
   </div>
 </template>
+<script>
+</script>
 <script setup>
   import { difference, isEmpty, pull, remove } from 'lodash-es';
 import { nextTick } from 'vue';

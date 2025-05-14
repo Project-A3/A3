@@ -266,6 +266,11 @@ export const useApplyStore = defineStore('apply', {
       this.applyNo = result.BASIC.applyData.PROCESS_NUM;
       //先註解 if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
       this.claimData = applyData;
+     //0100644068 add call api
+      this.diagData = result.DIAG;
+      this.cloneArea.diags = cloneDeep(result?.DIAG?.DIAG_DATA ?? []);
+     //0100644068 end
+
        /*先註解 this.diagData = result.DIAG;
       this.receiptData = result.RECEIPT;
       this.highSettlementData = result.HIGHSETTLEMENT;
