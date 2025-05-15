@@ -9,7 +9,6 @@
 
     <!-- 大額給付 -->
     <h2><cathay-translate code="Component_HighSettlementArea_001"/></h2>
-
     <div class="part border-none">
       <div class="columns has-flex-column">
         <div class="column">
@@ -163,11 +162,12 @@
                       :editingWidth="130"
                       :schema="deathDateRequiredSchema"
                       :options="[
-                        { name: '醫院', value: '01' },
-                        { name: '診所', value: '02' },
-                        { name: '長期照護或安養機構', value: '03' },
-                        { name: '自宅', value: '04' },
-                        { name: '其他', value: '05' }
+                        
+                        { name: language.translate('Component_HighSettlementArea_062'), value: '01' },
+                        { name: language.translate('Component_HighSettlementArea_063'), value: '02' },
+                        { name: language.translate('Component_HighSettlementArea_064'), value: '03' },
+                        { name: language.translate('Component_HighSettlementArea_065'), value: '04' },
+                        { name: language.translate('Component_HighSettlementArea_066'), value: '05' }
                       ]"
                     ></EditableDropdown>
                   </div>
@@ -268,26 +268,38 @@
 
     <div class="hidden-parts">
       <!-- 完全失能項目 -->
-      <div class="part" v-if="highSettlementData?.FULLDISB_DATA">
+      <div class="part" v-if="basicData.APPLY_H_DISB_IND === 'Y'">
         <h3><cathay-translate code="Component_HighSettlementArea_030"/></h3>
 
         <div class="columns has-flex-column">
           <div class="column is-3">
             <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_031"/></span>
-            <EditableCheckbox v-model="highSettlementData.FULLDISB_DATA.CFM_FULL_CON"></EditableCheckbox>
+            <EditableDropdown v-model:modelValue="basicData.DISB_CAT" :editingWidth="130"
+              :schema="deathDateRequiredSchema" :options="[
+                { name: language.translate('Component_HighSettlementArea_073'), value: '1' },
+                { name: language.translate('Component_HighSettlementArea_074'), value: '2' },
+                { name: language.translate('Component_HighSettlementArea_075'), value: '3' }
+              ]"></EditableDropdown>
           </div>
           <div class="column is-8">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_032"/></span>
-            <EditableModal
-              v-model:modelText="highSettlementData.FULLDISB_DATA.CFM_DISB_CAT_NAME"
-              v-model:modelValue="highSettlementData.FULLDISB_DATA.CFM_DISB_CAT"
-              placeholder="Vui lòng chọn hạng mục bồi thường"
-              :modal="{
-                component: FullDisabilityModal,
-                id: 'modifyCategoryModal',
-                data: {}
-              }"
-            ></EditableModal>
+            <span class="field"><cathay-translate code="Component_HighSettlementArea_030"/></span>
+            <EditableDropdown
+                      v-model="basicData.DISB_ITEM"
+                      :editingWidth="500"
+                      :schema="deathDateRequiredSchema"
+                      :isEditable="true"
+                      :options="[
+                        { name: language.translate('Component_HighSettlementArea_073'), value: '8' },
+                        { name: language.translate('Component_HighSettlementArea_076'), value: '0' },
+                        { name: language.translate('Component_HighSettlementArea_077'), value: '1' },
+                        { name: language.translate('Component_HighSettlementArea_078'), value: '2' },
+                        { name: language.translate('Component_HighSettlementArea_079'), value: '3' },
+                        { name: language.translate('Component_HighSettlementArea_080'), value: '4' },
+                        { name: language.translate('Component_HighSettlementArea_081'), value: '5' },
+                        { name: language.translate('Component_HighSettlementArea_082'), value: '6' },
+                        { name: language.translate('Component_HighSettlementArea_083'), value: '7' }
+                      ]"
+             ></EditableDropdown>
           </div>
         </div>
       </div>
@@ -308,12 +320,12 @@
             <table class="table is-fullwidth apply-table">
               <thead>
                 <tr>
-                  <th>STT</th>
-                  <th>Hạng mục</th>
-                  <th class="th-hor-center">Bộ phận</th>
-                  <th class="th-hor-center">Hai bên</th>
-                  <th class="th-hor-center">Khớp</th>
-                  <th class="th-hor-center">Chức năng</th>
+                  <th><cathay-translate code="Component_HighSettlementArea_067"/></th>
+                  <th><cathay-translate code="Component_HighSettlementArea_068"/></th>
+                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_069"/></th>
+                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_070"/></th>
+                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_071"/></th>
+                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_072"/></th>
                 </tr>
               </thead>
               <tbody>
@@ -729,9 +741,9 @@
             <cathay-translate code="Component_HighSettlementArea_003"/>
           </button>
           <button
-            v-if="!highSettlementData.FULLDISB_DATA"
+            v-if="basicData.APPLY_H_DISB_IND === 'N'"
             class="button is-primary has-icon-back has-icon-back-add"
-            @click="addArea('FULLDISB_DATA')"
+            @click="addArea('APPLY_H_DISB_IND')"
           >
              <cathay-translate code="Component_HighSettlementArea_004"/>
           </button>
@@ -810,6 +822,10 @@
     </div>
   </div>
 </template>
+<script>
+import { useLanguageStore } from "~/stores/language";
+  const  language=useLanguageStore();
+  </script>
 <script setup>
   import EditableDatePicker from '~/components/Editable/EditableDatePicker.vue';
   import EditableDropdown from '~/components/Editable/EditableDropdown.vue';
@@ -835,7 +851,7 @@
   const { $swal } = useSwal();
   const { isSameOrAfter } = useMoment();
   const applyStore = useApplyStore();
-  const { isShowInKindPayArea } = storeToRefs(applyStore);
+  const { isShowInKindPayArea, basicData } = storeToRefs(applyStore);
   const props = defineProps({
     highSettlementData: {
       type: Object,
@@ -897,7 +913,7 @@
       CFM_DISB_CLS_NAME: '',
       CFM_DISB_LOSE_NAME: '',
       CFM_DISB_LF_NAME: '',
-      CFM_DISB_NO_NAME: ''
+      CFM_DISB_NO_NAME: '',
     });
     disbGroup.value?.refreshGroup();
   };
@@ -999,12 +1015,12 @@
           DISB_ITEM_DATA: []
         };
         break;
-      case 'FULLDISB_DATA':
+      case 'APPLY_H_DISB_IND':
         template = {
-          CFM_FULL_CON: '',
-          CFM_DISB_CAT: '',
-          CFM_DISB_CAT_NAME: ''
+          DISB_CAT: '1',
+          DISB_ITEM: '0'
         };
+        basicData.value.APPLY_H_DISB_IND = 'Y';
         break;
       case 'HEVY_DIS_DATA':
         template = {
@@ -1104,6 +1120,7 @@
           { name: '重度燒燙傷 5 級', value: '5' }
         ]
   };
+  
 </script>
 <style lang="scss" scoped>
   .highsettlement-column {
