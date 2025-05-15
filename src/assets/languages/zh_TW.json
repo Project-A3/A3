@@ -895,5 +895,19 @@
   "Country_Language_YE":	" 葉門",
   "Country_Language_ZM":	"尚比亞",
   "Country_Language_ZW":	"辛巴威",
-  "Country_Language_AX":	"奧蘭"
+  "Country_Language_AX":	"奧蘭",
+  "Component_RequestInfo_001":	"申請人基本資料",
+  "Component_RequestInfo_002":	"與被保人關係",
+  "Component_RequestInfo_003":	"姓名",
+  "Component_RequestInfo_004":	"出生日期",
+  "Component_RequestInfo_005":	"證號種類",
+  "Component_RequestInfo_006":	"證件號碼",
+  "Component_RequestInfo_007":	"聯絡地址",
+  "Component_RequestInfo_008":	"電話",
+  "Component_RequestInfo_009":	"行動電話",
+  "Component_RequestInfo_010":	"Email",
+  "Component_RequestInfo_011": "身分證",
+  "Component_RequestInfo_012": "出生證",
+  "Component_RequestInfo_013": "護照",
+  "Component_RequestInfo_014": "軍人證"
 }

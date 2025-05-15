@@ -895,5 +895,19 @@
   "Country_Language_YE":	"Yemen",
   "Country_Language_ZM":	"Zambia",
   "Country_Language_ZW":	"Zimbabwe",
-  "Country_Language_AX":	"Åland Islands"
+  "Country_Language_AX":	"Åland Islands",
+  "Component_RequestInfo_001":	"Dữ liệu cơ bản của người yêu cầu",
+  "Component_RequestInfo_002":	"Mối quan hệ của người yêu cầu",
+  "Component_RequestInfo_003":	"Tên người yêu cầu",
+  "Component_RequestInfo_004":	"Ngày sinh",
+  "Component_RequestInfo_005":	"Loại giấy chứng nhận",
+  "Component_RequestInfo_006":	"Mã giấy chứng nhận",
+  "Component_RequestInfo_007":	"Địa chỉ liên lạc",
+  "Component_RequestInfo_008":	"Điện thoại liên lạc",
+  "Component_RequestInfo_009":	"Điện thoại di động",
+  "Component_RequestInfo_010":	"Email",
+  "Component_RequestInfo_011": "Chứng minh thư",
+  "Component_RequestInfo_012": "Giấy khai sinh",
+  "Component_RequestInfo_013": "Hộ chiếu",
+  "Component_RequestInfo_014": "Chứng minh quân đội"
 }

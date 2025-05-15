@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { loadAllTranslatedLanguage } from '../modules/cathay-language';
 
 export const useLanguageStore = defineStore('language', {
-  state: () => ({ language: '', languages: {} }),
+  state: () => ({ language: '', languages: {}, isLanguageReady: false }),
   getters: {
     text: (state) => {
       switch (state.language) {
@@ -19,10 +19,12 @@ export const useLanguageStore = defineStore('language', {
   },
   actions: {
     async switchLanguage(language) {
-      console.log(language);
+      console.log(language); 
       if (language !== this.language) {
+        this.isLanguageReady = false;
         this.language = language;
         this.languages = await loadAllTranslatedLanguage(this.language);
+        this.isLanguageReady = true;
       }
     },
     translate(code) {

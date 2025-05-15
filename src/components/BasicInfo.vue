@@ -55,9 +55,14 @@ import useMoment from '~/composables/useMoment.js';
     applyNo: {
       type: String,
       required: true
+    },
+    claimData: {
+      type: Object,
+      required: true,
+      default: {}
     }
   });
-  
+  const claimData = toRef(props, 'claimData');
   const basicData = toRef(props, 'basicData');
   const applyNo = toRef(props, 'applyNo');
   const ocrAge = computed(() => getOcrAge(basicData.value.INSURED_DATE, basicData.value.INSURED_BIRTHDAY));
