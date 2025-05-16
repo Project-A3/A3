@@ -120,7 +120,6 @@ const props = defineProps({
 const { $swal } = useSwal();
 const basicData = toRef(props, 'basicData');
 let theBasicData = basicData.value;
-console.log('theBasicData', theBasicData);
 const language = useLanguageStore();
 
 const listRltp = ref([

@@ -468,68 +468,38 @@
       <!-- 重大疾病或特定傷病給付 -->
       <div class="part" v-if="highSettlementData?.HEVY_DIS_DATA">
         <h3><cathay-translate code="Component_HighSettlementArea_036"/></h3>
-
-        <div class="columns has-flex-column">
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_037"/></span>
-            <EditableModal
-              v-model:modelText="highSettlementData.HEVY_DIS_DATA.CFM_DISEASE_NAME"
-              v-model:modelValue="highSettlementData.HEVY_DIS_DATA.CFM_DISEASE_CODE"
-              :modal="{
-                component: HeavyDisabilityModal,
-                id: 'modifyCategoryModal',
-                data: {}
-              }"
-            ></EditableModal>
-          </div>
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_038"/></span>
-            <EditableDropdown
-              :editingWdith="120"
-              v-model="highSettlementData.HEVY_DIS_DATA.CFM_HEVY_LVL"
-              :options="[
-                { name: 'Mức độ nhẹ', value: '1' },
-                { name: 'Mức độ nặng', value: '2' }
-              ]"            
-            ></EditableDropdown>
-          </div>
-        </div>
-        <div class="columns has-flex-column">
-          <div class="column">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_039"/></span>
-            <EditableDropdown
-              :editingWdith="120"
-              v-model="highSettlementData.HEVY_DIS_DATA.CFM_ALL_P_HEVY"
-              :options="[
-                { name: 'Phù hợp', value: 'Y' },
-                { name: 'Bệnh tâm thần mãn tính', value: '1' }
-              ]"            
-            ></EditableDropdown>
-          </div>
-        </div>
+          <span class="field mr-3">Thể nhẹ (giai đoạn sớm)</span>
+          <EditableCheckbox v-model="basicData.MAJOR_DIS_1"></EditableCheckbox>
+          <span class="field ml-6 mr-3">Nghiêm trọng (giai đoạn cuối)</span>
+          <EditableCheckbox v-model="basicData.MAJOR_DIS_2"></EditableCheckbox>
+          <span class="field ml-6 mr-3">Nghiêm trọng (chi phí lớn)</span>
+          <EditableCheckbox v-model="basicData.MAJOR_DIS_4"></EditableCheckbox>
+          <span class="field ml-6 mr-3">Biến chứng tiểu đường</span>
+          <EditableCheckbox v-model="basicData.MAJOR_DIS_5"></EditableCheckbox>
+          <span class="field ml-6 mr-3">Trẻ em</span>
+          <EditableCheckbox v-model="basicData.MAJOR_DIS_3"></EditableCheckbox>
       </div>
-
       <!-- 長期看護 -->
       <div class="part" v-if="highSettlementData?.LONG_DATA">
         <h3><cathay-translate code="Component_HighSettlementArea_040"/></h3>
-
         <div class="columns has-flex-column">
           <div class="column is-half">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_040"/></span>
-            <EditableCheckbox v-model="highSettlementData.LONG_DATA.CFM_IS_LONG"></EditableCheckbox>
-          </div>
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_041"/></span>
-            <EditableDropdown
-              :editingWdith="120"
-              v-model="highSettlementData.LONG_DATA.CFM_LONG_OPT"
-              :options="[{ name: 'Rối laojn chức năng nhận thức', value: '1' }]"
-            ></EditableDropdown>
+            <span class="field mr-12">Phải</span>
+            <input
+              type="radio"
+              value="Y"
+              v-model="basicData.APPLY_LONG_CARE_IND"
+            />
+            <span class="field ml-6">Không phải</span>
+            <input
+              type="radio"
+              value="N"
+              v-model="basicData.APPLY_LONG_CARE_IND"
+            />
           </div>
         </div>
       </div>
     </div>
-
     <!-- 豁免表示 -->
     <div class="part" v-if="highSettlementData?.WAIVER_DATA">
       <h3><cathay-translate code="Component_HighSettlementArea_042"/></h3>
@@ -856,6 +826,13 @@
       default: {}
     }
   });
+
+  console.log('basicData.MAJOR_DIS_1', basicData.value.MAJOR_DIS_1);
+  console.log('basicData.MAJOR_DIS_2', basicData.value.MAJOR_DIS_2);
+  console.log('basicData.MAJOR_DIS_3', basicData.value.MAJOR_DIS_3);
+  console.log('basicData.MAJOR_DIS_4', basicData.value.MAJOR_DIS_4);
+  console.log('basicData.MAJOR_DIS_5', basicData.value.MAJOR_DIS_5);
+
   const highSettlementAreaTarget = ref(null);
 
   const highSettlementData = toRef(props, 'highSettlementData');
