@@ -822,10 +822,6 @@
     </div>
   </div>
 </template>
-<script>
-import { useLanguageStore } from "~/stores/language";
-  const  language=useLanguageStore();
-  </script>
 <script setup>
   import EditableDatePicker from '~/components/Editable/EditableDatePicker.vue';
   import EditableDropdown from '~/components/Editable/EditableDropdown.vue';
@@ -847,7 +843,8 @@ import { useLanguageStore } from "~/stores/language";
   import useMoment from '~/composables/useMoment';
   import useSwal from '~/composables/useSwal';
   import { storeToRefs } from 'pinia';
-
+  import { useLanguageStore } from "~/stores/language";
+  const  language=useLanguageStore();
   const { $swal } = useSwal();
   const { isSameOrAfter } = useMoment();
   const applyStore = useApplyStore();
