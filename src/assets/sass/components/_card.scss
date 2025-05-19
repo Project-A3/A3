@@ -170,6 +170,10 @@
         display: inline-block;
         width: 300px;
       }
+      
+      .mr-12 {
+        margin-right: 12px;
+      }
 
       .field {
         color: $bg-grey-lightest;
@@ -186,10 +190,6 @@
 
         &.mr-37 {
           margin-right: 37px;
-        }
-
-        &.mr-12 {
-          margin-right: 12px;
         }
 
         &.mr-none {

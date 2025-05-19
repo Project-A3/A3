@@ -14,6 +14,8 @@
       </keep-alive>
     </template>
   </router-view>
+  
+  <ModalContainer />
   <Loading :active="isLoading" :can-cancel="false" :is-full-page="true" color="#6fba2a"></Loading>
 </template>
 
@@ -25,6 +27,7 @@
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { useLanguageStore } from '~/stores/language';
 import useSwal from './composables/useSwal';
+import ModalContainer from './components/ModalContainer.vue';
   
   const { $swal } = useSwal();
 
@@ -57,7 +60,8 @@ import useSwal from './composables/useSwal';
       };
     },
     components: {
-      Loading
+      Loading,
+      ModalContainer
     }
   };
 </script>

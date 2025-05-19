@@ -3,7 +3,10 @@ import { defineStore } from 'pinia';
 import {
   apiReadApplicationData,
   apiReadBasicData,
-  apiGetTrusteeEEID
+  apiGetTrusteeEEID,
+  apiGetAccidentReasonsData,
+  apiQueryClaimCatList,
+  apiSearchOP
 } from '~/common/api';
 import { useLanguageStore } from './language';
 /*先註解 import {
@@ -52,10 +55,7 @@ export const useApplyStore = defineStore('apply', {
     // 備份原始資料，供送出比對頁面是否改變使用
     backupResult: null,
     basicData: {},
-    claimData: {
-      PROD_CAT: '',
-      CLAM_CAT: ''
-    },
+    claimData: {},
     diagData: {},
     receiptData: {},
     highSettlementData: {},
@@ -234,7 +234,7 @@ export const useApplyStore = defineStore('apply', {
       ]);
 
       console.log('apply.js getBasicData responses>>>');
-      console.log(responses);
+
       let basicDataResult = responses[0].data.result.applyData;
 
       for(const key of Object.keys(this.basicData)){
@@ -251,7 +251,7 @@ export const useApplyStore = defineStore('apply', {
         apiReadApplicationData([applyNo])/*先註解,
         apiGetDiePlaceAreaList()*/
       ]);
-      console.log('apply.js getAllData responses>>>');
+      console.log('apply.js getAllData responses>>>'); 
       console.log(responses);
 
       let result = responses[0].data.result;
@@ -270,8 +270,7 @@ export const useApplyStore = defineStore('apply', {
       this.diagData = result.DIAG;
       this.cloneArea.diags = cloneDeep(result?.DIAG?.DIAG_DATA ?? []);
      //0100644068 end
-
-       /*先註解 this.diagData = result.DIAG;
+      /*先註解 this.diagData = result.DIAG;
       this.receiptData = result.RECEIPT;
       this.highSettlementData = result.HIGHSETTLEMENT;
       this.inKindPayData = result.INKINDPAY;
@@ -367,13 +366,21 @@ export const useApplyStore = defineStore('apply', {
       } catch (e) {
         throw e;
       }*/
+      try {
+        const response = await apiGetAccidentReasonsData([type]);
+        const result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        return result.ACCIDENT_LIST;
+      } catch (e) {
+        throw e;
+      }
     },
     /**
      * 取得所有索賠類別
      */
     async getClaimCategories() {
-      if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
-        return this.getCurrentClaimCat;
+      // if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
+      //   return this.getCurrentClaimCat;
       /*先註解 try {
         const response = await apiQueryClaimCatList();
         const result = response.data.result;
@@ -385,6 +392,19 @@ export const useApplyStore = defineStore('apply', {
       } catch (e) {
         throw e;
       }*/
+      if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
+        return this.getCurrentClaimCat;
+      try {
+        const response = await apiQueryClaimCatList();
+        const result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        this.claimCategories.PERSON_CLAM_CATS = result.PERSON_CLAM_CATS;
+        this.claimCategories.GROUP_CLAM_CATS = result.GROUP_CLAM_CATS;
+        this.claimCategories.SCHOOL_CLAM_CATS = result.SCHOOL_CLAM_CATS;
+        return this.getCurrentClaimCat;
+      } catch (e) {
+        throw e;
+      }
     },
     /**
      * 取得投保學校縣市
@@ -569,7 +589,15 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} part 部位
      * @param {String} keyword 關鍵字
      */
-    async searchOP(part, keyword) {
+    async searchOP(area, grade, cancer, name, isDiv, isName) {
+      try {
+      const response = await apiSearchOP([area, grade, cancer, name, isDiv, isName]);
+        const result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        return result.OP_LIST;
+      } catch (e) {
+        throw e;
+      }
       /*先註解 try {
         const response = await apiSearchOP([part, keyword]);
         const result = response.data.result;

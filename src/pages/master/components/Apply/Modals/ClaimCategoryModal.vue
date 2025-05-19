@@ -1,7 +1,7 @@
 <!-- 索賠類別彈窗 -->
 <template>
   <Modal>
-    <template v-slot:title>修改索賠類別</template>
+    <template v-slot:title><cathay-translate code="Page_ClaimCatogoryModal_001" /></template>
     <template v-slot:content>
       <div class="columns is-multiline">
         <div v-for="claimCat in claimList" class="column is-6" :key="claimCat.CLAM_CAT">
@@ -13,8 +13,8 @@
       </div>
     </template>
     <template v-slot:buttons>
-      <button class="button is-light" @click="props.close">取消</button>
-      <button class="button is-primary" @click.prevent="onSubmit">確認</button>
+      <button class="button is-light" @click="props.close"><cathay-translate code="Page_ClaimCatogoryModal_002" /></button>
+      <button class="button is-primary" @click.prevent="onSubmit"><cathay-translate code="Page_ClaimCatogoryModal_003" /></button>
     </template>
   </Modal>
 </template>
@@ -37,18 +37,61 @@
     }
   });
 
-  const claimList = ref([]);
-  try {
-    applyStore.showLoading();
-    claimList.value = await applyStore.getClaimCategories();
-  } catch (e) {
-    $swal.fail(e);
-  } finally {
-    applyStore.hideLoading();
-  }
+  const claimList = ref([
+    {
+        CLAM_CAT: 'APPLY_HOSP_M_IND',
+        CLAM_CAT_DESC: 'Hỗ trợ viện phí cá nhân'
+    },
+    {
+        CLAM_CAT: 'APPLY_HOSP_SP_IND',
+        CLAM_CAT_DESC: 'Trợ cấp điều trị'
+    },
+    {
+        CLAM_CAT: 'APPLY_RISK_IND',
+        CLAM_CAT_DESC: 'Bệnh lý nghiêm trọng'
+    },
+    {
+        CLAM_CAT: 'APPLY_DEATH_IND',
+        CLAM_CAT_DESC: 'Tử vong'
+    },
+    {
+        CLAM_CAT: 'APPLY_H_DISB_IND',
+        CLAM_CAT_DESC: 'Thương tật toàn bộ và vĩnh viễn'
+    },
+    {
+        CLAM_CAT: 'APPLY_DISB_IND',
+        CLAM_CAT_DESC: 'Thương tật từng phần'
+    },
+    {
+        CLAM_CAT: 'APPLY_WP_IND',
+        CLAM_CAT_DESC: 'Miễn nộp phí bảo hiểm'
+    },
+    {
+        CLAM_CAT: 'APPLY_END_LIFE_IND',
+        CLAM_CAT_DESC: 'Giai đoạn cuối đời'
+    },
+    {
+        CLAM_CAT: 'APPLY_LONG_CARE_IND',
+        CLAM_CAT_DESC: 'Chăm sóc lâu dài'
+    },
+    {
+        CLAM_CAT: 'APPLY_CANCER_IND',
+        CLAM_CAT_DESC: 'Phòng ngừa ung thư'
+    }
+  ]);
+  // const claimList = ref([]);
+  // try {
+  //   applyStore.showLoading();
+  //   claimList.value = await applyStore.getClaimCategories();
+  // } catch (e) {
+  //   $swal.fail(e);
+  // } finally {
+  //   applyStore.hideLoading();
+  // }
 
   // 勾選的索賠類別
-  const checkedClaimCats = ref(props.data.models.value.split('_').filter((item) => item));
+  const checkedClaimCats = ref(props.data.models.value.split(', ').filter((item) => item));
+  console.log(checkedClaimCats.value);
   // 勾選的索賠類別名稱
   const checkedClaimCatNames = computed(() => {
     let finalText = '';
@@ -56,11 +99,11 @@
       if (e && e !== '') {
         let c = claimList.value.find((c) => c.CLAM_CAT === e);
         if (c) {
-          finalText += c.CLAM_CAT_DESC + '_';
+          finalText += c.CLAM_CAT_DESC + ', ';
         }
       }
     });
-    if (finalText.length > 1) finalText = finalText.slice(0, -1);
+    if (finalText.length > 1) finalText = finalText.slice(0, -2);
     console.log(finalText);
     return finalText;
   });
@@ -146,8 +189,10 @@
     if (!validation()) {
       return;
     }
-    emitEvent.updateValue(checkedClaimCats.value.join('_'));
+    emitEvent.updateValue(checkedClaimCats.value.join(', '));
     emitEvent.updateValue2(checkedClaimCatNames.value);
+    emitEvent.updateText(checkedClaimCats.value.join(', '));
+    emitEvent.updateText2(checkedClaimCatNames.value);
     if(checkedClaimCats.value.indexOf('K') >= 0){
       handleCheckFullDisb();
     }

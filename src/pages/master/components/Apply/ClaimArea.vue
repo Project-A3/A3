@@ -1,44 +1,54 @@
-<template>
+  <template>
   <div class="card is-full second-card" id="ApplySecondCard">
     <!-- 展開/收合 Button -->
     <button class="card-toggle-btn"></button>
-
     <!-- 事故/索賠資料 -->
     <h2 class="sticky-basic-info">Dữ liệu sự kiện và loại yêu cầu</h2>
 
-     <div class="part border-none">
+    <div class="part border-none">
       <div class="columns has-flex-column">
         <div class="column is-one-quarter">
-          <span class="field">申請種類</span>
+          <span class="field"><cathay-translate code="Page_ClaimArea_001" /></span>
           <EditableDropdown
-            
             :options="[
-              { name: '疾病', value: '1' },
-              { name: '意外', value: '2' }
+            { name: 'Bệnh tật', value: 'A' },
+            { name: 'Tai nạn', value: 'B' }
             ]"
             :schema="string().required('請選擇申請種類').max(1)"
+            v-model="basicData.APPLY_CLAIM_TYPE"
           ></EditableDropdown>
         </div>
         <div class="column is-one-quarter pr-2">
-          <span class="field">事故原因</span>
+          <span class="field"><cathay-translate code="Page_ClaimArea_002" /></span>
           <EditableModal
-           
             :modal="{
               component: AccidentReasonModal,
               id: 'manualApprovedEditReason',
               data: {}
             }"
             :schema="string().required('請選擇事故原因')"
+            v-model:modelValue="claimData.APPLY_ACCIDENT_REASON_CODE"
+            v-model:modelValue2="claimData.APPLY_ACCIDENT_NAME"
+            v-model:modelText="claimData.APPLY_ACCIDENT_REASON_CODE"
+            v-model:modelText2="claimData.APPLY_ACCIDENT_NAME"
           ></EditableModal>
         </div>
         <div class="column">
-          <span class="field">事故原因內容</span>
-          <span class="data not-editable font-eudc">{{  }}</span>
+          <span class="field"><cathay-translate code="Page_ClaimArea_003" /></span>
+          <!-- <span class="data not-editable font-eudc">{{  }}</span> -->
+          <span class="data">
+              <EditableInput 
+              type="text" 
+              :maxWidth="350"
+              v-model="claimData.APPLY_ACCIDENT_NAME"
+              :inputStyle="{ maxWidth: '35vw' }"
+              ></EditableInput>
+          </span>
         </div>
       </div>
       <div class="columns has-flex-column">
         <div class="column is-half pr-2">
-          <span class="field">索賠類別</span>
+          <span class="field"><cathay-translate code="Page_ClaimArea_004" /></span>
           <EditableModal
             :editingStyle="{ maxWidth: '500px' }"
             :modal="{
@@ -49,18 +59,23 @@
               }
             }"
             :schema="string().required('請選擇索賠類別')"
+            v-model:modelValue="claimKeys"
+            v-model:modelValue2="claimNames"
+            v-model:modelText="claimKeys"
+            v-model:modelText2="claimNames"
           ></EditableModal>
         </div>
         <div class="column is-one-quarter">
           <span class="field has-tippy mr-37" data-tippy-content="資料資料" :schema="string().required('請輸入事故日期')"
-            >事故日</span
+            ><cathay-translate code="Page_ClaimArea_005" /></span
           >
-          <EditableDatePicker></EditableDatePicker>
+          <span class="data">
+              <EditableDatePicker v-model="basicData.INSURED_DATE"></EditableDatePicker>
+          </span>
         </div>
         <div class="column is-one-quarter">
-          <span class="field">事故職等</span>
+          <span class="field"><cathay-translate code="Page_ClaimArea_006" /></span>
           <EditableDropdown
-            :editingWidth="110"
             :schema="
               string()
                 .nullable()
@@ -75,6 +90,7 @@
               { name: '6', value: '6' },
               { name: '非工作中事故', value: '9' }
             ]"
+            v-model="claimData.EVENT_GRADE"
           ></EditableDropdown>
         </div>
       </div>
@@ -937,20 +953,48 @@
   import { storeToRefs } from 'pinia';
   import { number, string } from 'yup';
   import useSwal from '~/composables/useSwal';
+  import { computed, ref } from 'vue';
+  const text1 = ref('');
+  const text2 = ref('');
 
   const applyStore = useApplyStore();
-  const { isLifePerson, isLifeGroup, isLifeSchool, basicData } = storeToRefs(applyStore);
+  const { isLifePerson, isLifeGroup, isLifeSchool, basicData, claimData } = storeToRefs(applyStore);
   const { $swal } = useSwal();
+  const claims = computed(() => [
+    ['APPLY_HOSP_M_IND', basicData.value.APPLY_HOSP_M_IND, 'Hỗ trợ viện phí cá nhân'],
+    ['APPLY_HOSP_SP_IND', basicData.value.APPLY_HOSP_SP_IND, 'Trợ cấp điều trị'],
+    ['APPLY_RISK_IND', basicData.value.APPLY_RISK_IND, 'Bệnh lý nghiêm trọng'],
+    ['APPLY_DEATH_IND', basicData.value.APPLY_DEATH_IND, 'Tử vong'],
+    ['APPLY_H_DISB_IND', basicData.value.APPLY_H_DISB_IND, 'Thương tật toàn bộ và vĩnh viễn'],
+    ['APPLY_DISB_IND', basicData.value.APPLY_DISB_IND, 'Thương tật từng phần'],
+    ['APPLY_WP_IND', basicData.value.APPLY_WP_IND, 'Miễn nộp phí bảo hiểm'],
+    ['APPLY_END_LIFE_IND', basicData.value.APPLY_END_LIFE_IND, 'Giai đoạn cuối đời'],
+    ['APPLY_LONG_CARE_IND', basicData.value.APPLY_LONG_CARE_IND, 'Chăm sóc lâu dài'],
+    ['APPLY_CANCER_IND', basicData.value.APPLY_CANCER_IND, 'Phòng ngừa ung thư'],
+  ]);
 
-  const props = defineProps({
-    claimData: {
-      type: Object,
-      required: true,
-      default: {}
-    }
-  });
+  const claimNames = ref(
+    claims.value
+    .filter(([, val]) => val === 'Y')
+    .map(([, , name]) => name)
+    .join(', ')
+  );
+
+  const claimKeys = ref(
+    claims.value
+    .filter(([, val]) => val === 'Y')
+    .map(([key]) => key)
+    .join(',')  
+  );
+  // const props = defineProps({
+  //   claimData: {
+  //     type: Object,
+  //     required: true,
+  //     default: {}
+  //   }
+  // });
   const { getROCDate, isSameOrAfter } = useMoment();
-  const claimData = toRef(props, 'claimData');
+  // const claimData = toRef(props, 'claimData');
   // 保險類別文字
   const handleProdCat = (codes) => {
     let prodCat = [];
@@ -977,123 +1021,123 @@
   const noNameGroup = ref(null);
 
   // 事故原因文字
-  const ocrReason = computed(() => claimData.value.OCR_RESN + claimData.value.OCR_RESN_NAME);
+  // const ocrReason = computed(() => claimData.value.OCR_RESN + claimData.value.OCR_RESN_NAME);
 
   // 索賠類別文字
-  const claimCatText = computed(() => {
-    if (!claimData.value.CFM_CLAM_CAT_NAME) return '';
-    return claimData.value.CFM_CLAM_CAT_NAME.split('_').join(',');
-  });
+  // const claimCatText = computed(() => {
+  //   if (!claimData.value.CFM_CLAM_CAT_NAME) return '';
+  //   return claimData.value.CFM_CLAM_CAT_NAME.split('_').join(',');
+  // });
 
   // 新增無記名附約資料
-  const insertNoNameItem = (noNameType) => {
-    if (isLifePerson.value) {
-      const serNo = Math.max(...claimData.value.noNameList.map((n) => n.SER_NO).concat(0)) + 1;
-      claimData.value.noNameList.push({
-        javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo8',
-        SER_NO: serNo.toString(),
-        NO_NAME_TYPE: noNameType,
-        POLICY_NO: '',
-        PROD_ID: '',
-        ROLE: '',
-        ACT_CD: 'A'
-      });
-    } else {
-      const serNo = Math.max(...claimData.value.noNameGList.map((n) => n.SER_NO).concat(0)) + 1;
-      claimData.value.noNameGList.push({
-        javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo9',
-        SER_NO: serNo.toString(),
-        NO_NAME_TYPE: noNameType,
-        POLICY_NO: '',
-        ROLE: '',
-        EMP_ID: '',
-        EMP_DEGREE: '',
-        ACT_CD: 'A'
-      });
-    }
-    noNameGroup.value?.refreshGroup();
-  };
+  // const insertNoNameItem = (noNameType) => {
+  //   if (isLifePerson.value) {
+  //     const serNo = Math.max(...claimData.value.noNameList.map((n) => n.SER_NO).concat(0)) + 1;
+  //     claimData.value.noNameList.push({
+  //       javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo8',
+  //       SER_NO: serNo.toString(),
+  //       NO_NAME_TYPE: noNameType,
+  //       POLICY_NO: '',
+  //       PROD_ID: '',
+  //       ROLE: '',
+  //       ACT_CD: 'A'
+  //     });
+  //   } else {
+  //     const serNo = Math.max(...claimData.value.noNameGList.map((n) => n.SER_NO).concat(0)) + 1;
+  //     claimData.value.noNameGList.push({
+  //       javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo9',
+  //       SER_NO: serNo.toString(),
+  //       NO_NAME_TYPE: noNameType,
+  //       POLICY_NO: '',
+  //       ROLE: '',
+  //       EMP_ID: '',
+  //       EMP_DEGREE: '',
+  //       ACT_CD: 'A'
+  //     });
+  //   }
+  //   noNameGroup.value?.refreshGroup();
+  // };
 
   // 只顯示不是D的(未刪除的)
-  const noNameList = computed(() => claimData.value.noNameList.filter((e) => e.ACT_CD !== 'D'));
-  const noNameGList = computed(() => claimData.value.noNameGList.filter((e) => e.ACT_CD !== 'D'));
+  // const noNameList = computed(() => claimData.value.noNameList.filter((e) => e.ACT_CD !== 'D'));
+  // const noNameGList = computed(() => claimData.value.noNameGList.filter((e) => e.ACT_CD !== 'D'));
 
   // 刪除無記名資料
-  const deleteNoNameItem = (serNo) => {
+  // const deleteNoNameItem = (serNo) => {
     // if (isLifePerson.value) remove(claimData.value.noNameList, (e) => e.SER_NO === serNo);
     // else if (isLifeGroup.value) remove(claimData.value.noNameGList, (e) => e.SER_NO === serNo);
 
-    if (isLifePerson.value) {
-      let noName = claimData.value.noNameList.find((e) => e.SER_NO === serNo);
-      if (noName) noName.ACT_CD = 'D';
-    } else {
-      let noNameG = claimData.value.noNameGList.find((e) => e.SER_NO === serNo);
-      if (noNameG) noNameG.ACT_CD = 'D';
-    }
-  };
+  //   if (isLifePerson.value) {
+  //     let noName = claimData.value.noNameList.find((e) => e.SER_NO === serNo);
+  //     if (noName) noName.ACT_CD = 'D';
+  //   } else {
+  //     let noNameG = claimData.value.noNameGList.find((e) => e.SER_NO === serNo);
+  //     if (noNameG) noNameG.ACT_CD = 'D';
+  //   }
+  // };
 
   // 是否有無記名資料區塊: 非學團險並且有資料
-  const hasNoNameList = computed(() => {
-    return !isLifeSchool.value && (claimData.value.noNameList || claimData.value.noNameGList);
-  });
+  // const hasNoNameList = computed(() => {
+  //   return !isLifeSchool.value && (claimData.value.noNameList || claimData.value.noNameGList);
+  // });
 
   // 新增無記名資料區塊
-  const addNoNameArea = () => {
-    claimData.value.noNameList = [];
-    claimData.value.noNameGList = [];
-  };
+  // const addNoNameArea = () => {
+  //   claimData.value.noNameList = [];
+  //   claimData.value.noNameGList = [];
+  // };
 
   // 新增檢警資料
-  const addPoliceArea = () => {
-    claimData.value.policeRept = {
-      javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo19',
-      OCR_STORY: '',
-      OCR_PLCE_ADDR: '',
-      REPT_DATE: '',
-      REPT_COP_DEPT: '',
-      REPT_COP_AREA: '',
-      REPT_COP_TEL: '',
-      REPT_COP_EXT: '',
-      COP_NAME: ''
-    };
-  };
+  // const addPoliceArea = () => {
+  //   claimData.value.policeRept = {
+  //     javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo19',
+  //     OCR_STORY: '',
+  //     OCR_PLCE_ADDR: '',
+  //     REPT_DATE: '',
+  //     REPT_COP_DEPT: '',
+  //     REPT_COP_AREA: '',
+  //     REPT_COP_TEL: '',
+  //     REPT_COP_EXT: '',
+  //     COP_NAME: ''
+  //   };
+  // };
 
-  const afterOcrDateSchema = string()
-    .nullable()
-    .test(
-      'after-ocrDate',
-      '該日期不可早於事故日',
-      (value) => isEmpty(value) || isEmpty(applyStore.claimData.OCR_DATE) || isSameOrAfter(value, applyStore.claimData.OCR_DATE)
-    );
+  // const afterOcrDateSchema = string()
+  //   .nullable()
+  //   .test(
+  //     'after-ocrDate',
+  //     '該日期不可早於事故日',
+  //     (value) => isEmpty(value) || isEmpty(applyStore.claimData.OCR_DATE) || isSameOrAfter(value, applyStore.claimData.OCR_DATE)
+  //   );
 
   // 取得員工等級下拉選單
-  const getEmpDegreeOptions = async (policyNo) => {
-    try {
-      let options = [{ name: '請選擇', value: '', selected: true }];
-      if (!policyNo) {
-        return options;
-        // throw 'EMPTY OP PROD';
-      }
-      let degrees = await applyStore.GetEmpDegreeSel(policyNo);
+  // const getEmpDegreeOptions = async (policyNo) => {
+  //   try {
+  //     let options = [{ name: '請選擇', value: '', selected: true }];
+  //     if (!policyNo) {
+  //       return options;
+  //       // throw 'EMPTY OP PROD';
+  //     }
+  //     let degrees = await applyStore.GetEmpDegreeSel(policyNo);
 
-      degrees.forEach((e) => {
-        options.push({
-          name: e.EMP_DEGREE,
-          value: e.EMP_DEGREE
-        });
-      });
-      return options;
-    } catch (e) {
-      console.error(e);
-      $swal.fail(e);
-      return [{ name: '請選擇', value: '' }];
-    }
-  };
+  //     degrees.forEach((e) => {
+  //       options.push({
+  //         name: e.EMP_DEGREE,
+  //         value: e.EMP_DEGREE
+  //       });
+  //     });
+  //     return options;
+  //   } catch (e) {
+  //     console.error(e);
+  //     $swal.fail(e);
+  //     return [{ name: '請選擇', value: '' }];
+  //   }
+  // };
 
-  // 無記名附約對象若選擇配偶，需跳訊息彈窗
-  const selectSpouseCallback = (value) => {
-    if (value === 'C') {
-      $swal.info('請確認無記名保單婚姻關係是否存在');
-    }
-  };
+  // // 無記名附約對象若選擇配偶，需跳訊息彈窗
+  // const selectSpouseCallback = (value) => {
+  //   if (value === 'C') {
+  //     $swal.info('請確認無記名保單婚姻關係是否存在');
+  //   }
+  // };
 </script>

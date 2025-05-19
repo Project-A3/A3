@@ -19,7 +19,7 @@
 <script>
   import { useLanguageStore } from "~/stores/language";
   const  language=useLanguageStore();
-  </script>
+</script>
 <script setup>
   import { isEmpty } from 'lodash-es';
   import useEditableField from '~/composables/useEditableField';
@@ -93,7 +93,7 @@
     }
   });
 
-  const showingText = computed(() => (isEmpty(props.modelText) ? props.placeholder : props.modelText + props.modelText2));
+  const showingText = computed(() => (isEmpty(props.modelText) ? props.placeholder : props.modelText + ' ' + props.modelText2));
   const modelValue = toRef(props, 'modelValue');
   const emit = defineEmits([
     'update:modelText',

@@ -276,7 +276,7 @@ export const apiGetBoneDayList = () => apiClient.post('AA_A0Z110.getBONE_DAY_Lis
  * 查詢手術
  * @param {Array} params ['部位', '關鍵字']
  */
-export const apiSearchOP = (params) => apiClient.post('AA_A0Z110.queryOP', params);
+export const apiSearchOP = (params) => apiClient.post('AA_A0Z100.queryOP', params);
 /**
  * 查詢手術險別
  * @param {Array} params ['手術代碼']
@@ -889,12 +889,6 @@ export const apiSemiAutomatic330 = (params) => apiClient.post('AA_B3Z330.semiAut
  * 
  */
 export const apiSaveNotExecReason = (params) => apiClient.post('AA_A0Z026.saveNotExecReason', params);
-
-//#endregion
-
-
 export const apiGetTrusteeEEID = (params) => apiClient.post('AA_B3Z100.getTrusteeEEID', params);
-
+export const apiGetAccidentReasonsData = (params) => apiClient.post('AA_A0Z100.queryOCR_RESN_List', params);
 //#endregion
-
-

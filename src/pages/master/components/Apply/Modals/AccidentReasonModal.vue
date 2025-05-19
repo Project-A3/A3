@@ -1,31 +1,31 @@
 <template>
   <Modal disableOverflow>
-    <template v-slot:title>事故原因</template>
+    <template v-slot:title><cathay-translate code="Page_AccidentReasonModal_001"/></template>
     <template v-slot:content>
       <BaseDropdown :options="accidentTypes" :onSelected="onTypeSelected"></BaseDropdown>
       <div class="modal-table">
         <table class="table is-striped-odd is-fullwidth tr-can-click">
           <thead>
             <tr>
-              <th class="has-text-centered ver-middle">序號</th>
-              <th class="ver-middle">事故分類</th>
-              <th class="ver-middle">事故名稱</th>
-              <th class="has-text-centered ver-middle">事故代碼</th>
+              <th class="has-text-centered ver-middle"><cathay-translate code="Page_AccidentReasonModal_008"/></th>
+              <th class="ver-middle"><cathay-translate code="Page_AccidentReasonModal_009"/></th>
+              <th class="ver-middle"><cathay-translate code="Page_AccidentReasonModal_010"/></th>
+              <th class="has-text-centered ver-middle"><cathay-translate code="Page_AccidentReasonModal_011"/></th>
               <th></th>
             </tr>
           </thead>
           <tbody v-if="hasData">
             <tr
               v-for="(reason, index) in currentData"
-              @click="onClickReason(reason.OCR_RESN, reason.OCR_RESN_NAME)"
+              @click="onClickReason(reason.ACCIDENT_REASON_CODE, reason.ACCIDENT_NAME)"
             >
               <td class="has-text-centered w-5">{{ index + currentPageIndex.start }}</td>
               <td class="w-11 font-eudc">{{ reason.OCR_KIND_NAME }}</td>
-              <td class="has-border-right font-eudc" style="width: 70%">{{ reason.OCR_RESN_NAME }}</td>
-              <td class="has-text-centered">{{ reason.OCR_RESN }}</td>
+              <td class="has-border-right font-eudc" style="width: 70%">{{ reason.ACCIDENT_NAME }}</td>
+              <td class="has-text-centered">{{ reason.ACCIDENT_REASON_CODE }}</td>
               <td class="has-text-centered">
                 <div class="radio-group">
-                  <input type="radio" class="radio-input" id="4" :checked="reason.OCR_RESN === selectedReason.code" />
+                  <input type="radio" class="radio-input" id="4" :checked="reason.ACCIDENT_REASON_CODE === selectedReason.code" />
                   <label for="4" class="radio-label is-dark">
                     <span class="radio-button"></span>
                   </label>
@@ -37,10 +37,10 @@
       </div>
       <!-- Pagination & Info  -->
       <div class="number-of-data-info" v-if="hasData">
-        顯示<span>{{ currentPageIndex.start }}</span
+        <cathay-translate code="Component_Pagination_003" /><span>{{ currentPageIndex.start }}</span
         >-<span>{{ currentPageIndex.end }}</span
-        >則內容，共<span>{{ totalCounts }}</span
-        >則
+        ><cathay-translate code="Component_Pagination_004" /><span>{{ totalCounts }}</span
+        ><cathay-translate code="Component_Pagination_005" />
       </div>
       <Pagination
         :total="totalCounts"
@@ -50,8 +50,8 @@
       ></Pagination>
     </template>
     <template v-slot:buttons>
-      <button class="button is-light" @click="props.close">取消</button>
-      <a href="#" class="clear-modal" @click.stop.prevent="emitEvent.clearValue">清除</a>
+      <button class="button is-light" @click="props.close"><cathay-translate code="Page_AccidentReasonModal_013"/></button>
+      <a href="#" class="clear-modal" @click.stop.prevent="emitEvent.clearValue"><cathay-translate code="Page_AccidentReasonModal_012"/></a>
     </template>
   </Modal>
 </template>
@@ -63,6 +63,8 @@
   import usePagination from '~/composables/usePagination';
   import Pagination from '~/components/Pagination.vue';
   import { isEmpty } from 'lodash-es';
+  import { useLanguageStore } from '~/stores/language';
+  const language = useLanguageStore();
   const { $swal } = useSwal();
   const applyStore = useApplyStore();
   const props = defineProps({
@@ -81,26 +83,30 @@
   // 事故分類下拉選單選項
   const accidentTypes = [
     {
-      name: '請選擇事故分類',
+      name: language.translate('Page_AccidentReasonModal_002'),
       value: '',
       selected: true,
       disabled: true
     },
     {
-      name: '疾病',
+      name: language.translate('Page_AccidentReasonModal_003'),
       value: 'A'
     },
     {
-      name: '意外',
+      name: language.translate('Page_AccidentReasonModal_004'),
       value: 'B'
     },
     {
-      name: '癌症',
+      name: language.translate('Page_AccidentReasonModal_005'),
       value: 'C'
     },
     {
-      name: '自為',
+      name: language.translate('Page_AccidentReasonModal_006'),
       value: 'D'
+    },
+    {
+      name: language.translate('Page_AccidentReasonModal_007'),
+      value: 'E'
     }
   ];
 
@@ -116,7 +122,7 @@
         selectedReason.name = '';
         applyStore.showLoading();
         let result = await applyStore.getAccidentReasons(value);
-        setPageData(result);
+        setPageData(result.OCR_RESN_LIST);
       } catch (e) {
         $swal.fail(e);
       } finally {
@@ -142,6 +148,8 @@
     // 更新資料
     emitEvent.updateValue(selectedReason.code);
     emitEvent.updateValue2(selectedReason.name);
+    emitEvent.updateText(selectedReason.code);
+    emitEvent.updateText2(selectedReason.name);
     // 關閉Modal
     props.close();
   };

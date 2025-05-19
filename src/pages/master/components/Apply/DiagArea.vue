@@ -1,14 +1,13 @@
 <template>
   <div class="card is-full third-card is-expanded" id="ApplyThirdCard" ref="diagArea">
     <button class="card-toggle-btn expand"></button>
-
     <h2><cathay-translate code="Component_DiagArea_01"/></h2>
     <Tabs @onTabClick="onTabChanged" ref="diagTabs" class="folder-style">
       <Tab
         v-for="(diag, diagIndex) in showingDiags"
         :key="diag.DIAG_SER_NO"
         :hasSvg="diag.MAN_ISRT_IND === 'Y'"
-        :isActive="diag.DIAG_SER_NO == '1'"
+        :isActive="diagIndex === 0"
         :title="`診斷書${diagIndex + 1}`"
       >
         <section>
@@ -51,7 +50,6 @@
               </div>
               <div class="column is-2 hor-right p-0">
                 <button :disabled="!diag.HOSP_CODE" @click="onClickDiagVideo(diag.HOSP_CODE)" class="button apply-btn">
-                  
                   <cathay-translate code="Component_DiagArea_06"/>
                 </button>
               </div>
@@ -60,10 +58,10 @@
 
           <!-- 診斷資料 -->
           <div class="part">
-            <h3>     <cathay-translate code="Component_DiagArea_07"/></h3>
+            <h3><cathay-translate code="Component_DiagArea_07"/></h3>
             <div class="columns has-flex-column">
               <div class="column">
-                <span class="field"> <cathay-translate code="Component_DiagArea_08"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_08"/></span>
                 <EditableInput
                   :inputWidth="800"
                   v-model="diag.DIAG_CTX"
@@ -73,7 +71,7 @@
             </div>
             <div class="columns has-flex-column">
               <GroupEditable ref="icdGroups">
-                <span class="field"> <cathay-translate code="Component_DiagArea_09"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_09"/></span>
                 <div class="columns">
                   <div class="column">
                     <EditableModal
@@ -191,7 +189,7 @@
             <!-- 癌症資料 -->
             <div class="columns has-flex-column" v-if="diag.CANCER_DATA">
               <div class="column is-3">
-                <span class="field has-tippy" data-tippy-content="資料資料"> <cathay-translate code="Component_DiagArea_10"/></span>
+                <span class="field has-tippy" data-tippy-content="資料資料"><cathay-translate code="Component_DiagArea_10" /></span>
                 <EditableModal
                   v-model:modelText="diag.CANCER_DATA[0].CFM_CANCER_NAME"
                   v-model:modelValue="diag.CANCER_DATA[0].CFM_CANCER_NO"
@@ -203,7 +201,7 @@
                 ></EditableModal>
               </div>
               <div class="column is-3">
-                <span class="field"><cathay-translate code="Component_DiagArea_11"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_11" /></span>
                 <EditableDropdown
                   v-model="diag.CANCER_DATA[0].CFM_CANCER_STG"
                   :options="[
@@ -219,7 +217,7 @@
                 ></EditableDropdown>
               </div>
               <div class="column is-6">
-                <span class="field"><cathay-translate code="Component_DiagArea_12"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_12" /></span>
                 <EditableDatePicker v-model="diag.CANCER_DATA[0].CFM_CANCER_DATE"></EditableDatePicker>
               </div>
             </div>
@@ -227,14 +225,14 @@
               <div class="column is-3"></div>
               <div class="column is-3"></div>
               <div class="column is-6 has-text-danger">
-                 <cathay-translate code="Component_DiagArea_13"/><br>  <cathay-translate code="Component_DiagArea_14"/>
+                <cathay-translate code="Component_DiagArea_13" /><br><cathay-translate code="Component_DiagArea_14" />
               </div>
             </div>
             <!-- //TODO: 尚未確認 -->
             <div class="columns" v-if="!diag.CANCER_DATA">
               <div class="column pt-1">
                 <button class="button apply-btn" @click="addCancerData(diag)">
-                  <span> <cathay-translate code="Component_DiagArea_15"/> </span>
+                  <span><cathay-translate code="Component_DiagArea_15" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -243,10 +241,10 @@
 
           <!-- 骨折換算資料 -->
           <div class="part" v-if="!hasBoneData || (diag.BONE_CODE_DATA?.length > 0 && diag.BONE_CODE_DATA[0]?.CFM_BONE_CODE)">
-            <h3> <cathay-translate code="Component_DiagArea_16"/></h3>
+            <h3><cathay-translate code="Component_DiagArea_16" /></h3>
             <div class="columns has-flex-column" v-if="diag.BONE_CODE_DATA && diag.BONE_CODE_DATA.length > 0">
               <div class="column is-half">
-                <span class="field has-tippy" data-tippy-content="資料資料"><cathay-translate code="Component_DiagArea_17"/> </span>
+                <span class="field has-tippy" data-tippy-content="資料資料"><cathay-translate code="Component_DiagArea_17" /></span>
                 <EditableModal
                   v-model:modelText="diag.BONE_CODE_DATA[0].CFM_BONE_NAME"
                   v-model:modelValue="diag.BONE_CODE_DATA[0].CFM_BONE_CODE"
@@ -261,7 +259,7 @@
             <div class="columns" v-if="!diag.BONE_CODE_DATA">
               <div class="column pt-1">
                 <button class="button apply-btn" @click="addBoneCodeData(diag)">
-                  <span> <cathay-translate code="Component_DiagArea_18"/></span>
+                  <span><cathay-translate code="Component_DiagArea_18" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -270,38 +268,22 @@
 
           <!-- 就醫資料 -->
           <div class="part">
-            <h3><cathay-translate code="Component_DiagArea_19"/></h3>
+            <h3><cathay-translate code="Component_DiagArea_19" /></h3>
           </div>
           <!-- 住院起訖 -->
-          <div v-show="diag.MEDICAL_DATA.STAY_HOSP_INTERVAL">
+          <div v-show="diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1">
             <!-- 上方表頭 -->
             <div class="columns">
-              <div class="column is-1 p-0"></div>
+              <div class="column is-1 p-0" style="width: 15%"></div>
               <div class="column is-11 p-0">
                 <div class="columns">
                   <div class="column is-half border-right padding-only-right">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20"/></span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20" /></span>
                       </div>
                       <div class="column is-5 p-0">
-                        <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
-                      </div>
-                      <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field"><cathay-translate code="Component_DiagArea_22"/></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="column is-half padding-only-left">
-                    <div class="columns">
-                      <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20"/></span>
-                      </div>
-                      <div class="column is-5 p-0">
-                        <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
-                      </div>
-                      <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field"><cathay-translate code="Component_DiagArea_22"/></span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_21" /></span>
                       </div>
                     </div>
                   </div>
@@ -312,8 +294,8 @@
             <!-- 下方表格 -->
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
-              <div class="column is-1">
-                <span class="field mr-1"><cathay-translate code="Component_DiagArea_23"/></span>
+              <div class="column is-1" style="width: 15%">
+                <span class="field mr-1"><cathay-translate code="Component_DiagArea_23" /></span>
                 <EllipseTippy
                   :content="diag.MEDICAL_DATA.STAY_HOSP_NOTICE"
                   v-if="diag.MEDICAL_DATA.STAY_HOSP_NOTICE"
@@ -322,61 +304,51 @@
                   <img src="/src/assets/images/icon-clock.svg" alt="CLOCK" />
                 </EllipseTippy>
               </div>
-
-              <!--表格內容 -->
-              <GroupEditable class="is-11 p-0" ref="stayHospitalGroups">
-                <div class="columns is-multiline">
-                  <!-- 第1筆資料 -->
-                  <div
-                    :class="[
-                      'column',
-                      'is-half',
-                      {
-                        'border-right': index % 2 === 0,
-                        'padding-only-right': index % 2 === 0,
-                        'padding-only-left': index % 2 !== 0
-                      }
-                    ]"
-                    v-for="(stayData, index) in diag.MEDICAL_DATA.STAY_HOSP_INTERVAL"
-                    :key="stayData.SER_NO"
-                  >
-                    <div class="columns border-bot has-flex-column">
-                      <div class="column is-1 hor-center">
-                        <span class="data not-editable">{{ index + 1 }}</span>
-                      </div>
-                      <div class="column is-5">
-                        <EditableDateRangePicker
-                          v-model:modelStartDate="stayData.CFM_STR_DATE"
-                          v-model:modelEndDate="stayData.CFM_END_DATE"
-                          :schema="afterOcrDateSchema"
-                          :hasRepeatRange="() => detectRepeatRangeDate(diag.MEDICAL_DATA.STAY_HOSP_INTERVAL, stayData)"
-                        ></EditableDateRangePicker>
-                      </div>
-                      <div class="column is-6 is-flex is-align-item-center" style="margin-left: 15px">
-                        <EditableMutipleDropdown
-                          :options="getReceiptLinkOptions(stayData.RECEIPT_SER_NOS)"
-                          v-model="stayData.RECEIPT_SER_NOS"
-                        ></EditableMutipleDropdown>
-                        <button
-                          class="button is-primary-lightest ml-2 is-editing"
-                          v-if="stayHospitalGroups[currentTabIndex]?.isGroupEditing && !isApplyDate(stayData)"
-                          @click="deleteStayHospital(stayData.SER_NO)"
-                        >
-                          <img src="/src/assets/images/icon-trash.svg" alt="TRASH" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+              <div class="columns border-bot has-flex-column">
+                <div class="column is-1 hor-center">
+                  <span class="data not-editable">1</span>
                 </div>
-              </GroupEditable>
+                <div class="column is-5">
+                  <EditableDateRangePicker
+                    v-model:modelStartDate="diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1"
+                    v-model:modelEndDate="diag.MEDICAL_DATA.APPLY_HOSP_E_DATE_1"
+                    :schema="afterOcrDateSchema"
+                  ></EditableDateRangePicker>
+                </div>
+              </div>
             </div>
-
-            <div class="columns">
+            <!-- <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addStayHospital">
-                  <span><cathay-translate code="Component_DiagArea_24"/></span>
+                  <span><cathay-translate code="Component_DiagArea_28" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
+              </div>
+            </div> -->
+            <div class="columns has-flex-column">
+              <div class="column">
+                <span class="field"><cathay-translate code="Component_DiagArea_129"/></span>
+                <EditableInput
+                  :inputStyle="{
+                      width: '80px'
+                  }"
+                  v-model="diag.MEDICAL_DATA.APPLY_ICU_DAYS"
+                  :schema="string().required('請輸入診斷內容')"
+                ></EditableInput>
+                <span class="data"><cathay-translate code="Component_DiagArea_128"/></span>
+              </div>
+            </div>
+            <div class="columns has-flex-column">
+              <div class="column">
+                <span class="field"><cathay-translate code="Component_DiagArea_130"/></span>
+                <EditableInput
+                  :inputStyle="{
+                      width: '80px'
+                  }"
+                  v-model="diag.MEDICAL_DATA.APPLY_BURNED_DAYS"
+                  :schema="string().required('請輸入診斷內容')"
+                ></EditableInput>
+                <span class="data"><cathay-translate code="Component_DiagArea_128"/></span>
               </div>
             </div>
           </div>
@@ -385,7 +357,7 @@
           <div class="part" v-show="diag.MEDICAL_DATA.DAY_HOSP_INTERVAL">
             <div class="columns">
               <div class="column">
-                <span class="field"><cathay-translate code="Component_DiagArea_25"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_29" /></span>
                 <!--// 有日間病房資料就勾有-->
                 <span class="data">
                   <img
@@ -393,7 +365,7 @@
                     src="/src/assets/images/icon-checkmark-check.svg"
                     alt="CHECKMARK"
                   />
-                  <template v-else><cathay-translate code="Component_DiagArea_26"/></template>
+                  <template v-else><cathay-translate code="Component_DiagArea_30" /></template>
                 </span>
               </div>
             </div>
@@ -406,26 +378,26 @@
                   <div class="column is-half border-right padding-only-right">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_27"/></span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_31" /></span>
                       </div>
                       <div class="column is-5 p-0">
-                         <span class="field"><cathay-translate code="Component_DiagArea_21"/></span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_32" /></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                        <span class="field"><cathay-translate code="Component_DiagArea_33"/></span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_33" /></span>
                       </div>
                     </div>
                   </div>
                   <div class="column is-half padding-only-left">
                     <div class="columns">
                       <div class="column is-1 hor-center p-0">
-                         <span class="field"><cathay-translate code="Component_DiagArea_34"/></span>
+                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_34" /></span>
                       </div>
                       <div class="column is-5 p-0">
-                          <span class="field"><cathay-translate code="Component_DiagArea_35"/></span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_35" /></span>
                       </div>
                       <div class="column is-6 p-0" style="margin-left: 15px">
-                         <span class="field"><cathay-translate code="Component_DiagArea_36"/></span>
+                        <span class="field"><cathay-translate code="Component_DiagArea_36" /></span>
                       </div>
                     </div>
                   </div>
@@ -437,7 +409,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                   <span class="field"><cathay-translate code="Component_DiagArea_37"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_37" /></span>
               </div>
 
               <!--表格內容 -->
@@ -507,7 +479,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addDayWard">
-                  <span><cathay-translate code="Component_DiagArea_38"/></span>
+                  <span><cathay-translate code="Component_DiagArea_38" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -518,7 +490,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
-                <span class="field"><cathay-translate code="Component_DiagArea_39"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_39" /></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -558,7 +530,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.ICU_INTERVAL">
             <div class="columns is-vcentered">
               <div class="column is-narrow fixed-width-143">
-                <span class="field"><cathay-translate code="Component_DiagArea_40"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_40" /></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.ICU_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -597,7 +569,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.HOME_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
-                <span class="field"><cathay-translate code="Component_DiagArea_41"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_41" /></span>
               </div>
               <GroupEditable class="p-0" :data="diag.MEDICAL_DATA.HOME_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                 <div class="columns is-multiline has-flex-column">
@@ -633,10 +605,25 @@
           </div>
 
           <!-- 門診日期 -->
-          <div class="part" v-if="diag.MEDICAL_DATA.CLINIC_DATA">
+          <div class="part" v-if="diag.MEDICAL_DATA.APPLY_CLINIC_TIMES && diag.MEDICAL_DATA.APPLY_CLINIC_TIMES.trim() !== ''">
             <div class="columns is-vcentered">
-              <div class="column is-narrow fixed-width-143">
-                <span class="field mr-1"> <cathay-translate code="Component_DiagArea_42"/></span>
+              <div class="column is-narrow">
+                <span class="field"><cathay-translate code="Component_DiagArea_42" /></span>
+              </div>
+              <span style="margin-right: 10px">
+                <EditableInput
+                  :inputStyle="{
+                      width: '80px'
+                  }"
+                  v-model="diag.MEDICAL_DATA.APPLY_CLINIC_TIMES"
+                  :schema="string().required('請輸入診斷內容')"
+                ></EditableInput>
+              </span>
+              <span class="data ml-12"><cathay-translate code="Component_DiagArea_128"/></span>
+            </div>
+            <div class="columns is-vcentered">
+              <div class="column is-narrow">
+                <span class="field mr-1"><cathay-translate code="Component_DiagArea_131" /></span>
                 <EllipseTippy
                   :content="diag.MEDICAL_DATA.CLINIC_DATA_NOTICE"
                   v-if="diag.MEDICAL_DATA.CLINIC_DATA_NOTICE"
@@ -644,9 +631,17 @@
                 >
                   <img src="/src/assets/images/icon-clock.svg" alt="CLOCK" />
                 </EllipseTippy>
-
               </div>
-              <GroupEditable
+              <div class="columns border-bot has-flex-column">
+                <div class="column is-5">
+                  <EditableDateRangePicker
+                    v-model:modelStartDate="diag.MEDICAL_DATA.APPLY_CLINIC_S_DATE"
+                    v-model:modelEndDate="diag.MEDICAL_DATA.APPLY_CLINIC_E_DATE"
+                    :schema="afterOcrDateSchema"
+                  ></EditableDateRangePicker>
+                </div>
+              </div>
+              <!-- <GroupEditable
                 class="p-0"
                 :data="diag.MEDICAL_DATA.CLINIC_DATA"
                 :multipleDate="diag.MEDICAL_DATA.CLINIC_DATA?.map((e) => e.CFM_STR_DATE)"
@@ -681,7 +676,7 @@
                     </label>																						   
                   </div>
                 </div>
-              </GroupEditable>
+              </GroupEditable> -->
             </div>
           </div>
 
@@ -689,7 +684,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.RAD_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
-                <span class="field"><cathay-translate code="Component_DiagArea_44"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_44" /></span>
               </div>
               <GroupEditable
                 class="p-0"
@@ -728,7 +723,7 @@
           <div class="part" v-if="diag.MEDICAL_DATA.CHEM_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
-                <span class="field"><cathay-translate code="Component_DiagArea_45"/> </span>
+                <span class="field"><cathay-translate code="Component_DiagArea_45" /></span>
               </div>
               <GroupEditable
                 class="p-0"
@@ -764,32 +759,32 @@
           </div>
 
           <!-- 手術日期 -->
-          <div class="part" v-show="diag.MEDICAL_DATA.OPER_DATA">
+          <div class="part" v-show="diag.MEDICAL_DATA.OPER_DATA.length > 0">
             <!-- 上方表頭 -->
             <div class="columns mr-top">
               <div class="column is-1 p-0"></div>
               <div class="column is-11 p-0">
                 <div class="columns">
                   <div class="column is-1 hor-center">
-                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_46"/> </span>
+                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_46" /></span>
                   </div>
                   <div class="column is-narrow">
                     <div class="w-fixed-160">
-                      <span class="field"><cathay-translate code="Component_DiagArea_47"/> </span>
+                      <span class="field"><cathay-translate code="Component_DiagArea_47" /></span>
                     </div>
                   </div>
                   <div class="column is-4">
-                    <span class="field"><cathay-translate code="Component_DiagArea_48"/> </span>
+                    <span class="field"><cathay-translate code="Component_DiagArea_48" /></span>
                   </div>
-                  <div class="column is-1">
-                    <span class="field"><cathay-translate code="Component_DiagArea_49"/> </span>
+                  <div class="column is-2">
+                    <span class="field"><cathay-translate code="Component_DiagArea_49" /></span>
                   </div>
-                  <div class="column">
-                    <span class="field"><cathay-translate code="Component_DiagArea_50"/> </span>
+                  <!-- <div class="column">
+                    <span class="field"><cathay-translate code="Component_DiagArea_50" /></span>
                   </div>
                   <div class="column" style="min-width: 155px">
-                    <span class="field"><cathay-translate code="Component_DiagArea_51"/> </span>
-                  </div>
+                    <span class="field"><cathay-translate code="Component_DiagArea_51" /></span>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -798,7 +793,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field"><cathay-translate code="Component_DiagArea_52"/> </span>
+                <span class="field"><cathay-translate code="Component_DiagArea_52" /></span>
               </div>
 
               <!--表格內容 -->
@@ -813,8 +808,8 @@
                       <div class="column is-narrow">
                         <div class="w-fixed-160 is-flex is-align-items-center">
                           <EditableDatePicker
-                            v-model="oper.CFM_STR_DATE"
-                            :schema="afterOcrDateSchema.test('required', '不可為空白', (value) => !(oper.CFM_OP_CODE && !value))"
+                            v-model="oper.APPLY_OP_DATE"
+                            :schema="afterOcrDateSchema.test('required', '不可為空白', (value) => !(oper.APPLY_OP_CODE && !value))"
                           ></EditableDatePicker>
                         </div>
                       </div>
@@ -822,10 +817,9 @@
                         <div class="columns is-gapless w-100">
                           <div class="column mr-2" style="max-width: 110px">
                             <EditableModal
-                              v-model:modelText="oper.CFM_OP_CODE"
-                              v-model:modelValue="oper.CFM_OP_CODE"
-                              v-model:modelValue2="oper.CFM_OP_CTX"
-                              v-model:modelValue3="oper.CFM_OP_CNCR"
+                              v-model:modelText="oper.APPLY_OP_CODE"
+                              v-model:modelValue="oper.APPLY_OP_CODE"
+                              v-model:modelValue2="oper.APPLY_OP_NAME"
                               :editingWidth="110"
                               :modal="{
                                 component: OperationModal,
@@ -835,63 +829,23 @@
                             ></EditableModal>
                           </div>
                           <div class="column limit-width" style="max-width: 100%">
-                            <ErrorTippy v-if="oper.CFM_STR_DATE && !oper.CFM_OP_CODE" :errors="['請選擇手術代碼']"></ErrorTippy>
-                            <EllipseTippy class="limit-width" :content="oper.CFM_OP_CTX" displayBlock manualRefresh>
-                              <span class="font-eudc">{{ oper.CFM_OP_CTX }}</span>
+                            <ErrorTippy v-if="oper.APPLY_OP_DATE && !oper.APPLY_OP_CODE" :errors="['請選擇手術代碼']"></ErrorTippy>
+                            <EllipseTippy class="limit-width" :content="oper.APPLY_OP_NAME" displayBlock manualRefresh>
+                              <span class="font-eudc">{{ oper.APPLY_OP_NAME }}</span>
                             </EllipseTippy>
                           </div>
                         </div>
                       </div>
-                      <div class="column is-1">
-                        <span class="data not-editable">{{
-                          oper.CFM_OP_CNCR === 'Y' ? '是' : oper.CFM_OP_CNCR === 'N' ? '否' : ''
-                        }}</span>
+                      <div class="column is-2">
+                        <EditableCheckbox v-model="oper.APPLY_OP_FEMALE"></EditableCheckbox>
                       </div>
-                      <div class="column">
-                        <EditableModal
-                          v-model:modelText="oper.CFM_OP_PROD"
-                          v-model:modelValue="oper.CFM_OP_PROD"
-                          :modal="{
-                            component: OpProdModal,
-                            id: 'selectHospitalModal',
-                            data: {
-                              opCode: oper.CFM_OP_CODE
-                            }
-                          }"
-                        ></EditableModal>
-                      </div>
-                      <div class="column" style="min-width: 155px">
-                        <EditableDropdown
-                          v-model="oper.CFM_OP_GRADE"
-                          dynamic="opened"
-                          :editingWidth="106"
-                          :options="[
-                            {
-                              name: '請選擇',
-                              value: ''
-                            },
-                            {
-                              name: oper.CFM_OP_GRADE_NAME,
-                              value: oper.CFM_OP_GRADE,
-                              disabled: true
-                            }
-                          ]"
-                          :onRefreshOptions="
-                            async () => {
-                              return await getOpGradOptions(oper.CFM_OP_PROD);
-                            }
-                          "
-                        ></EditableDropdown>
-                        <button
-                          class="button is-primary-lightest ml-2 is-editing"
-                          v-if="
-                            opGroups[currentTabIndex]?.isGroupEditing
-                          "
+                      <button
+                          class="button is-primary-lightest ml-5 is-editing"
+                          v-if="opGroups[currentTabIndex]?.isGroupEditing"
                           @click="deleteOp(oper.SER_NO)"
                         >
                           <img src="/src/assets/images/icon-trash.svg" alt="TRASH" />
                         </button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -900,8 +854,8 @@
 
             <div class="columns">
               <div class="column hor-right">
-                <button class="button apply-btn" @click="addOp">
-                  <span><cathay-translate code="Component_DiagArea_53"/></span>
+                <button v-if="diag.MEDICAL_DATA.OPER_DATA.length < 3" class="button apply-btn" @click="addOp">
+                  <span><cathay-translate code="Component_DiagArea_53" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -915,11 +869,11 @@
               <div class="column is-11 p-0">
                 <div class="columns">
                   <div class="column is-1 hor-center">
-                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_54"/></span>
+                    <span class="field mr-none"><cathay-translate code="Component_DiagArea_54" /></span>
                   </div>
                   <div class="column">
                     <div>
-                      <span class="field"><cathay-translate code="Component_DiagArea_55"/></span>
+                      <span class="field"><cathay-translate code="Component_DiagArea_55" /></span>
                     </div>
                   </div>
                   <div class="column"></div>
@@ -929,7 +883,7 @@
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
               <div class="column is-1">
-                <span class="field"><cathay-translate code="Component_DiagArea_56"/></span>
+                <span class="field"><cathay-translate code="Component_DiagArea_56" /></span>
               </div>
 
               <!--表格內容 -->
@@ -953,7 +907,7 @@
                         </div>
                       </div>
                       <div class="column p-0 is-7">
-                        <span class="field mr-12 is-editing"><cathay-translate code="Component_DiagArea_57"/></span>
+                        <span class="field mr-12 is-editing"><cathay-translate code="Component_DiagArea_57" /></span>
                         <EditableCheckbox v-model="emgy.CFM_IS_EMGY"></EditableCheckbox>
                         <button
                           class="button is-primary-lightest ml-5 is-editing"
@@ -971,7 +925,7 @@
             <div class="columns">
               <div class="column hor-right">
                 <button class="button apply-btn" @click="addEmgy">
-                  <span><cathay-translate code="Component_DiagArea_58"/></span>
+                  <span><cathay-translate code="Component_DiagArea_58" /></span>
                   <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                 </button>
               </div>
@@ -979,7 +933,7 @@
           </div>
           <div class="columns has-flex-column" v-if="diag.MEDICAL_DATA.CFM_OTP_CNT !== null">
             <div class="column">
-              <span class="field"><cathay-translate code="Component_DiagArea_59"/></span>
+              <span class="field"><cathay-translate code="Component_DiagArea_59" /></span>
               <EditableInput
                 :inputWidth="80"
                 v-model="diag.MEDICAL_DATA.CFM_OTP_CNT"
@@ -996,92 +950,99 @@
           <div class="part">
             <div class="columns">
               <div class="column hor-right">
-                <div class="dropdown is-primary height-limit">
+                <div v-if="getAvailableDropdownItems(diag).length > 0" class="dropdown is-primary height-limit">
                   <div class="dropdown-trigger">
                     <button class="button apply-btn" aria-haspopup="true" aria-controls="dropdown-menu">
-                      <span><cathay-translate code="Component_DiagArea_60"/></span>
+                      <span><cathay-translate code="Component_DiagArea_60" /></span>
                       <img src="/src/assets/images/icon-arrow-down-light.svg" alt="ARROW" />
                     </button>
                   </div>
                   <div class="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a
-                        v-if="!diag?.MEDICAL_DATA?.STAY_HOSP_INTERVAL"
+                      <a v-for="code in getAvailableDropdownItems(diag)"
+                        :key="code"
                         href="#"
                         class="dropdown-item"
-                        @click.stop.prevent="diag.MEDICAL_DATA.STAY_HOSP_INTERVAL = []"
-                        ><cathay-translate code="Component_DiagArea_61"/></a
-                      >
-                      <a
+                        @click.stop.prevent="handleDropdownClick(code, diag)">
+                        <cathay-translate :code="code" />
+                      </a>
+                      <!-- <a
+                        v-if="availableDropdownItems(diag)"
+                        href="#"
+                        class="dropdown-item"
+                        @click.stop.prevent="handleClick('stayHosp')"
+                        ><cathay-translate code="Component_DiagArea_61" /></a
+                      > -->
+                      <!-- <a
                         v-if="!diag?.MEDICAL_DATA?.DAY_HOSP_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.DAY_HOSP_INTERVAL = []"
-                        ><cathay-translate code="Component_DiagArea_62"/></a
+                        ><cathay-translate code="Component_DiagArea_62" /></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.BURN_HOSP_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL = []"
-                        ><cathay-translate code="Component_DiagArea_63"/></a
+                        ><cathay-translate code="Component_DiagArea_63" /></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.ICU_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.ICU_INTERVAL = []"
-                        ><cathay-translate code="Component_DiagArea_64"/></a
-                      >
+                        ><cathay-translate code="Component_DiagArea_64" /></a
+                      > 
                       <a
                         v-if="!diag?.MEDICAL_DATA?.HOME_INTERVAL"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.HOME_INTERVAL = []"
-                        ><cathay-translate code="Component_DiagArea_65"/></a
-                      >
-                      <a
-                        v-if="!diag?.MEDICAL_DATA?.CLINIC_DATA"
+                        ><cathay-translate code="Component_DiagArea_65" /></a
+                      >-->
+                      <!-- <a
+                        v-if="getAvailableDropdownItems(diag).includes('clinic')"
                         href="#"
                         class="dropdown-item"
-                        @click.stop.prevent="diag.MEDICAL_DATA.CLINIC_DATA = []"
-                        ><cathay-translate code="Component_DiagArea_66"/></a
-                      >
-                      <a
+                        @click.stop.prevent="handleClick('clinic')"
+                        ><cathay-translate code="Component_DiagArea_66" /></a
+                      > -->
+                      <!-- <a
                         v-if="!diag?.MEDICAL_DATA?.RAD_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.RAD_DATA = []"
-                        > <cathay-translate code="Component_DiagArea_67"/></a
+                        ><cathay-translate code="Component_DiagArea_67" /></a
                       >
                       <a
                         v-if="!diag?.MEDICAL_DATA?.CHEM_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.CHEM_DATA = []"
-                        > <cathay-translate code="Component_DiagArea_68"/></a
-                      >
-                      <a
+                        ><cathay-translate code="Component_DiagArea_68" /></a
+                      > -->
+                      <!-- <a
                         v-if="!diag?.MEDICAL_DATA?.OPER_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.OPER_DATA = []"
-                        > <cathay-translate code="Component_DiagArea_69"/></a
-                      >
-                      <a
+                        ><cathay-translate code="Component_DiagArea_69" /></a
+                      > -->
+                      <!-- <a
                         v-if="!diag?.MEDICAL_DATA?.EMGY_DATA"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.EMGY_DATA = []"
-                        > <cathay-translate code="Component_DiagArea_70"/></a
+                        ><cathay-translate code="Component_DiagArea_70" /></a
                       >
                       <a
                         v-if="diag?.MEDICAL_DATA?.CFM_OTP_CNT === undefined || diag.MEDICAL_DATA.CFM_OTP_CNT === null"
                         href="#"
                         class="dropdown-item"
                         @click.stop.prevent="diag.MEDICAL_DATA.CFM_OTP_CNT = ''"
-                        > <cathay-translate code="Component_DiagArea_71"/></a
-                      >
+                        ><cathay-translate code="Component_DiagArea_71" /></a
+                      > -->
                     </div>
                   </div>
                 </div>
@@ -1090,31 +1051,30 @@
           </div>
 
           <div class="hidden-parts">
-            <!-- 額外資料 -->
-            <div class="part">
-              <h3> <cathay-translate code="Component_DiagArea_72"/></h3>
+            <!-- <div class="part">
+              <h3><cathay-translate code="Component_DiagArea_72" /></h3>
 
               <div class="columns has-flex-column">
                 <div class="column is-3" v-if="diag?.CFM_IS_BONE === 'Y' | diag?.CFM_IS_BONE === 'N'">
-                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_73"/></span>
+                  <span class="field mr-12"><cathay-translate code="Component_DiagArea_73" /></span>
                   <EditableCheckbox v-model="diag.CFM_IS_BONE"></EditableCheckbox>
                 </div>
                 <div class="column is-4" v-if="diag?.EXTRA_DATA?.IS_SEVERE_RA === 'Y' | diag?.EXTRA_DATA?.IS_SEVERE_RA === 'N'">
-                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_74"/></span>
+                  <span class="field mr-12"><cathay-translate code="Component_DiagArea_74" /></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_SEVERE_RA"></EditableCheckbox>
                 </div>
                 <div class="column is-5" v-if="diag?.EXTRA_DATA?.IS_SLE === 'Y' | diag?.EXTRA_DATA?.IS_SLE === 'N'">
-                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_75"/></span>
+                  <span class="field mr-12"><cathay-translate code="Component_DiagArea_75" /></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_SLE"></EditableCheckbox>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- 留院觀察 -->
             <div class="part" v-if="diag.EXTRA_DATA.OBSERV_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_76"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_76" /></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.OBSERV_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1153,7 +1113,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_77"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_77" /></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1192,7 +1152,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.REHAB_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_78"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_78" /></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1231,7 +1191,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.HD_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_79"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_79" /></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1270,7 +1230,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.SHORTERM_DATA">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_80"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_80" /></span>
                 </div>
                 <GroupEditable
                   class="p-0"
@@ -1318,15 +1278,15 @@
                 "
               >
                 <div class="column is-3" v-if="diag?.EXTRA_DATA?.IS_ILL_CARD === 'Y' | diag?.EXTRA_DATA?.IS_ILL_CARD === 'N'">
-                  <span class="field mr-67"> <cathay-translate code="Component_DiagArea_81"/></span>
+                  <span class="field mr-67"><cathay-translate code="Component_DiagArea_81" /></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_ILL_CARD"></EditableCheckbox>
                 </div>
                 <div class="column is-4" v-if="diag?.EXTRA_DATA?.IS_MASS_POISON === 'Y' | diag?.EXTRA_DATA?.IS_MASS_POISON === 'N'">
-                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_82"/></span>
+                  <span class="field mr-12"><cathay-translate code="Component_DiagArea_82" /></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_MASS_POISON"></EditableCheckbox>
                 </div>
                 <div class="column is-5" v-if="diag?.EXTRA_DATA?.IS_OVERSEAS === 'Y' | diag?.EXTRA_DATA?.IS_OVERSEAS === 'N'">
-                  <span class="field mr-12"> <cathay-translate code="Component_DiagArea_83"/></span>
+                  <span class="field mr-12"><cathay-translate code="Component_DiagArea_83" /></span>
                   <EditableCheckbox v-model="diag.EXTRA_DATA.IS_OVERSEAS"></EditableCheckbox>
                 </div>
               </div>
@@ -1336,7 +1296,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.HOSPICE_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_84"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_84" /></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.HOSPICE_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1381,26 +1341,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"> <cathay-translate code="Component_DiagArea_85"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_85" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"> <cathay-translate code="Component_DiagArea_86"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_86" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"> <cathay-translate code="Component_DiagArea_87"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_87" /></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"> <cathay-translate code="Component_DiagArea_88"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_88" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"> <cathay-translate code="Component_DiagArea_89"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_89" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"> <cathay-translate code="Component_DiagArea_90"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_90" /></span>
                         </div>
                       </div>
                     </div>
@@ -1412,7 +1372,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field"> <cathay-translate code="Component_DiagArea_91"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_91" /></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1475,7 +1435,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addVaccination">
-                    <span>新增 <cathay-translate code="Component_DiagArea_92"/></span>
+                    <span><cathay-translate code="Component_DiagArea_92" /></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1492,26 +1452,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_93"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_93" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"><cathay-translate code="Component_DiagArea_94"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_94" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"><cathay-translate code="Component_DiagArea_95"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_95" /></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_96"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_96" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"><cathay-translate code="Component_DiagArea_97"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_97" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"><cathay-translate code="Component_DiagArea_98"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_98" /></span>
                         </div>
                       </div>
                     </div>
@@ -1523,7 +1483,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field"><cathay-translate code="Component_DiagArea_99"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_99" /></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1590,7 +1550,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addCancerScreening">
-                    <span><cathay-translate code="Component_DiagArea_100"/></span>
+                    <span><cathay-translate code="Component_DiagArea_100" /></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1607,26 +1567,26 @@
                     <div class="column is-half border-right padding-only-right mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_101"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_101" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"><cathay-translate code="Component_DiagArea_102"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_102" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"><cathay-translate code="Component_DiagArea_103"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_103" /></span>
                         </div>
                       </div>
                     </div>
                     <div class="column is-half padding-only-left mr-only-top">
                       <div class="columns">
                         <div class="column is-2 hor-center p-0">
-                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_104"/></span>
+                          <span class="field mr-none"><cathay-translate code="Component_DiagArea_104" /></span>
                         </div>
                         <div class="column is-4 p-0">
-                          <span class="field"><cathay-translate code="Component_DiagArea_105"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_105" /></span>
                         </div>
                         <div class="column is-7 p-0 ml-3">
-                          <span class="field"><cathay-translate code="Component_DiagArea_106"/></span>
+                          <span class="field"><cathay-translate code="Component_DiagArea_106" /></span>
                         </div>
                       </div>
                     </div>
@@ -1638,7 +1598,7 @@
               <div class="columns is-vcentered">
                 <!--欄位名稱 -->
                 <div class="column is-1">
-                  <span class="field"><cathay-translate code="Component_DiagArea_107"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_107" /></span>
                 </div>
 
                 <!--表格內容 -->
@@ -1709,7 +1669,7 @@
               <div class="columns">
                 <div class="column hor-right">
                   <button class="button apply-btn" @click="addCancerDrug">
-                    <span><cathay-translate code="Component_DiagArea_108"/></span>
+                    <span><cathay-translate code="Component_DiagArea_108" /></span>
                     <img src="/src/assets/images/icon-add.svg" alt="ADD" />
                   </button>
                 </div>
@@ -1720,7 +1680,7 @@
             <div class="part" v-if="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL">
               <div class="columns is-align-items-center">
                 <div class="column is-narrow fixed-width-143 p-0">
-                  <span class="field"><cathay-translate code="Component_DiagArea_109"/></span>
+                  <span class="field"><cathay-translate code="Component_DiagArea_109" /></span>
                 </div>
                 <GroupEditable class="p-0" :data="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL" :onClickInsert="onClickInsertRangeDate">
                   <div class="columns is-multiline has-flex-column">
@@ -1764,12 +1724,12 @@
                   class="button is-danger is-outlined mr-5"
                   @click="deleteDiag(diag.DIAG_SER_NO)"
                 >
-                  <span><cathay-translate code="Component_DiagArea_110"/> {{ diagIndex + 1 }}</span>
+                  <span><cathay-translate code="Component_DiagArea_110" /> {{ diagIndex + 1 }}</span>
                   </button>
-                  <div class="dropdown is-primary height-limit">
+                  <!-- <div class="dropdown is-primary height-limit">
                     <div class="dropdown-trigger">
                       <button class="button apply-btn" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span><cathay-translate code="Component_DiagArea_111"/></span>
+                        <span><cathay-translate code="Component_DiagArea_111" /></span>
                         <img src="/src/assets/images/icon-arrow-down-light.svg" alt="ARROW" />
                       </button>
                     </div>
@@ -1780,49 +1740,49 @@
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.CFM_IS_BONE = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_112"/></a
+                          ><cathay-translate code="Component_DiagArea_112" /></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_SEVERE_RA != 'Y' & diag?.EXTRA_DATA?.IS_SEVERE_RA != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_SEVERE_RA = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_113"/></a
+                          ><cathay-translate code="Component_DiagArea_113" /></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_SLE != 'Y' & diag?.EXTRA_DATA?.IS_SLE != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_SLE = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_114"/></a
+                          ><cathay-translate code="Component_DiagArea_114" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.OBSERV_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.OBSERV_INTERVAL = []"
-                          ><cathay-translate code="Component_DiagArea_115"/></a
+                          ><cathay-translate code="Component_DiagArea_115" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.OVERSEAS_HOSP_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.OVERSEAS_HOSP_INTERVAL = []"
-                          ><cathay-translate code="Component_DiagArea_116"/></a
+                          ><cathay-translate code="Component_DiagArea_116" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.REHAB_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.REHAB_DATA = []"
-                          ><cathay-translate code="Component_DiagArea_117"/></a
+                          ><cathay-translate code="Component_DiagArea_117" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.HD_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.HD_DATA = []"
-                          >  <cathay-translate code="Component_DiagArea_79"/></a
+                          ><cathay-translate code="Component_DiagArea_79" /></a
                         >
                       
                         <a
@@ -1830,67 +1790,67 @@
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.SHORTERM_DATA = []"
-                          ><cathay-translate code="Component_DiagArea_118"/></a
+                          ><cathay-translate code="Component_DiagArea_118" /></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_ILL_CARD != 'Y' & diag?.EXTRA_DATA?.IS_ILL_CARD != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_ILL_CARD = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_119"/></a
+                          ><cathay-translate code="Component_DiagArea_119" /></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_MASS_POISON != 'Y' & diag?.EXTRA_DATA?.IS_MASS_POISON != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_MASS_POISON = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_120"/></a
+                          ><cathay-translate code="Component_DiagArea_120" /></a
                         >
                         <a
                           v-if="diag?.EXTRA_DATA?.IS_OVERSEAS != 'Y' & diag?.EXTRA_DATA?.IS_OVERSEAS != 'N'"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.IS_OVERSEAS = 'Y'"
-                          ><cathay-translate code="Component_DiagArea_121"/></a
+                          ><cathay-translate code="Component_DiagArea_121" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.HOSPICE_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.HOSPICE_INTERVAL = []"
-                          ><cathay-translate code="Component_DiagArea_122"/></a
+                          ><cathay-translate code="Component_DiagArea_122" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.VACCINE_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.VACCINE_DATA = []"
-                          ><cathay-translate code="Component_DiagArea_123"/></a
+                          ><cathay-translate code="Component_DiagArea_123" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.CANCER_SCR_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.CANCER_SCR_DATA = []"
-                          ><cathay-translate code="Component_DiagArea_124"/></a
+                          ><cathay-translate code="Component_DiagArea_124" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.CANCER_DRUG_DATA"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.CANCER_DRUG_DATA = []"
-                          ><cathay-translate code="Component_DiagArea_125"/></a
+                          ><cathay-translate code="Component_DiagArea_125" /></a
                         >
                         <a
                           v-if="!diag?.EXTRA_DATA?.NOTIF_DISEASE_INTERVAL"
                           href="#"
                           class="dropdown-item"
                           @click.stop.prevent="diag.EXTRA_DATA.NOTIF_DISEASE_INTERVAL = []"
-                          ><cathay-translate code="Component_DiagArea_126"/></a
+                          ><cathay-translate code="Component_DiagArea_126" /></a
                         >
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -1899,7 +1859,7 @@
       </Tab>
       <template v-slot:buttons>
         <button class="button apply-btn no-bg-btn" @click="addDiagArea">
-          <span><cathay-translate code="Component_DiagArea_127"/></span>
+          <span><cathay-translate code="Component_DiagArea_127" /></span>
           <img src="/src/assets/images/icon-add.svg" alt="ADD" />
         </button>
       </template>
@@ -1910,7 +1870,7 @@
 </script>
 <script setup>
   import { difference, isEmpty, pull, remove } from 'lodash-es';
-import { nextTick } from 'vue';
+import { nextTick, onMounted } from 'vue';
 import { string } from 'yup';
 import { sequence } from '~/common/utils';
 import EditableCheckbox from '~/components/Editable/EditableCheckbox.vue';
@@ -1951,9 +1911,46 @@ import OpProdModal from './Modals/OpProdModal.vue';
   // 只顯示不是D的
   // thêm dữ liệu ảo showingDiags
   const showingDiags = computed(() =>
- 
     diagData.value?.DIAG_DATA ? diagData.value?.DIAG_DATA.filter((e) => e.ACT_CD !== 'D') : []
   );
+  
+  const getAvailableDropdownItems = (diag) => {
+    if (!diag || !diag.MEDICAL_DATA) return [];
+
+    const items = [];
+    if (!diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1) {
+      items.push('Component_DiagArea_61');
+    }
+    if (!diag.MEDICAL_DATA.APPLY_CLINIC_TIMES) {
+      items.push('Component_DiagArea_66');
+    }
+    if (!diag.MEDICAL_DATA.OPER_DATA.length > 0) {
+      items.push('Component_DiagArea_69');
+    }
+    return items;
+  };
+
+  const handleDropdownClick = (code, diag) => {
+    switch (code) {
+      case 'Component_DiagArea_61':
+        diag.MEDICAL_DATA.STAY_HOSP_INTERVAL = '1';
+        break;
+      case 'Component_DiagArea_66':
+        diag.MEDICAL_DATA.APPLY_CLINIC_TIMES = '0';
+        break;
+      case 'Component_DiagArea_69':
+        diag.MEDICAL_DATA.OPER_DATA = [{
+          SER_NO: sequence(diag.MEDICAL_DATA.OPER_DATA, 'SER_NO').toString()
+          }
+        ];
+        break;
+    }
+  };
+
+  const onCheckOper = (oper) => {
+    if(oper.APPLY_OP_FEMALE === 'Y') oper.APPLY_OP_FEMALE === 'N'
+    else oper.APPLY_OP_FEMALE === 'Y'
+  };
 
   // Group
   // 日間病房
@@ -2021,7 +2018,7 @@ import OpProdModal from './Modals/OpProdModal.vue';
       dates.map((m) => getDate(m)),
       data.map((m) => getDate(m.CFM_STR_DATE))
     );
-    console.log(newDates);
+    console.log('newDates', newDates);
     // 新增日期
     newDates.forEach((date) => {
       const serNo = sequence(data, 'SER_NO');
@@ -2145,18 +2142,15 @@ import OpProdModal from './Modals/OpProdModal.vue';
 
   // 新增手術
   const addOp = () => {
+    console.log('addOp', diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.OPER_DATA);
     const serNo = sequence(diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.OPER_DATA, 'SER_NO');
     diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.OPER_DATA.push({
       javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo12',
       SER_NO: serNo.toString(),
-      CFM_STR_DATE: '',
-      CFM_OP_CODE: '',
-      PRE_OP_CODE: '',
-      CFM_OP_GRADE: '',
-      CFM_OP_CTX: '',
-      CFM_OP_PROD: '',
-      CFM_OP_CNCR: '',
-      MAN_ISRT_IND: 'Y'
+      APPLY_OP_CODE: '',
+      APPLY_OP_NAME: '',
+      APPLY_OP_DATE: '',
+      APPLY_OP_FEMALE: 'N'
     });
     opGroups.value[currentTabIndex.value]?.refreshGroup();
   };
@@ -2177,6 +2171,7 @@ import OpProdModal from './Modals/OpProdModal.vue';
 
   // 刪除手術
   const deleteOp = (serNo) => {
+    console.log('deleteOp', serNo, diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.OPER_DATA);
     remove(diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.OPER_DATA, (e) => e.SER_NO === serNo);
   };
 
@@ -2199,18 +2194,18 @@ import OpProdModal from './Modals/OpProdModal.vue';
 
   // 新增住院
   const addStayHospital = () => {
-    const serNo = sequence(diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.STAY_HOSP_INTERVAL, 'SER_NO');
-    diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.STAY_HOSP_INTERVAL.push({
-      javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo10',
-      SER_NO: serNo.toString(),
-      RECEIPT_SER_NOS: '',
-      CFM_STR_DATE: '',
-      CFM_END_DATE: '',
-      CHG_CODE: '',
-      MAN_ISRT_IND: 'Y'
-    });
-    console.log(stayHospitalGroups.value);
-    stayHospitalGroups.value[currentTabIndex.value]?.refreshGroup();
+    // const serNo = sequence(diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.STAY_HOSP_INTERVAL, 'SER_NO');
+    // diagData.value.DIAG_DATA[currentDiagIndex.value].MEDICAL_DATA.STAY_HOSP_INTERVAL.push({
+    //   javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo10',
+    //   SER_NO: serNo.toString(),
+    //   RECEIPT_SER_NOS: '',
+    //   CFM_STR_DATE: '',
+    //   CFM_END_DATE: '',
+    //   CHG_CODE: '',
+    //   MAN_ISRT_IND: 'Y'
+    // });
+    // console.log(stayHospitalGroups.value);
+    // stayHospitalGroups.value[currentTabIndex.value]?.refreshGroup();
   };
 
   // 刪除住院

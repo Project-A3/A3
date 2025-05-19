@@ -28,7 +28,7 @@
           </template> -->
           <span class="font-eudc" v-html="option.name"></span>
         </a>
-        <a v-if="onCleared" class="dropdown-item clear" href="javascript:void(0)" @click="onCleared">清除</a>
+        <a v-if="onCleared" class="dropdown-item clear" href="javascript:void(0)" @click="onCleared"><cathay-translate code="Component_BaseDropDown_001" /></a>
       </div>
     </div>
   </div>

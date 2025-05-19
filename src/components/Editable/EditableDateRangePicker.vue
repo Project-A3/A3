@@ -13,8 +13,8 @@
       :id="key"
     >
       <span v-show="!isEditing" class="data">
-        {{ getVNDate(props.modelStartDate, !props.isDatetime ? 'MM-DD' : 'MM-DD HH:mm') }}~{{
-          getVNDate(props.modelEndDate, !props.isDatetime ? 'MM-DD' : 'MM-DD HH:mm')
+        {{ getVNDate(props.modelStartDate, !props.isDatetime ? 'DD/MM/YYYY' : 'MM-DD HH:mm') }}~{{
+          getVNDate(props.modelEndDate, !props.isDatetime ? 'DD/MM/YYYY' : 'MM-DD HH:mm')
         }}
       </span>
     </div>
@@ -76,7 +76,8 @@ const language = useLanguageStore();
   const { getVNDate, format, isSameOrAfter, diff, now } = useMoment();
   const emit = defineEmits(['update:modelStartDate', 'update:modelEndDate']);
   let currentPicker = null;
-  const modelStartDate = toRef(props, 'modelStartDate');
+  const modelStartDate = ref(props.modelStartDate);
+  const endDate = ref(props.modelEndDate);
   //let backUpValue = ref(props.modelValue);
   let errorKey = ref(0);
 
@@ -181,10 +182,22 @@ const language = useLanguageStore();
     }
   });
 
+  watch(() => props.modelEndDate, (newVal) => {
+    endDate.value = newVal;
+  });
+
+  watch(modelStartDate, (val) => {
+    emit('update:modelStartDate', val);
+  });
+  
+  watch(endDate, (val) => {
+    emit('update:modelEndDate', val);
+  });
+
   watch(
     () => props.modelStartDate,
     (newValue, oldValue) => {
-      console.log(newValue);
+      modelStartDate.value = newValue;
       if (currentPicker && `${newValue} - ${props.modelEndDate}` !== currentPicker.getValue()) {
         if (newValue === '') {
           currentPicker.bulmaCalendar.clear();

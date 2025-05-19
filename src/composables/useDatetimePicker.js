@@ -64,9 +64,9 @@ export default function useDatetimePicker(element, customOption = {}) {
   // input readonly setting
   if (!option.readonly) userInput.removeAttribute('readonly');
 
-  // 民國年格式
-  let ROCFormat = option.type === 'datetime' ? 'MM-DD HH:mm' : 'DD/MM/YYYY';
-  let CEFormat = 'YYYY-' + ROCFormat;
+  // 民國年格式 //2024 01-01-2024
+    let ROCFormat = option.type === 'datetime' ? 'MM-DD HH:mm' : 'DD-MM-YYYY';
+        let CEFormat = 'YYYY-' + ROCFormat;
 
   class DatetimePicker {
     // Getter

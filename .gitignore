@@ -1,1 +1,10 @@
 node_modules/
+./node_modules/
+node_modules/
+src/assets/images/logoCathay.png
+src/assets/sass/_global.scss
+src/assets/sass/vendors/_montserrat.scss
+src/assets/sass/components/_box.scss
+src/components/InsrdInfo.vue
+src/pages/master/components/Apply/ClaimArea2.vue
+src/pages/search/claim_document.vue
