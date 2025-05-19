@@ -265,7 +265,7 @@ export const useApplyStore = defineStore('apply', {
       this.basicData = applyData;
       this.applyNo = result.BASIC.applyData.PROCESS_NUM;
       //先註解 if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
-      this.claimData = applyData;
+      this.claimData = result.BASIC.claimData;
      //0100644068 add call api
       this.diagData = result.DIAG;
       this.cloneArea.diags = cloneDeep(result?.DIAG?.DIAG_DATA ?? []);
@@ -379,19 +379,6 @@ export const useApplyStore = defineStore('apply', {
      * 取得所有索賠類別
      */
     async getClaimCategories() {
-      // if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
-      //   return this.getCurrentClaimCat;
-      /*先註解 try {
-        const response = await apiQueryClaimCatList();
-        const result = response.data.result;
-        if (!result.IS_SUCCESS) throw result.RTN_MSG;
-        this.claimCategories.PERSON_CLAM_CATS = result.PERSON_CLAM_CATS;
-        this.claimCategories.GROUP_CLAM_CATS = result.GROUP_CLAM_CATS;
-        this.claimCategories.SCHOOL_CLAM_CATS = result.SCHOOL_CLAM_CATS;
-        return this.getCurrentClaimCat;
-      } catch (e) {
-        throw e;
-      }*/
       if (this.claimCategories.PERSON_CLAM_CATS || this.claimCategories.GROUP_CLAM_CATS || this.claimCategories.SCHOOL_CLAM_CATS)
         return this.getCurrentClaimCat;
       try {

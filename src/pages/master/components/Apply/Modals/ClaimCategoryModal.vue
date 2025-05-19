@@ -7,7 +7,7 @@
         <div v-for="claimCat in claimList" class="column is-6" :key="claimCat.CLAM_CAT">
           <label>
             <input type="checkbox" :value="claimCat.CLAM_CAT" v-model="checkedClaimCats" />
-            <span class="font-eudc">{{ claimCat.CLAM_CAT_DESC }}({{ claimCat.CLAM_CAT }})</span>
+            <span class="font-eudc">{{ claimCat.CLAM_CAT_DESC }}</span>
           </label>
         </div>
       </div>

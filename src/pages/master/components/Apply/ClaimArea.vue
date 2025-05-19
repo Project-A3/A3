@@ -39,10 +39,18 @@
           <span class="data">
               <EditableInput 
               type="text" 
-              :maxWidth="350"
+              :maxWidth="250"
               v-model="claimData.APPLY_ACCIDENT_NAME"
               :inputStyle="{ maxWidth: '35vw' }"
               ></EditableInput>
+          </span>
+        </div>
+        <div class="column is-one-quarter">
+          <span class="field has-tippy mr-37" data-tippy-content="資料資料" :schema="string().required('請輸入事故日期')"
+            ><cathay-translate code="Page_ClaimArea_007" /></span
+          >
+          <span class="data">
+              <EditableDatePicker v-model="basicData.APPLY_DATE"></EditableDatePicker>
           </span>
         </div>
       </div>
