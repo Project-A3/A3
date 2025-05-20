@@ -11,257 +11,70 @@
     <h2><cathay-translate code="Component_HighSettlementArea_001"/></h2>
     <div class="part border-none">
       <div class="columns has-flex-column">
-        <div class="column">
-          <span class="field has-tippy"> <cathay-translate code="Component_HighSettlementArea_002"/></span>
-          <EditableDatePicker
-            v-model="highSettlementData.CFM_DISB_DATE"
-            :schema="
-              afterOcrDateSchema.test('required', '不可為空白', (value) => !(hasClamCats(['B', 'C', 'H', 'D', 'J']) && !value))
-            "
-          ></EditableDatePicker>
-        </div>
+
       </div>
       <template v-if="highSettlementData?.DEATH_DATA">
+        <!-- Quyền lợi tử vong -->
         <!-- 死亡給付 -->
         <h3><cathay-translate code="Component_HighSettlementArea_015"/></h3>
-
-        <div class="columns has-flex-column">
-          <div
-            class="column is-half"
-            v-if="highSettlementData?.DEATH_DATA?.CFM_DEAD_DATE === '' || highSettlementData?.DEATH_DATA?.CFM_DEAD_DATE"
-          >
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_016"/></span>
-            <EditableDatePicker
-              v-model="highSettlementData.DEATH_DATA.CFM_DEAD_DATE"
-              :schema="
-                afterOcrDateSchema.test(
-                  'required',
-                  '索賠類別勾選身故、全殘(A、K)時，不可為空白',
-                  (value) => !(hasClamCats(['A', 'K']) && !value)
-                )
-              "
-            ></EditableDatePicker>
-          </div>
-          <div class="column is-vcentered">
-            <span class="field has-tippy"><cathay-translate code="Component_HighSettlementArea_018"/></span>
-            <div class="columns has-flex-column is-vcentered">
-              <div>
-                <EditableDropdown
-                  :editingWidth="170"
-                  v-model="highSettlementData.DEATH_DATA.CFM_DEAD_TYPE"
-                  :schema="deathDateRequiredSchema"
-                  :options="[
-                    {
-                      name: '疾病或自然死',
-                      value: '1'
-                    },
-                    {
-                      name: '意外死',
-                      value: '2'
-                    },
-                    {
-                      name: '自殺',
-                      value: '3'
-                    },
-                    {
-                      name: '他殺',
-                      value: '4'
-                    },
-                    {
-                      name: '不詳',
-                      value: '5'
-                    },
-                    {
-                      name: '未勾選',
-                      value: '6'
-                    },
-                    {
-                      name: '其他',
-                      value: '7'
-                    }
-                  ]"
-                ></EditableDropdown>
-              </div>
-              <div class="ml-5">
-                <EditableModal
-                  v-model:modelText="highSettlementData.DEATH_DATA.CFM_ICD_NAME"
-                  v-model:modelValue="highSettlementData.DEATH_DATA.CFM_ICD_CODE"
-                  placeholder="Vui lòng chọn ICD"
-                  :schema="deathDateRequiredSchema"
-                  :editingWidth="170"
-                  :modal="{
-                    component: ICDModal,
-                    id: 'diseaseCode',
-                    data: {}
-                  }"
-                ></EditableModal>
-              </div>
+        <div class="columns non-sticky-columns has-flex-column">
+            <div class="column">
+                <span class="field"><cathay-translate code="Component_HighSettlementArea_016"/></span>
+                <DatetimePicker 
+                    v-model="basicData.DEATH_DATE"
+                    style="width: 180px"
+                ></DatetimePicker>
             </div>
-          </div>
+            
+            <div class="column">
+                <span class="field"><cathay-translate code="Component_HighSettlementArea_017"/></span>
+                <DatetimePicker 
+                    v-model="basicData.DEATH_CERTIFICATE_ISSUE_DATE"
+                    style="width: 180px"
+                ></DatetimePicker>
+            </div>
         </div>
-        <div class="columns has-flex-column">
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_017"/></span>
-            <EditableInput
-              :inputWidth="120"
-              :schema="deathDateRequiredSchema"
-              v-model="highSettlementData.DEATH_DATA.CFM_DOC_NAME"
-            ></EditableInput>
-          </div>
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_019"/></span>
-            <EditableInput
-              :inputWidth="200"
-              v-model="highSettlementData.DEATH_DATA.CFM_PROV_NO"
-              :schema="deathRequiredSchema"
-            ></EditableInput>
-          </div>
+                <div class="columns non-sticky-columns has-flex-column">
+            <div class="column">
+                <span class="field"><cathay-translate code="Component_HighSettlementArea_018"/></span>
+                    <FormInput 
+                    v-model="basicData.DEATH_REASON"
+                    type="text" 
+                    class="w-330" 
+                    ></FormInput>
+            </div>
+            
+            <div class="column">
+                <span class="field"><cathay-translate code="Component_HighSettlementArea_021"/></span>
+                    <FormInput 
+                    v-model="basicData.DEATH_CERTIFICATE_NUM"
+                    type="text" 
+                    class="w-330" 
+                    ></FormInput>
+            </div>
         </div>
-        <div class="columns has-flex-column">
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_020"/></span>
-            <EditableInput :inputWidth="120" v-model="highSettlementData.DEATH_DATA.CFM_PRO_NAME"></EditableInput>
-          </div>
-          <div class="column is-half">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_021"/></span>
-            <EditableDatePicker
-              v-model="highSettlementData.DEATH_DATA.CFM_PROV_DATE"
-              :schema="deathDateRequiredSchema"
-            ></EditableDatePicker>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-half">
-            <div class="columns">
-              <div class="column is-narrow ver-center">
+                <div class="columns non-sticky-columns has-flex-column">
+            <div class="column">
                 <span class="field"><cathay-translate code="Component_HighSettlementArea_022"/></span>
-              </div>
-              <GroupEditable class="p-0">
-                <div class="columns has-flex-column">
-                  <div class="column is-narrow mx-3">
-                    <EditableDropdown
-                      v-model="highSettlementData.DEATH_DATA.CFM_DEAD_ADDR1"
-                      :editingWidth="110"
-                      :options="getDieCityOptions"
-                      :schema="deathDateRequiredSchema"
-                    ></EditableDropdown>
-                  </div>
-                  <div class="column is-narrow mx-3">
-                    <EditableDropdown
-                      v-model="highSettlementData.DEATH_DATA.CFM_DEAD_ADDR2"
-                      :watchValue="highSettlementData.DEATH_DATA.CFM_DEAD_ADDR1"
-                      :onRefreshOptions="getDieAreaOptions"
-                      :editingWidth="120"
-                      :options="getDieAreaOptions"
-                      :schema="deathDateRequiredSchema"
-                    ></EditableDropdown>
-                  </div>
-                  <div class="column is-narrow mx-3">
-                    <EditableDropdown
-                      v-model="highSettlementData.DEATH_DATA.CFM_DEAD_ADDR3"
-                      :editingWidth="130"
-                      :schema="deathDateRequiredSchema"
+                    <BaseDropdown 
+                      v-model="basicData.DEATH_PLACE"
                       :options="[
-                        
-                        { name: language.translate('Component_HighSettlementArea_062'), value: '01' },
-                        { name: language.translate('Component_HighSettlementArea_063'), value: '02' },
-                        { name: language.translate('Component_HighSettlementArea_064'), value: '03' },
-                        { name: language.translate('Component_HighSettlementArea_065'), value: '04' },
-                        { name: language.translate('Component_HighSettlementArea_066'), value: '05' }
+                        { name: language.translate('Component_HighSettlementArea_073') , value: '0' },
+                        { name: language.translate('Component_HighSettlementArea_106'), value: '1' },
+                        { name: language.translate('Component_HighSettlementArea_107'), value: '2' },
+                        { name: language.translate('Component_HighSettlementArea_108'), value: '3' }
                       ]"
-                    ></EditableDropdown>
-                  </div>
-                </div>
-              </GroupEditable>
+                    ></BaseDropdown>
             </div>
-          </div>
-          <div class="column is-half ver-center">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_023"/></span>
-            <EditableModal
-              v-model:modelText="highSettlementData.DEATH_DATA.CFM_HOSP_NAME"
-              v-model:modelValue="highSettlementData.DEATH_DATA.CFM_HOSP_CODE"
-              :editingWdith="200"
-              :schema="deathDateRequiredSchema"
-              :modal="{
-                component: HospitalModal,
-                id: 'selectHospitalModal',
-                data: {}
-              }"
-            ></EditableModal>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-1">
-            <span class="field"><cathay-translate code="Component_HighSettlementArea_024"/></span>
-          </div>
-          <div class="column is-11 p-0">
-            <div class="columns is-multiline">
-              <div class="column is-11 p-0">
-                <div class="columns is-align-items-center">
-                  <div class="column is-3">
-                    <span class="field"><cathay-translate code="Component_HighSettlementArea_025"/></span>
-                  </div>
-                  <GroupEditable class="p-0">
-                    <div class="columns is-align-items-center">
-                      <div class="column is-narrow mr-2">A.</div>
-                      <div class="column mr-2">
-                        <EditableInput
-                          :inputWidth="176"
-                          :maxWidth="180"
-                          v-model="highSettlementData.DEATH_DATA.CFM_DEAD_RESN1A"
-                          :schema="deathDateRequiredSchema"
-                        ></EditableInput>
-                      </div>
-                      <div class="column is-narrow mr-2">B.</div>
-                      <div class="column mr-2">
-                        <EditableInput
-                          :inputWidth="176"
-                          :maxWidth="180"
-                          v-model="highSettlementData.DEATH_DATA.CFM_DEAD_RESN1B"
-                        ></EditableInput>
-                      </div>
-                      <div class="column is-narrow mr-2">C.</div>
-                      <div class="column mr-2">
-                        <EditableInput
-                          :inputWidth="176"
-                          :maxWidth="180"
-                          v-model="highSettlementData.DEATH_DATA.CFM_DEAD_RESN1C"
-                        ></EditableInput>
-                      </div>
-                      <div class="column is-narrow mr-2">D.</div>
-                      <div class="column mr-2">
-                        <EditableInput
-                          :inputWidth="176"
-                          :maxWidth="180"
-                          v-model="highSettlementData.DEATH_DATA.CFM_DEAD_RESN1D"
-                        ></EditableInput>
-                      </div>
-                    </div>
-                  </GroupEditable>
-                </div>
-              </div>
-              <div class="column is-full is-flex is-align-items-center">
-                <span class="field"><cathay-translate code="Component_HighSettlementArea_026"/></span>
-                <EditableInput v-model="highSettlementData.DEATH_DATA.CFM_DEAD_RESN2" fitContent></EditableInput>
-              </div>
+            
+            <div class="column">
+                <span class="field"><cathay-translate code="Component_HighSettlementArea_023"/></span>
+                    <FormInput 
+                    v-model="basicData.DEATH_REGISTRATION_UNIT"
+                    type="text" 
+                    class="w-330" 
+                    ></FormInput>
             </div>
-          </div>
-        </div>                                                                                       
-        <div class="columns">
-          <div class="column is-half">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_027"/></span>
-            <EditableCheckbox v-model="highSettlementData.DEATH_DATA.CFM_IS_CNCR"></EditableCheckbox>
-          </div>
-          <div class="column is-half">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_028"/></span>
-            <EditableCheckbox v-model="highSettlementData.DEATH_DATA.CFM_FULL_CNCR"></EditableCheckbox>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_029"/></span>
-            <EditableCheckbox v-model="highSettlementData.DEATH_DATA.CFM_EMP_ACC"></EditableCheckbox>
-          </div>
         </div>
       </template>
     </div>
@@ -307,27 +120,23 @@
       <!-- 失能給付 -->
       <div class="part" v-if="highSettlementData?.DISB_DATA">
         <h3><cathay-translate code="Component_HighSettlementArea_033"/></h3>
-
-        <div class="columns">
-          <div class="column">
-            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_034"/></span>
-            <EditableCheckbox v-model="highSettlementData.DISB_DATA.CFM_DISB_EQP"></EditableCheckbox>
-          </div>
-        </div>
+                <BaseDropdown 
+                      v-model="firstDiag.APPLY_DISB_GRADE_1"
+                      :options="[
+                        { name: language.translate('Component_HighSettlementArea_073'), value: '0' },
+                        { name: language.translate('Component_HighSettlementArea_099'), value: '1' },
+                        { name: language.translate('Component_HighSettlementArea_100'), value: '2' },
+                        { name: language.translate('Component_HighSettlementArea_101'), value: '3' },
+                        { name: language.translate('Component_HighSettlementArea_102'), value: '4' },
+                        { name: language.translate('Component_HighSettlementArea_103'), value: '5' },
+                        { name: language.translate('Component_HighSettlementArea_104'), value: '6' }
+                      ]"
+                ></BaseDropdown>
 
         <div class="columns">
           <GroupEditable class="is-full" ref="disbGroup" disableGroupClick>
             <table class="table is-fullwidth apply-table">
-              <thead>
-                <tr>
-                  <th><cathay-translate code="Component_HighSettlementArea_067"/></th>
-                  <th><cathay-translate code="Component_HighSettlementArea_068"/></th>
-                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_069"/></th>
-                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_070"/></th>
-                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_071"/></th>
-                  <th class="th-hor-center"><cathay-translate code="Component_HighSettlementArea_072"/></th>
-                </tr>
-              </thead>
+
               <tbody>
                 <tr v-for="(disbItem, index) in showingDisbData" :key="disbItem.DISB_SER_NO">
                   <td class="not-editable">{{ index + 1 }}</td>
@@ -455,28 +264,20 @@
             </table>
           </GroupEditable>
         </div>
-        <div class="columns">
-          <div class="column hor-right">
-            <button class="button apply-btn" @click="addDisbItem">
-              <span><cathay-translate code="Component_HighSettlementArea_035"/></span>
-              <img src="/src/assets/images/icon-add.svg" alt="ADD" />
-            </button>
-          </div>
-        </div>
       </div>
 
       <!-- 重大疾病或特定傷病給付 -->
       <div class="part" v-if="highSettlementData?.HEVY_DIS_DATA">
         <h3><cathay-translate code="Component_HighSettlementArea_036"/></h3>
-          <span class="field mr-3">Thể nhẹ (giai đoạn sớm)</span>
+          <span class="field mr-3"><cathay-translate code="Component_HighSettlementArea_094"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_1"></EditableCheckbox>
-          <span class="field ml-6 mr-3">Nghiêm trọng (giai đoạn cuối)</span>
+          <span class="field ml-6 mr-3"><cathay-translate code="Component_HighSettlementArea_095"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_2"></EditableCheckbox>
-          <span class="field ml-6 mr-3">Nghiêm trọng (chi phí lớn)</span>
+          <span class="field ml-6 mr-3"><cathay-translate code="Component_HighSettlementArea_096"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_4"></EditableCheckbox>
-          <span class="field ml-6 mr-3">Biến chứng tiểu đường</span>
+          <span class="field ml-6 mr-3"><cathay-translate code="Component_HighSettlementArea_097"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_5"></EditableCheckbox>
-          <span class="field ml-6 mr-3">Trẻ em</span>
+          <span class="field ml-6 mr-3"><cathay-translate code="Component_HighSettlementArea_098"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_3"></EditableCheckbox>
       </div>
       <!-- 長期看護 -->
@@ -484,52 +285,42 @@
         <h3><cathay-translate code="Component_HighSettlementArea_040"/></h3>
         <div class="columns has-flex-column">
           <div class="column is-half">
-            <span class="field mr-12">Phải</span>
-            <input
-              type="radio"
-              value="Y"
-              v-model="basicData.APPLY_LONG_CARE_IND"
-            />
-            <span class="field ml-6">Không phải</span>
-            <input
-              type="radio"
-              value="N"
-              v-model="basicData.APPLY_LONG_CARE_IND"
-            />
+            <div class="field mr-3"><cathay-translate code="Component_HighSettlementArea_040"/></div>
+            <EditableCheckbox v-model="firstDiag.APPLY_LONG_CARE"></EditableCheckbox>
           </div>
+        </div>
+      </div>
+      <!-- LIFEEND_DATA -->
+      <div class="part" v-if="highSettlementData?.LIFEEND_DATA">
+        <h3><cathay-translate code="Component_HighSettlementArea_050"/></h3>
+        <div class="columns has-flex-column">
+          <div class="column is-half">
+            <div class="field mr-3"><cathay-translate code="Component_HighSettlementArea_050"/></div>
+            <EditableCheckbox v-model="firstDiag.APPLY_END_LIFE"></EditableCheckbox>
+          </div>
+        </div>
+      </div>
+      <!-- CANCER_DATA -->
+      <div class="part" v-if="highSettlementData?.CANCER_DATA">
+        <h3><cathay-translate code="Component_HighSettlementArea_050"/></h3>
+        <div class="columns has-flex-column">
+          <div class="column is-half">
+            <div class="field mr-3"><cathay-translate code="Component_HighSettlementArea_105"/></div>
+                <DatetimePicker 
+                    v-model="firstDiag.APPLY_CANCER_DATE"
+                    style="width: 180px"
+                ></DatetimePicker>
+            </div>
         </div>
       </div>
     </div>
     <!-- 豁免表示 -->
     <div class="part" v-if="highSettlementData?.WAIVER_DATA">
       <h3><cathay-translate code="Component_HighSettlementArea_042"/></h3>
-
-      <div class="columns has-flex-column">
-        <div class="column is-3">
-          <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_043"/></span>
-          <EditableCheckbox v-model="highSettlementData.WAIVER_DATA.CFM_LSE_ABLY"></EditableCheckbox>
-        </div>
-        <div class="column is-3">
-          <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_044"/></span>
-          <EditableCheckbox v-model="highSettlementData.WAIVER_DATA.CFM_CONT_HSPADM"></EditableCheckbox>
-        </div>
-        <div class="column is-6">
-          <span class="field"><cathay-translate code="Component_HighSettlementArea_045"/></span>
-          <EditableDropdown
-            :editingWidth="200"
-            :fitContent="true"
-            v-model="highSettlementData.WAIVER_DATA.CFM_CNCR_TYPE"
-            :options="[
-              { name: 'Tất cả cá loại ung thư', value: '1' },
-              { name: 'Các loại ung thư khác (không phải ung thư xâm lấn thấp)', value: '2' }
-            ]"
-          ></EditableDropdown>
-        </div>
-      </div>
       <div class="columns">
         <div class="column">
-          <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_046"/></span>
-          <EditableCheckbox v-model="highSettlementData.WAIVER_DATA.CFM_DISB_IDX"></EditableCheckbox>
+          <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_042"/></span>
+          <EditableCheckbox v-model="firstDiag.APPLY_DISABLE"></EditableCheckbox>
         </div>
       </div>
     </div>
@@ -542,30 +333,17 @@
         <div class="columns has-flex-column">
           <div class="column is-half">
             <span class="field has-tippy" data-tippy-content="Cấp độ bỏng"><cathay-translate code="Component_HighSettlementArea_048"/></span>
-            <EditableDropdown
-              :fitContent="true"
-              v-model="highSettlementData.BURN_DATA.CFM_BURN_LVL"
-              nonSelectedValue="0"
-              :options="[
-                { name: 'Mức độ trung bình', value: '1' },
-                { name: 'Mức độ nặng', value: '2' }
-              ]"
-            ></EditableDropdown>
+                <BaseDropdown 
+                      v-model="firstDiag.APPLY_BURNED_IND"
+                      :options="[
+                        { name: language.translate('Component_HighSettlementArea_073') , value: '0' },
+                        { name: language.translate('Component_HighSettlementArea_092'), value: '1' },
+                        { name: language.translate('Component_HighSettlementArea_093'), value: '2' }
+                      ]"
+                ></BaseDropdown>
             <!-- <span class="data" data-editing-type="2" data-fit-content="true" data-editing-mp="pr-4">資料資料資料</span> -->
           </div>
-          <div class="column is-half">
-            <span class="field has-tippy" data-tippy-content="Thông tin dữ liệu"><cathay-translate code="Component_HighSettlementArea_048"/></span>
-            <!-- BURN_LVL = 2 (重度) 才會有 => 選中度 燒燙傷級數 反灰 -->
-            <EditableDropdown
-              :fitContent="true"
-              v-model="highSettlementData.BURN_DATA.CFM_BURN_GRAD"
-              :disabled="highSettlementData.BURN_DATA.CFM_BURN_LVL === '1'"
-              :watchValue="highSettlementData.BURN_DATA.CFM_BURN_LVL"
-              :onRefreshOptions="getBurnLvlOptions"
-              :editingWidth="180"
-              :options="getBurnLvlOptions"
-            ></EditableDropdown>
-          </div>
+
         </div>
       </div>
 
@@ -581,9 +359,9 @@
               :editingWidth="180"
               v-model="highSettlementData.PERIOD_DATA.CFM_IS_ANTY"
               :options="[
-                { name: 'Không', value: '0' },
-                { name: 'Chi trả theo kỳ', value: '1' },
-                { name: 'Chi trả trước lần 1', value: '2' }
+                { name: language.translate('Component_HighSettlementArea_073'), value: '0' },
+                { name: language.translate('Component_HighSettlementArea_090'), value: '1' },
+                { name: language.translate('Component_HighSettlementArea_091'), value: '2' }
               ]"
             ></EditableDropdown>
           </div>
@@ -592,63 +370,24 @@
 
       <!-- 其他 -->
       <div class="columns part">
-        <!-- 生命末期 -->
-        <div class="column is-3" v-if="highSettlementData.LIFEEND_DATA">
-          <div class="part border-none">
-            <h3><cathay-translate code="Component_HighSettlementArea_050"/></h3>
-            <div class="columns has-flex-column">
-              <div class="column">
-                <span class="field mr-12 has-tippy" data-tippy-content="Dữ liệu"><cathay-translate code="Component_HighSettlementArea_050"/></span>
-                <EditableCheckbox v-model="highSettlementData.LIFEEND_DATA.CFM_IS_LIFE"></EditableCheckbox>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 婦女津貼 -->
         <div class="column is-6" v-if="highSettlementData.FEMALE_DATA">
           <div class="part border-none">
             <h3><cathay-translate code="Component_HighSettlementArea_051"/></h3>
             <div class="columns is-multiline has-flex-column">
-              <div class="column is-3">
-                <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_052"/></span>
-                <EditableCheckbox v-model="highSettlementData.FEMALE_DATA.CFM_IS_MARY"></EditableCheckbox>
-              </div>
-              <div class="column is-3">
-                <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_053"/></span>
-                <EditableCheckbox v-model="highSettlementData.FEMALE_DATA.CFM_IS_BABY"></EditableCheckbox>
-              </div>
-              <div class="column is-6">
-                <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_054"/></span>
-                <EditableDropdown
-                  v-model="highSettlementData.FEMALE_DATA.FEMALE_TYPE"
-                  :options="[
-                    {
-                      name: 'Sinh đẻ',
-                      value: '1'
-                    },
-                    {
-                      name: 'Sẩy thai',
-                      value: '2'
-                    }
-                  ]"
-                ></EditableDropdown>
-              </div>
-              <div class="column is-6">
-                <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_055"/></span>
-                <EditableInput
-                  :inputWidth="100"
-                  :schema="string().matches(/^[0-9]*$/, '格式錯誤，請輸入數字')"
-                  v-model="highSettlementData.FEMALE_DATA.CFM_BABY_NUM"
-                ></EditableInput>
-              </div>
-              <div class="column is-6">
-                <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_056"/></span>
-                <EditableDatePicker
-                  v-model="highSettlementData.FEMALE_DATA.CFM_FEMALE_DATE"
-                  :schema="afterOcrDateSchema"
-                ></EditableDatePicker>
-              </div>
+              <div><cathay-translate code="Component_HighSettlementArea_109"/></div>
+                <BaseDropdown 
+                      v-model="firstDiag.APPLY_OBSTETRICAL"
+                      :options="[
+                        { name: language.translate('Component_HighSettlementArea_073'), value: '0' },
+                        { name: language.translate('Component_HighSettlementArea_084'), value: '1' },
+                        { name: language.translate('Component_HighSettlementArea_085'), value: '2' },
+                        { name: language.translate('Component_HighSettlementArea_086'), value: '3' },
+                        { name: language.translate('Component_HighSettlementArea_086'), value: '4' },
+                        { name: language.translate('Component_HighSettlementArea_087'), value: '5' },
+                        { name: language.translate('Component_HighSettlementArea_088'), value: '6' }
+                      ]"
+                ></BaseDropdown>
             </div>
           </div>
         </div>
@@ -773,17 +512,17 @@
           >
           <cathay-translate code="Component_HighSettlementArea_012"/>
           </button>
-          <button
+          <!-- <button
             v-if="!highSettlementData.SPECIAL_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('SPECIAL_DATA')"
           >
           <cathay-translate code="Component_HighSettlementArea_013"/>
-          </button>
+          </button> -->
           <button
-            v-if="!isShowInKindPayArea"
+            v-if="!highSettlementData.CANCER_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
-            @click="addInKindPayArea()"
+            @click="addArea('CANCER_DATA')"
           >
           <cathay-translate code="Component_HighSettlementArea_014"/>
           </button>
@@ -793,22 +532,19 @@
   </div>
 </template>
 <script setup>
-  import EditableDatePicker from '~/components/Editable/EditableDatePicker.vue';
   import EditableDropdown from '~/components/Editable/EditableDropdown.vue';
-  import EditableInput from '~/components/Editable/EditableInput.vue';
   import GroupEditable from '~/components/Editable/GroupEditable.vue';
   import EditableCheckbox from '~/components/Editable/EditableCheckbox.vue';
   import EditableModal from '~/components/Editable/EditableModal.vue';
-  import HospitalModal from './Modals/HospitalModal.vue';
-  import ICDModal from './Modals/ICDModal.vue';
-  import FullDisabilityModal from './Modals/FullDisabilityModal.vue';
-  import HeavyDisabilityModal from './Modals/HeavyDisabilityModal.vue';
   import GestationModal from './Modals/GestationModal.vue';
   import CordBloodDiseaseModal from './Modals/CordBloodDiseaseModal.vue';
   import CongenitalDisabilityModal from './Modals/CongenitalDisabilityModal.vue';
+  import FormInput from '~/components/Form/FormInput.vue';
+  import DatetimePicker from '~/components/DatetimePicker.vue';
+  import BaseDropdown from '~/components/BaseDropdown.vue';
   import { useApplyStore } from '~/stores/apply';
   import { sequence } from '../../../../common/utils';
-  import { remove, isEmpty } from 'lodash-es';
+  import {isEmpty } from 'lodash-es';
   import { string } from 'yup';
   import useMoment from '~/composables/useMoment';
   import useSwal from '~/composables/useSwal';
@@ -818,7 +554,9 @@
   const { $swal } = useSwal();
   const { isSameOrAfter } = useMoment();
   const applyStore = useApplyStore();
-  const { isShowInKindPayArea, basicData } = storeToRefs(applyStore);
+  const { isShowInKindPayArea, basicData, basicDiag} = storeToRefs(applyStore);
+
+  const firstDiag = ref(basicDiag.value[0]);
   const props = defineProps({
     highSettlementData: {
       type: Object,
@@ -827,14 +565,7 @@
     }
   });
 
-  console.log('basicData.MAJOR_DIS_1', basicData.value.MAJOR_DIS_1);
-  console.log('basicData.MAJOR_DIS_2', basicData.value.MAJOR_DIS_2);
-  console.log('basicData.MAJOR_DIS_3', basicData.value.MAJOR_DIS_3);
-  console.log('basicData.MAJOR_DIS_4', basicData.value.MAJOR_DIS_4);
-  console.log('basicData.MAJOR_DIS_5', basicData.value.MAJOR_DIS_5);
-
   const highSettlementAreaTarget = ref(null);
-
   const highSettlementData = toRef(props, 'highSettlementData');
 
   // 取得死亡縣市
@@ -929,6 +660,12 @@
         template = {
           CFM_BURN_LVL: '0',
           CFM_BURN_GRAD: ''
+        };
+        break;
+      case 'CANCER_DATA':
+        template = {
+          CFM_CANCER_LVL: '0',
+          CFM_CANCER_GRAD: ''
         };
         break;
       case 'PERIOD_DATA':

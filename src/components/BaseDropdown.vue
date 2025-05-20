@@ -38,7 +38,11 @@
   import iconArrowDownLight from '~/assets/images/icon-arrow-down-light.svg';
   import iconArrowDown from '~/assets/images/icon-arrow-down-primary.svg';
   import iconArrowDownBlue from '~/assets/images/icon-arrow-down-blue.svg';
+  
+  const emit = defineEmits(['update:modelValue'])
+
   const props = defineProps({
+    modelValue: [String, Number, null],
     options: {
       type: Array,
       required: true,
@@ -47,7 +51,7 @@
     onSelected: {
       type: Function,
       required: false,
-      default: (value) => console.log('haha',value)
+      default: () => {}
     },
     onCleared: {
       type: Function,
@@ -63,35 +67,28 @@
 
   const dropdown = ref(null);
   const options = toRef(props, 'options');
-  const selectedOption = ref(options.value.find((e) => e.hasOwnProperty('selected') && e.selected));
+  const selectedOption = ref(null);
 
   const setOption = (value) => {
-    props.options.forEach((option) => {
-      if (option.value === value) {
-        option.selected = true;
-        selectedOption.value = option;
-      } else {
-        option.selected = false;
-      }
-    });
-  };
+  selectedOption.value = props.options.find((e) => e.value === value) || null;
+  emit('update:modelValue', value);
+} ;
 
   const onSelected = (option) => {
-    // console.log(options);
-    // props.options[1].selected = true;
-    if (!option.disabled && !option.isCreate) {
-      setOption(option.value);
-    }
-    props.onSelected(option.value, option.name);
+  if (!option.disabled && !option.isCreate) {
+    setOption(option.value);
+  }
+  props.onSelected(option.value, option.name);
   };
+
 
   // 有人從外部改options要跟著變
   watch(
-    () => props.options,
-    (newOptions) => {
-      selectedOption.value = newOptions.find((e) => e.hasOwnProperty('selected') && e.selected);
+    () => [props.options, props.modelValue],
+    () => {
+      selectedOption.value = props.options.find((e) => e.value === props.modelValue) || null;
     },
-    { deep: true }
+    { immediate: true, deep: true }
   );
 
   // 下拉選單是否開啟

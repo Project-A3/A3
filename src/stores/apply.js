@@ -56,6 +56,7 @@ export const useApplyStore = defineStore('apply', {
     backupResult: null,
     basicData: {},
     claimData: {},
+    basicDiag: {},
     diagData: {},
     receiptData: {},
     highSettlementData: {},
@@ -236,6 +237,7 @@ export const useApplyStore = defineStore('apply', {
       console.log('apply.js getBasicData responses>>>');
 
       let basicDataResult = responses[0].data.result.applyData;
+      console.log(basicDataResult);
 
       for(const key of Object.keys(this.basicData)){
         this.basicData[key] = basicDataResult[key];
@@ -262,7 +264,9 @@ export const useApplyStore = defineStore('apply', {
         return { errorMessage, warningMessage };
       }
       let applyData = result.BASIC.applyData;
+      let applyDiag = result.BASIC.applyDiag;
       this.basicData = applyData;
+      this.basicDiag = applyDiag;
       this.applyNo = result.BASIC.applyData.PROCESS_NUM;
       //先註解 if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
       this.claimData = result.BASIC.claimData;
