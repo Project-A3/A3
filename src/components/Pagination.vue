@@ -2,13 +2,13 @@
   <nav class="pagination is-centered is-small is-primary" role="navigation" aria-label="pagination" v-if="pages > 1">
     <ul class="pagination-list">
       <li @click="changePage(false)">
-        <a href="javascript:void(0)" :class="{ 'pagination-previous': true, disabled: currentPage === 1 }"> 上一頁 </a>
+        <a href="javascript:void(0)" :class="{ 'pagination-previous': true, disabled: currentPage === 1 }"> <cathay-translate code="Component_Pagination_001" /> </a>
       </li>
       <li v-for="page in pageList" :key="page" @click="changePage(page)">
         <a href="javascript:void(0)" :class="{ 'pagination-link': true, 'is-current': currentPage === page }"> {{ page }} </a>
       </li>
       <li @click="changePage(true)">
-        <a href="javascript:void(0)" :class="{ 'pagination-next': true, disabled: currentPage === pages }"> 下一頁 </a>
+        <a href="javascript:void(0)" :class="{ 'pagination-next': true, disabled: currentPage === pages }"> <cathay-translate code="Component_Pagination_002" /> </a>
       </li>
     </ul>
   </nav>

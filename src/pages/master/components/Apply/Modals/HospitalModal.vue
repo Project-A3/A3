@@ -1,11 +1,11 @@
 <template>
   <Modal disableOverflow>
-    <template v-slot:title>選擇醫院</template>
+    <template v-slot:title><cathay-translate code="Modal_HospitalModal_001"/></template>
     <template v-slot:content>
       <!-- 查詢區域 -->
-      <div class="columns pr-6 pl-1">
+      <div class="columns pl-1">
         <div class="column p-0">
-          <input class="font-eudc" v-model="hospitalName" type="text" placeholder="ÉG" />
+          <input class="font-eudc" v-model="hospitalName" type="text" placeholder="Nhập tên cần tìm" />
         </div>
         <div class="is-4 column p-0 ml-4">
           <FormDropdown
@@ -22,32 +22,55 @@
 
       <!-- 醫院資料列表 -->
       <div class="modal-table" v-if="searchedHospitals.length > 0">
-        <table class="table is-fullwidth apply-table tr-can-click">
+        <table class="table is-striped-odd is-fullwidth tr-can-click">
           <thead>
             <tr>
-              <th class="pl-1">醫院名稱</th>
-              <th>縣市</th>
-              <th>地區</th>
-              <th>醫院代碼</th>
+              <th class="has-text-centered ver-middle pl-2">Số thứ tự</th>
+              <th class="has-text-centered ver-middle">Tỉnh</th>
+              <th class="has-text-centered ver-middle">Bệnh viện kiểm tra sức khỏe</th>
+              <th class="has-text-centered ver-middle">Bệnh lý nghiêm trọng</th>
+              <th class="has-text-centered ver-middle">Tên bệnh viện</th>
+              <th class="has-text-centered ver-middle">TTYT được cấp phép</th>
+              <th class="has-text-centered ver-middle">Chấp thuận AutoClaim</th>
+              <th class="has-text-centered ver-middle">Ngừng sử dụng</th>
+              <th class="has-text-centered ver-middle pr-2">Mã bệnh viện</th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="hospital in searchedHospitals"
-              @click="onClickHospital(hospital.HOSP_CODE, hospital.HOSP_NAME)"
+              v-for="(hospital, index) in currentData"
+              @click="onClickHospital(hospital.HOSP_ID, hospital.HOSP_NAME)"
             >
-              <td class="font-eudc">{{ hospital.HOSP_NAME }}</td>
-              <td class="font-eudc">{{ hospital.CITY_NAME }}</td>
-              <td class="font-eudc">{{ hospital.LOCAL_NAME }}</td>
-              <td>{{ hospital.HOSP_CODE }}</td>
+              <td class="has-text-centered">{{ index + currentPageIndex.start }}</td>
+              <td class="has-text-centered">{{ hospital.PROVINCE }}</td>
+              <td class="has-text-centered"><input type="checkbox" :value="hospital.MED_EXAM_IND" :checked="hospital.MED_EXAM_IND === 'Y'" v-model="checkedClaimCats" /></td>
+              <td class="has-text-centered"><input type="checkbox" :value="hospital.RISK_DEAD_IND" :checked="hospital.RISK_DEAD_IND === 'Y'" v-model="checkedClaimCats" /></td>
+              <td class="has-text-centered">{{ hospital.HOSP_NAME }}</td>
+              <td class="has-text-centered"><input type="checkbox" :value="hospital.IS_AUTHORIZE" :checked="hospital.IS_AUTHORIZE === 'Y'" v-model="checkedClaimCats" /></td>
+              <td class="has-text-centered"><input type="checkbox" :value="hospital.IS_AUTO_CLAIM" :checked="hospital.IS_AUTO_CLAIM === 'Y'" v-model="checkedClaimCats" /></td>
+              <td class="has-text-centered"><input type="checkbox" :value="hospital.IS_STOPPED" :checked="hospital.IS_STOPPED === 'Y'" v-model="checkedClaimCats" /></td>
+              <td class="has-text-centered">{{ hospital.HOSP_ID }}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <!-- Pagination & Info  -->
+      <div class="number-of-data-info" v-if="hasData">
+        <cathay-translate code="Component_Pagination_003" /><span>{{ currentPageIndex.start }}</span
+        >-<span>{{ currentPageIndex.end }}</span
+        ><cathay-translate code="Component_Pagination_004" /><span>{{ totalCounts }}</span
+        ><cathay-translate code="Component_Pagination_005" />
+      </div>
+      <Pagination
+        :total="totalCounts"
+        :pageSize="pageSize"
+        :currentPage="currentPage"
+        @onPageChanged="onPageChanged"
+      ></Pagination>
     </template>
     <template v-slot:buttons>
-      <button class="button is-light" @click="props.close">取消</button>
-      <a href="#" class="clear-modal" @click.stop.prevent="emitEvent.clearValue">清除</a>
+      <button class="button is-light" @click="props.close">Hủy bỏ</button>
+      <a href="#" class="clear-modal" @click.stop.prevent="emitEvent.clearValue">Xóa bỏ</a>
     </template>
   </Modal>
 </template>
@@ -55,6 +78,8 @@
   import { isEmpty } from 'lodash-es';
   import Modal from '~/components/Modal.vue';
   import FormDropdown from '~/components/Form/FormDropdown.vue';
+  import usePagination from '~/composables/usePagination';
+  import Pagination from '~/components/Pagination.vue';
   import useSwal from '~/composables/useSwal';
   import { useApplyStore } from '~/stores/apply';
   import SearchIconButton from '~/components/SearchIconButton.vue';
@@ -73,6 +98,9 @@
     }
   });
 
+  // 分頁相關
+  const { totalCounts, pageSize, currentData, currentPage, currentPageIndex, hasData, onPageChanged, setPageData } = usePagination();
+
   // 搜尋結果
   const searchedHospitals = ref([]);
   // 輸入搜尋的醫院名稱
@@ -82,7 +110,7 @@
   // 縣市下拉選單
   const hospitalCityOptions = reactive([
     {
-      name: '請選擇',
+      name: 'Vui lòng chọn',
       value: '',
       selected: true,
       disabled: true
@@ -100,8 +128,8 @@
       let cities = await applyStore.getHospitalCities();
       cities.forEach((city) => {
         hospitalCityOptions.push({
-          name: city.CITY_NAME + city.LOCAL_ZONE_NAME,
-          value: city.LOCAL_CODE
+          name: city.NAME,
+          value: city.OPTION
         });
       });
     } catch (e) {
@@ -114,8 +142,10 @@
   //#endregion
   // 查詢
   const onClickSearch = async () => {
-    if (isEmpty(hospitalCity.value)) {
-      $swal.warning('請選擇區域');
+    console.log("tỉnh" + hospitalCity.value);
+    console.log("Tên bệnh viện" + hospitalName.value);
+    if (isEmpty(hospitalCity.value) && isEmpty(hospitalName.value)) {
+      $swal.warning('Vui lòng chọn điều kiện tìm');
       return;
     }
     try {
@@ -124,6 +154,7 @@
       selectedHospital.code = '';
       selectedHospital.name = '';
       searchedHospitals.value = await applyStore.getHospitals(hospitalCity.value, hospitalName.value);
+      setPageData(searchedHospitals.value);
     } catch (e) {
       $swal.fail(e);
     } finally {
@@ -144,7 +175,7 @@
   const emitEvent = props.data.emitEvents;
   const onClickConfirm = () => {
     if (isEmpty(selectedHospital.code) || isEmpty(selectedHospital.name)) {
-      $swal.warning('請選擇一所醫院');
+      $swal.warning('Vui lòng chọn bệnh viện');
       return;
     }
     // 更新資料
