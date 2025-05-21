@@ -8,7 +8,7 @@
         :key="diag.DIAG_SER_NO"
         :hasSvg="diag.MAN_ISRT_IND === 'Y'"
         :isActive="diagIndex === 0"
-        :title="`診斷書${diagIndex + 1}`"
+        :title="`Đơn chuẩn đoán ${diagIndex + 1}`"
       >
         <section>
           <!-- 診斷書1 -->
@@ -18,34 +18,31 @@
             <div class="columns has-flex-column">
               <div class="column is-3">
                 <span class="field"> <cathay-translate code="Component_DiagArea_03"/></span>
-                <EditableModal
-                  v-model:modelText="diag.CFM_MAIN_DEPNM"
-                  v-model:modelText2="diag.CFM_SUB_DEPNM"
-                  v-model:modelValue="diag.CFM_MAIN_DEPCD"
-                  v-model:modelValue2="diag.CFM_SUB_DEPCD"
-                  :modal="{
-                    component: DoctorBranchModal,
-                    id: 'manualApprovedEditReason',
-                    data: {}
-                  }"
-                  :schema="string().nullable().required('請選擇科別')"
-                ></EditableModal>
+                <FormInput 
+                  type="text" 
+                  class="w-330 font-eudc" 
+                  v-model="diag.FACULTY_NAME"
+                ></FormInput>
               </div>
               <div class="column is-3">
                 <span class="field"><cathay-translate code="Component_DiagArea_04"/></span>
-                <EditableInput v-model="diag.DOC_NAME" :schema="string().required('請輸入姓名')"></EditableInput>
+                <div class="ui-radio">
+									<input type="radio" id="ID_YN_Y" name="ID_YN" value="Y">
+									<label class="label-radio font-eudc" for="ID_YN_Y">Phải</label>
+									<input type="radio" id="ID_YN_N" name="ID_YN" value="N">
+									<label class="label-radio font-eudc" for="ID_YN_N">Không phải</label>
+								</div>
               </div>
               <div class="column is-4">
                 <span class="field"><cathay-translate code="Component_DiagArea_05"/></span>
+               
                 <EditableModal
-                  v-model:modelText="diag.HOSP_NAME"
-                  v-model:modelValue="diag.HOSP_CODE"
+                  v-model="diag.HOSP_NAME"
                   :modal="{
                     component: HospitalModal,
                     id: 'selectHospitalModal',
                     data: {}
                   }"
-                  :schema="string().required('請選擇醫院')"
                 ></EditableModal>
               </div>
               <div class="column is-2 hor-right p-0">
@@ -75,8 +72,7 @@
                 <div class="columns">
                   <div class="column">
                     <EditableModal
-                      v-model:modelText="diag.CFM_ICD_NAME1"
-                      v-model:modelValue="diag.CFM_ICD_CODE1"
+                      v-model="diag.CFM_ICD_NAME1"
                       :editingWidth="143"
                       placeholder="請選擇ICD"
                       :modal="{
@@ -97,8 +93,7 @@
                   </div>
                   <div class="column ml-3">
                     <EditableModal
-                      v-model:modelText="diag.CFM_ICD_NAME2"
-                      v-model:modelValue="diag.CFM_ICD_CODE2"
+                      v-model="diag.CFM_ICD_NAME2"
                       :editingWidth="143"
                       placeholder="請選擇ICD"
                       :placeholderOnlyTrigger="true"
@@ -119,8 +114,7 @@
                   </div>
                   <div class="column ml-3">
                     <EditableModal
-                      v-model:modelText="diag.CFM_ICD_NAME3"
-                      v-model:modelValue="diag.CFM_ICD_CODE3"
+                      v-model="diag.CFM_ICD_NAME3"
                       :editingWidth="143"
                       placeholder="請選擇ICD"
                       :placeholderOnlyTrigger="true"
@@ -141,8 +135,7 @@
                   </div>
                   <div class="column ml-3">
                     <EditableModal
-                      v-model:modelText="diag.CFM_ICD_NAME4"
-                      v-model:modelValue="diag.CFM_ICD_CODE4"
+                      v-model="diag.CFM_ICD_NAME4"
                       :editingWidth="143"
                       placeholder="請選擇ICD"
                       :placeholderOnlyTrigger="true"
@@ -163,8 +156,7 @@
                   </div>
                   <div class="column ml-3">
                     <EditableModal
-                      v-model:modelText="diag.CFM_ICD_NAME5"
-                      v-model:modelValue="diag.CFM_ICD_CODE5"
+                      v-model="diag.CFM_ICD_NAME5"
                       :editingWidth="143"
                       placeholder="請選擇ICD"
                       :placeholderOnlyTrigger="true"
@@ -1896,6 +1888,7 @@ import HospitalModal from './Modals/HospitalModal.vue';
 import ICDModal from './Modals/ICDModal.vue';
 import OperationModal from './Modals/OperationModal.vue';
 import OpProdModal from './Modals/OpProdModal.vue';
+import FormInput from '~/components/Form/FormInput.vue';
 
   const props = defineProps({
     diagData: {

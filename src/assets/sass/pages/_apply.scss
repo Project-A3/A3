@@ -367,12 +367,12 @@
 
 #selectHospitalModal {
   .modal-content {
-    width: 880px;
+    width: 1000px;
     overflow: visible;
 
     .box {
-      padding-left: 70px;
-      padding-right: 70px;
+      padding-left: 20px;
+      padding-right: 20px;
 
       input[type="text"] {
         padding: 14px 15px;
@@ -400,7 +400,7 @@
           tr {
             td {
               &:nth-child(1) {
-                width: 52%;
+                width: 5%;
               }
 
               &:nth-child(2) {
@@ -408,11 +408,31 @@
               }
 
               &:nth-child(3) {
-                width: 15%;
+                width: 8%;
               }
 
               &:nth-child(4) {
-                width: 18%;
+                width: 8%;
+              }
+
+              &:nth-child(5) {
+                width: 30%;
+              }
+
+              &:nth-child(6) {
+                width: 8%;
+              }
+
+              &:nth-child(7) {
+                width: 8%;
+              }
+
+              &:nth-child(8) {
+                width: 8%;
+              }
+
+              &:nth-child(9) {
+                width: 10%;
               }
             }
           }

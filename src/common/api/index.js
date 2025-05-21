@@ -235,7 +235,7 @@ export const apiGetSchoolCityList = () => apiClient.post('AA_A0Z110.getSCHOOL_CI
  * 取得醫院
  * @param {Array} params ['區域代碼', '醫院名稱']
  */
-export const apiGetHospital = (params) => apiClient.post('AA_A0Z110.queryHospData', params);
+export const apiGetHospital = (params) => apiClient.post('AA_A0Z100.queryHospData', params);
 /**
  * 取得醫院區域
  */
@@ -891,4 +891,5 @@ export const apiSemiAutomatic330 = (params) => apiClient.post('AA_B3Z330.semiAut
 export const apiSaveNotExecReason = (params) => apiClient.post('AA_A0Z026.saveNotExecReason', params);
 export const apiGetTrusteeEEID = (params) => apiClient.post('AA_B3Z100.getTrusteeEEID', params);
 export const apiGetAccidentReasonsData = (params) => apiClient.post('AA_A0Z100.queryOCR_RESN_List', params);
+export const apiGetCitiesList = (params) => apiClient.post('AA_A0Z100.queryProvince', params);
 //#endregion

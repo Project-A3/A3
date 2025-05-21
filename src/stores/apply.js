@@ -6,7 +6,9 @@ import {
   apiGetTrusteeEEID,
   apiGetAccidentReasonsData,
   apiQueryClaimCatList,
-  apiSearchOP
+  apiSearchOP,
+  apiGetCitiesList,
+  apiGetHospital
 } from '~/common/api';
 import { useLanguageStore } from './language';
 /*先註解 import {
@@ -269,7 +271,7 @@ export const useApplyStore = defineStore('apply', {
       this.basicDiag = applyDiag;
       this.applyNo = result.BASIC.applyData.PROCESS_NUM;
       //先註解 if (result.BASIC.RTN_CODE >= 0) this.currentLifeGropClfy = result.BASIC.LIFE_GROP_CLFY;
-      this.claimData = result.BASIC.claimData;
+      this.claimData = applyData;
      //0100644068 add call api
       this.diagData = result.DIAG;
       this.cloneArea.diags = cloneDeep(result?.DIAG?.DIAG_DATA ?? []);
@@ -437,17 +439,17 @@ export const useApplyStore = defineStore('apply', {
     async getHospitalCities() {
       // 如果已經有資料就直接回傳，不再Call APi
       if (this.hospitalCities) return this.hospitalCities;
-      /*先註解 try {
-        const response = await apiGetHospitalAreaList();
+      try {
+        const response = await apiGetCitiesList();
         const result = response.data.result;
         console.log(result);
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
 
-        this.hospitalCities = result.HOSP_AREA_LIST;
-        return result.HOSP_AREA_LIST;
+        this.hospitalCities = result.PROVINCE_LIST;
+        return result.PROVINCE_LIST;
       } catch (e) {
         throw e;
-      }*/
+      }
     },
     /**
      * 查詢醫院
@@ -455,14 +457,14 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} keyword 醫院關鍵字
      */
     async getHospitals(localCode, keyword) {
-      /*先註解 try {
+      try {
         const response = await apiGetHospital([localCode, keyword]);
         const result = response.data.result;
         if (!result.IS_SUCCESS) throw result.RTN_MSG;
         return result.HOSP_LIST;
       } catch (e) {
         throw e;
-      }*/
+      }
     },
     /**
      * 取得手術主科別
