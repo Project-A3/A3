@@ -8,7 +8,9 @@ import {
   apiQueryClaimCatList,
   apiSearchOP,
   apiGetCitiesList,
-  apiGetHospital
+  apiGetHospital,
+  apiGetICDClass,
+  apiSearchICD
 } from '~/common/api';
 import { useLanguageStore } from './language';
 /*先註解 import {
@@ -501,6 +503,14 @@ export const useApplyStore = defineStore('apply', {
      * 取得疾病類別
      */
     async getICDClasses() {
+      try {
+        let response = await apiGetICDClass();
+        let result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        return result.ICD_LEVEL1;
+      } catch (e) {
+        throw e;
+      }
       /*先註解 try {
         if (this.ICDClasses) return this.ICDClasses;
         const response = await apiGetICDClass();
@@ -519,7 +529,15 @@ export const useApplyStore = defineStore('apply', {
      * @param {String} keyword 搜尋關鍵字
      * @param {String} code 疾病代碼
      */
-    async searchICD(name, keyword, code) {
+    async searchICD(icdCodeStart, icdCodeEnd, keyword, code) {
+      try {
+        const response = await apiSearchICD([icdCodeStart, icdCodeEnd, keyword, code]);
+        const result = response.data.result;
+        if (!result.IS_SUCCESS) throw result.RTN_MSG;
+        return result.ICD_LIST;
+      } catch (e) {
+        throw e;
+      }
       /*先註解 try {
         const response = await apiSearchICD([name, keyword, code]);
         const result = response.data.result;

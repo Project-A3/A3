@@ -252,12 +252,12 @@ export const apiGetSubDepList = (params) => apiClient.post('AA_A0Z110.querySUB_D
 /**
  * 取得疾病分類
  */
-export const apiGetICDClass = () => apiClient.post('AA_A0Z110.getICDClasses');
+export const apiGetICDClass = () => apiClient.post('AA_A0Z100.getICDClasses');
 /**
  * 查詢疾病
  * @param {Array} params ['第二層疾病名稱', '疾病索引關鍵字', '疾病代碼']
  */
-export const apiSearchICD = (params) => apiClient.post('AA_A0Z110.queryICD', params);
+export const apiSearchICD = (params) => apiClient.post('AA_A0Z100.queryICD', params);
 /**
  * 取得癌症分類
  */
