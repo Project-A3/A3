@@ -7,7 +7,7 @@ export default function useMoment() {
    * @param {dateTime} dateTime 西元時間
    * @returns 民國時間
    */
-  const getROCDate = (dateTime, formatter = 'DD/MM', yearSep = '/') => {
+  const getROCDate = (dateTime, formatter = 'DD/MM/YYYY', yearSep = '/') => {
     if (dateTime === '' || dateTime === null || typeof dateTime === 'undefined') return '';
 
     return  moment(dateTime).format(formatter) + yearSep + moment(dateTime).year();
@@ -19,10 +19,19 @@ export default function useMoment() {
    * @returns 西元時間
    */
   const getVNDate = (dateTime, formatter = 'DD-MM-YYYY') => {
-    if (dateTime === '' || dateTime === null || typeof dateTime === 'undefined') return '';
+    if (!dateTime) return '';
+    // return moment(dateTime).format(formatter);
+    if (Object.prototype.toString.call(dateTime) === '[object Date]')
+      return moment(dateTime).format(formatter);
 
-    return moment(dateTime).format(formatter);
-  };
+    if (typeof dateTime === 'string' && dateTime.includes('-'))
+      return moment(dateTime).format(formatter);
+
+    if (typeof dateTime === 'string') 
+      return moment(dateTime, 'DD/MM/YYYY').format(formatter);
+
+    return ''; // f
+    };
 
   /**
    *

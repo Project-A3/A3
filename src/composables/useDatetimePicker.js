@@ -66,7 +66,7 @@ export default function useDatetimePicker(element, customOption = {}) {
 
   // 民國年格式 //2024 01-01-2024
     let ROCFormat = option.type === 'datetime' ? 'MM-DD HH:mm' : 'DD-MM-YYYY';
-        let CEFormat = 'YYYY-' + ROCFormat;
+        let CEFormat = ROCFormat;
 
   class DatetimePicker {
     // Getter
