@@ -2,7 +2,10 @@
   <Modal disableOverflow>
     <template v-slot:title><cathay-translate code="Page_AccidentReasonModal_001"/></template>
     <template v-slot:content>
-      <BaseDropdown :options="accidentTypes" :onSelected="onTypeSelected"></BaseDropdown>
+          <BaseDropdown
+            :options="accidentTypes"
+            :onSelected="onTypeSelected"
+            />      
       <div class="modal-table">
         <table class="table is-striped-odd is-fullwidth tr-can-click">
           <thead>
@@ -65,6 +68,7 @@
   import { isEmpty } from 'lodash-es';
   import { useLanguageStore } from '~/stores/language';
   const language = useLanguageStore();
+
   const { $swal } = useSwal();
   const applyStore = useApplyStore();
   const props = defineProps({

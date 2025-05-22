@@ -95,6 +95,7 @@
               ]"></EditableDropdown>
           </div>
           <div class="column is-8">
+            <!-- Hạng mục thương tật toàn bộ và vĩnh viễn -->
             <span class="field"><cathay-translate code="Component_HighSettlementArea_030"/></span>
             <EditableDropdown
                       v-model="basicData.DISB_ITEM"
@@ -119,6 +120,7 @@
 
       <!-- 失能給付 -->
       <div class="part" v-if="highSettlementData?.DISB_DATA">
+        <!-- Cấp độ thương tật từng phần -->
         <h3><cathay-translate code="Component_HighSettlementArea_033"/></h3>
                 <BaseDropdown 
                       v-model="firstDiag.APPLY_DISB_GRADE_1"
@@ -268,6 +270,7 @@
 
       <!-- 重大疾病或特定傷病給付 -->
       <div class="part" v-if="highSettlementData?.HEVY_DIS_DATA">
+        <!-- Trợ cấp cho bệnh tật nghiêm trọng hoặc bệnh thương tật cụ thể -->
         <h3><cathay-translate code="Component_HighSettlementArea_036"/></h3>
           <span class="field mr-3"><cathay-translate code="Component_HighSettlementArea_094"/></span>
           <EditableCheckbox v-model="basicData.MAJOR_DIS_1"></EditableCheckbox>
@@ -319,6 +322,7 @@
       <h3><cathay-translate code="Component_HighSettlementArea_042"/></h3>
       <div class="columns">
         <div class="column">
+          <!-- Miễn nộp phí bảo hiểm -->
           <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_042"/></span>
           <EditableCheckbox v-model="firstDiag.APPLY_DISABLE"></EditableCheckbox>
         </div>
@@ -332,7 +336,8 @@
 
         <div class="columns has-flex-column">
           <div class="column is-half">
-            <span class="field has-tippy" data-tippy-content="Cấp độ bỏng"><cathay-translate code="Component_HighSettlementArea_048"/></span>
+            <!-- Mức độ thương tật do bỏng -->
+            <span class="field mr-12"><cathay-translate code="Component_HighSettlementArea_048"/></span>
                 <BaseDropdown 
                       v-model="firstDiag.APPLY_BURNED_IND"
                       :options="[
@@ -353,6 +358,7 @@
 
         <div class="columns has-flex-column">
           <div class="column is-half">
+            <!-- Tiền bảo hiểm chi trả định kỳ -->
             <span class="field"><cathay-translate code="Component_HighSettlementArea_049"/></span>
             <EditableDropdown
               :fitContent="true"
@@ -375,7 +381,7 @@
           <div class="part border-none">
             <h3><cathay-translate code="Component_HighSettlementArea_051"/></h3>
             <div class="columns is-multiline has-flex-column">
-              <div><cathay-translate code="Component_HighSettlementArea_109"/></div>
+              <div class="field mr-12"><cathay-translate code="Component_HighSettlementArea_109"/></div>
                 <BaseDropdown 
                       v-model="firstDiag.APPLY_OBSTETRICAL"
                       :options="[
@@ -491,13 +497,13 @@
           >
           <cathay-translate code="Component_HighSettlementArea_009"/>
           </button>
-          <button
+          <!-- <button
             v-if="!highSettlementData.PERIOD_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
             @click="addArea('PERIOD_DATA')"
           >
           <cathay-translate code="Component_HighSettlementArea_010"/>
-          </button>
+          </button> -->
           <button
             v-if="!highSettlementData.LIFEEND_DATA"
             class="button is-primary has-icon-back has-icon-back-add"
@@ -556,7 +562,7 @@
   const applyStore = useApplyStore();
   const { isShowInKindPayArea, basicData, basicDiag} = storeToRefs(applyStore);
 
-  const firstDiag = ref(basicDiag.value[0]);
+  const firstDiag = ref(basicDiag.value);
   const props = defineProps({
     highSettlementData: {
       type: Object,

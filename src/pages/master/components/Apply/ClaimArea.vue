@@ -73,14 +73,14 @@
             v-model:modelText2="claimNames"
           ></EditableModal>
         </div>
-        <div class="column is-one-quarter">
+        <!-- <div class="column is-one-quarter">
           <span class="field has-tippy mr-37" data-tippy-content="資料資料" :schema="string().required('請輸入事故日期')"
             ><cathay-translate code="Page_ClaimArea_005" /></span
           >
           <span class="data">
               <EditableDatePicker v-model="basicData.INSURED_DATE"></EditableDatePicker>
           </span>
-        </div>
+        </div> -->
         <div class="column is-one-quarter">
           <span class="field"><cathay-translate code="Page_ClaimArea_006" /></span>
           <EditableDropdown
@@ -966,7 +966,7 @@
   const text2 = ref('');
 
   const applyStore = useApplyStore();
-  const { isLifePerson, isLifeGroup, isLifeSchool, basicData, claimData } = storeToRefs(applyStore);
+  const { isLifePerson, isLifeGroup, isLifeSchool, basicData, basicDiag } = storeToRefs(applyStore);
   const { $swal } = useSwal();
   const claims = computed(() => [
     ['APPLY_HOSP_M_IND', basicData.value.APPLY_HOSP_M_IND, 'Hỗ trợ viện phí cá nhân'],
@@ -981,6 +981,7 @@
     ['APPLY_CANCER_IND', basicData.value.APPLY_CANCER_IND, 'Phòng ngừa ung thư'],
   ]);
 
+  const claimData = ref(basicDiag.value);
   const claimNames = ref(
     claims.value
     .filter(([, val]) => val === 'Y')

@@ -42,7 +42,10 @@
   const emit = defineEmits(['update:modelValue'])
 
   const props = defineProps({
-    modelValue: [String, Number, null],
+    modelValue: {
+      type: [String, Number],
+      default: null
+    },
     options: {
       type: Array,
       required: true,
@@ -70,9 +73,9 @@
   const selectedOption = ref(null);
 
   const setOption = (value) => {
-  selectedOption.value = props.options.find((e) => e.value === value) || null;
+  selectedOption.value = props.options.find((e) => e.value === value) || "";
   emit('update:modelValue', value);
-} ;
+  } ;
 
   const onSelected = (option) => {
   if (!option.disabled && !option.isCreate) {
@@ -83,13 +86,19 @@
 
 
   // 有人從外部改options要跟著變
-  watch(
-    () => [props.options, props.modelValue],
-    () => {
+watch(
+  () => [props.options, props.modelValue],
+  () => {
+    // Prioritize using v-model if it's provided.
+    if (props.modelValue != null) {
       selectedOption.value = props.options.find((e) => e.value === props.modelValue) || null;
-    },
-    { immediate: true, deep: true }
-  );
+    } else {
+      // If not, fall back to the option with selected: true
+      selectedOption.value = props.options.find((e) => e.selected) || null;
+    }
+  },
+  { immediate: true, deep: true }
+);
 
   // 下拉選單是否開啟
   onMounted(() => {
