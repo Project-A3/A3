@@ -189,10 +189,8 @@
     if (!validation()) {
       return;
     }
-    emitEvent.updateValue(checkedClaimCats.value.join(', '));
-    emitEvent.updateValue2(checkedClaimCatNames.value);
-    emitEvent.updateText(checkedClaimCats.value.join(', '));
-    emitEvent.updateText2(checkedClaimCatNames.value);
+    emitEvent.updateValue(checkedClaimCats.value);
+    emitEvent.updateText(checkedClaimCatNames.value);
     if(checkedClaimCats.value.indexOf('K') >= 0){
       handleCheckFullDisb();
     }

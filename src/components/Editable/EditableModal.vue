@@ -94,15 +94,15 @@ const props = defineProps({
   }
 });
 
-const showingText = computed(() => (isEmpty(props.modelText) ? props.placeholder : props.modelText2));
-const modelValue = toRef(props, 'modelValue');
-const emit = defineEmits([
-  'update:modelText',
-  'update:modelText2',
-  'update:modelValue',
-  'update:modelValue2',
-  'update:modelValue3'
-]);
+  const showingText = computed(() => (isEmpty(props.modelText) ? props.placeholder : props.modelText + props.modelText2));
+  const modelValue = toRef(props, 'modelValue');
+  const emit = defineEmits([
+    'update:modelText',
+    'update:modelText2',
+    'update:modelValue',
+    'update:modelValue2',
+    'update:modelValue3'
+  ]);
 
 const { $m } = useModal();
 

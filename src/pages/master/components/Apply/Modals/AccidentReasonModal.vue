@@ -151,9 +151,7 @@
   const onClickConfirm = () => {
     // 更新資料
     emitEvent.updateValue(selectedReason.code);
-    emitEvent.updateValue2(selectedReason.name);
-    emitEvent.updateText(selectedReason.code);
-    emitEvent.updateText2(selectedReason.name);
+    emitEvent.updateText(selectedReason.name);
     // 關閉Modal
     props.close();
   };

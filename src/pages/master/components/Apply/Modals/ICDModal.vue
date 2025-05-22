@@ -183,10 +183,8 @@ const onClickConfirm = () => {
   }
 
   // 更新資料
-  emitEvent.updateText(selectedICD.code);
+  emitEvent.updateText(selectedICD.name);
   emitEvent.updateValue(selectedICD.code);
-  emitEvent.updateText2(selectedICD.name);
-
   props.close();
 };
 

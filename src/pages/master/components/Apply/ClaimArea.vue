@@ -28,9 +28,7 @@
             }"
             :schema="string().required('請選擇事故原因')"
             v-model:modelValue="claimData.APPLY_ACCIDENT_REASON_CODE"
-            v-model:modelValue2="claimData.APPLY_ACCIDENT_NAME"
-            v-model:modelText="claimData.APPLY_ACCIDENT_REASON_CODE"
-            v-model:modelText2="claimData.APPLY_ACCIDENT_NAME"
+            v-model:modelText="claimData.APPLY_ACCIDENT_NAME"
           ></EditableModal>
         </div>
         <div class="column">
@@ -68,9 +66,7 @@
             }"
             :schema="string().required('請選擇索賠類別')"
             v-model:modelValue="claimKeys"
-            v-model:modelValue2="claimNames"
-            v-model:modelText="claimKeys"
-            v-model:modelText2="claimNames"
+            v-model:modelText="claimNames"
           ></EditableModal>
         </div>
         <!-- <div class="column is-one-quarter">

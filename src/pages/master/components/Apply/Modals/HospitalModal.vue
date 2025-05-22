@@ -111,8 +111,7 @@
     {
       name: 'Vui lòng chọn',
       value: '',
-      selected: true,
-      disabled: true
+      selected: true
     }
   ]);
   // 下拉選單Loading
