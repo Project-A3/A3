@@ -43,12 +43,10 @@
 
           <!-- 診斷資料 0100678055 Thông tin chuẩn đoán-->
           <div class="part">
-            <!-- <h3><cathay-translate code="Component_DiagArea_07" /></h3> -->
-            <h3>Thông tin chuẩn đoán</h3>
+            <h3><cathay-translate code="Component_DiagArea_07" /></h3>
             <div class="columns has-flex-column">
               <div class="column">
-                <!-- <span class="field"><cathay-translate code="Component_DiagArea_08" /></span> -->
-                <span class="field">Nội dung chuẩn đoán</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_08" /></span>
                 <EditableInput :inputWidth="800" v-model="diag.DIAG_CTX"
                   :schema="string().required('Vui lòng nhập nội dung chuẩn đoán')">
                 </EditableInput>
@@ -56,8 +54,7 @@
             </div>
             <div class="columns has-flex-column">
               <GroupEditable ref="icdGroups">
-                <!-- <span class="field"><cathay-translate code="Component_DiagArea_09"/></span> -->
-                <span class="field">Tên chuẩn đoán</span>
+                <span class="field"><cathay-translate code="Component_DiagArea_09"/></span>
                 <div class="columns">
                   <div class="column">
                     <EditableModal 

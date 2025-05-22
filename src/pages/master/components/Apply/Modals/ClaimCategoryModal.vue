@@ -90,7 +90,7 @@
   // }
 
   // 勾選的索賠類別
-  const checkedClaimCats = ref(props.data.models.value.split(', ').filter((item) => item));
+  const checkedClaimCats = ref(props.data.models.value.split(',').filter((item) => item));
   console.log(checkedClaimCats.value);
   // 勾選的索賠類別名稱
   const checkedClaimCatNames = computed(() => {
@@ -189,7 +189,7 @@
     if (!validation()) {
       return;
     }
-    emitEvent.updateValue(checkedClaimCats.value);
+    emitEvent.updateValue(checkedClaimCats.value.join(','));
     emitEvent.updateText(checkedClaimCatNames.value);
     if(checkedClaimCats.value.indexOf('K') >= 0){
       handleCheckFullDisb();
