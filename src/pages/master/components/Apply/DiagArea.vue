@@ -17,7 +17,7 @@
               </div>
               <div class="column is-3">
                 <span class="field"><cathay-translate code="Component_DiagArea_04"/></span>
-                <input type="checkbox" :value="diag.ID_YN" :checked="diag.ID_YN === 'Y'"/>
+                <EditableCheckbox v-model="diag.ID_YN"></EditableCheckbox>
               </div>
               <div class="column is-4">
                 <span class="field"><cathay-translate code="Component_DiagArea_05"/></span>
@@ -224,45 +224,35 @@
             <h3><cathay-translate code="Component_DiagArea_19" /></h3>
           </div>
           <!-- 住院起訖 -->
-          <div v-show="diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1">
+          <div v-show="diag.MEDICAL_DATA.STAY_HOSP_INTERVAL">
             <!-- 上方表頭 -->
             <div class="columns">
-              <div class="column is-1 p-0" style="width: 15%"></div>
-              <div class="column is-11 p-0">
-                <div class="columns">
-                  <div class="column is-half border-right padding-only-right">
-                    <div class="columns">
-                      <div class="column is-1 hor-center p-0">
-                        <span class="field mr-none"><cathay-translate code="Component_DiagArea_20" /></span>
-                      </div>
-                      <div class="column is-5 p-0">
-                        <span class="field"><cathay-translate code="Component_DiagArea_21" /></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="column is-2" style="width: 250px"></div>
+              <div class="column is-1" style="width: 100px">
+                <span class="field mr-none"><cathay-translate code="Component_DiagArea_20" /></span>
+              </div>
+              <div class="column is-9">
+                <span class="field"><cathay-translate code="Component_DiagArea_21" /></span>
               </div>
             </div>
 
             <!-- 下方表格 -->
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
-              <div class="column is-1" style="width: 15%">
+              <div class="column is-2" style="width: 250px">
                 <span class="field mr-1"><cathay-translate code="Component_DiagArea_23" /></span>
                 <EllipseTippy :content="diag.MEDICAL_DATA.STAY_HOSP_NOTICE" v-if="diag.MEDICAL_DATA.STAY_HOSP_NOTICE"
                   disableEllipse>
                   <img src="/src/assets/images/icon-clock.svg" alt="CLOCK" />
                 </EllipseTippy>
               </div>
-              <div class="columns border-bot has-flex-column">
-                <div class="column is-1 hor-center">
-                  <span class="data not-editable">1</span>
-                </div>
-                <div class="column is-5">
-                  <EditableDateRangePicker v-model:modelStartDate="diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1"
-                    v-model:modelEndDate="diag.MEDICAL_DATA.APPLY_HOSP_E_DATE_1" :schema="afterOcrDateSchema">
-                  </EditableDateRangePicker>
-                </div>
+              <div class="column is-1" style="width: 100px">
+                <span class="data not-editable">1</span>
+              </div>
+              <div class="column is-9">
+                <EditableDateRangePicker v-model:modelStartDate="diag.MEDICAL_DATA.APPLY_HOSP_S_DATE_1"
+                  v-model:modelEndDate="diag.MEDICAL_DATA.APPLY_HOSP_E_DATE_1" :schema="afterOcrDateSchema">
+                </EditableDateRangePicker>
               </div>
             </div>
             <!-- <div class="columns">
@@ -294,12 +284,12 @@
             </div>
           </div>
 
-          <!-- 日間病房 -->
+          <!-- 日間病房
           <div class="part" v-show="diag.MEDICAL_DATA.DAY_HOSP_INTERVAL">
             <div class="columns">
               <div class="column">
                 <span class="field"><cathay-translate code="Component_DiagArea_29" /></span>
-                <!--// 有日間病房資料就勾有-->
+                // 有日間病房資料就勾有
                 <span class="data">
                   <img v-if="diag.MEDICAL_DATA?.DAY_HOSP_INTERVAL?.length > 0"
                     src="/src/assets/images/icon-checkmark-check.svg" alt="CHECKMARK" />
@@ -308,7 +298,7 @@
               </div>
             </div>
 
-            <!-- 上方表頭 -->
+            //上方表頭
             <div class="columns">
               <div class="column is-1 p-0"></div>
               <div class="column is-11 p-0">
@@ -343,17 +333,17 @@
               </div>
             </div>
 
-            <!-- 下方表格 -->
+            //下方表格
             <div class="columns is-vcentered">
-              <!--欄位名稱 -->
+              欄位名稱
               <div class="column is-1">
                 <span class="field"><cathay-translate code="Component_DiagArea_37" /></span>
               </div>
 
-              <!--表格內容 -->
+              表格內容
               <GroupEditable class="is-11 p-0" ref="dayWardGroups">
                 <div class="columns is-multiline">
-                  <!-- 第1筆資料 -->
+                  第1筆資料
                   <div :class="[
                     'column',
                     'is-half',
@@ -408,9 +398,9 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div>-->
 
-          <!-- 燒燙傷病房 -->
+          <!-- 燒燙傷病房 
           <div class="part" v-if="diag.MEDICAL_DATA.BURN_HOSP_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
@@ -440,9 +430,9 @@
                 </div>
               </GroupEditable>
             </div>
-          </div>
+          </div>-->
 
-          <!-- 加護病房起訖 -->
+          <!-- 加護病房起訖 
           <div class="part" v-if="diag.MEDICAL_DATA.ICU_INTERVAL">
             <div class="columns is-vcentered">
               <div class="column is-narrow fixed-width-143">
@@ -471,9 +461,9 @@
                 </div>
               </GroupEditable>
             </div>
-          </div>
+          </div> -->
 
-          <!-- 在家療養 -->
+          <!-- 在家療養 
           <div class="part" v-if="diag.MEDICAL_DATA.HOME_INTERVAL">
             <div class="columns is-align-items-center">
               <div class="column is-narrow fixed-width-143">
@@ -503,7 +493,7 @@
                 </div>
               </GroupEditable>
             </div>
-          </div>
+          </div> -->
 
           <!-- 門診日期 -->
           <div class="part"
@@ -574,7 +564,7 @@
             </div>
           </div>
 
-          <!-- 放射日期 -->
+          <!-- 放射日期 
           <div class="part" v-if="diag.MEDICAL_DATA.RAD_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
@@ -601,9 +591,9 @@
                 </div>
               </GroupEditable>
             </div>
-          </div>
+          </div> -->
 
-          <!-- 化療日期 -->
+          <!-- 化療日期 
           <div class="part" v-if="diag.MEDICAL_DATA.CHEM_DATA">
             <div class="columns has-padding is-align-items-center">
               <div class="column is-narrow fixed-width-143 p-0">
@@ -630,35 +620,27 @@
                 </div>
               </GroupEditable>
             </div>
-          </div>
+          </div> -->
 
           <!-- 手術日期 -->
           <div class="part" v-show="diag.MEDICAL_DATA.OPER_DATA.length > 0">
             <!-- 上方表頭 -->
             <div class="columns mr-top">
-              <div class="column is-1 p-0"></div>
-              <div class="column is-11 p-0">
-                <div class="columns">
-                  <div class="column is-1 hor-center">
+              <div class="column is-2 p-0" style="width: 150px;"></div>
+              <div class="column is-10">
+                <div class="columns is-multiline">
+                  <div class="column is-2 hor-center" style="width: 100px;">
                     <span class="field mr-none"><cathay-translate code="Component_DiagArea_46" /></span>
                   </div>
-                  <div class="column is-narrow">
-                    <div class="w-fixed-160">
-                      <span class="field"><cathay-translate code="Component_DiagArea_47" /></span>
-                    </div>
+                  <div class="column is-2 hor-center" style="width: 200px;">
+                    <span class="field"><cathay-translate code="Component_DiagArea_47" /></span>
                   </div>
-                  <div class="column is-4">
+                  <div class="column">
                     <span class="field"><cathay-translate code="Component_DiagArea_48" /></span>
                   </div>
                   <div class="column is-2">
                     <span class="field"><cathay-translate code="Component_DiagArea_49" /></span>
                   </div>
-                  <!-- <div class="column">
-                    <span class="field"><cathay-translate code="Component_DiagArea_50" /></span>
-                  </div>
-                  <div class="column" style="min-width: 155px">
-                    <span class="field"><cathay-translate code="Component_DiagArea_51" /></span>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -666,39 +648,39 @@
             <!-- 下方表格 -->
             <div class="columns is-vcentered">
               <!--欄位名稱 -->
-              <div class="column is-1">
+              <div class="column is-2" style="width: 150px;">
                 <span class="field"><cathay-translate code="Component_DiagArea_52" /></span>
               </div>
 
               <!--表格內容 -->
-              <GroupEditable class="is-11 p-0" ref="opGroups">
+              <GroupEditable class="is-10 p-0" ref="opGroups">
                 <div class="columns is-multiline">
                   <!-- 第1筆資料 -->
                   <div class="column p-0 flex-basis-100" v-for="(oper, index) in diag.MEDICAL_DATA.OPER_DATA"
                     :key="oper.SER_NO">
                     <div class="columns has-flex-column">
-                      <div class="column is-1 hor-center">
+                      <div class="column is-2 hor-center" style="width: 100px;">
                         <span class="data">{{ index + 1 }}</span>
                       </div>
-                      <div class="column is-narrow">
+                      <div class="column is-2 hor-center" style="width: 200px;">
                         <div class="w-fixed-160 is-flex is-align-items-center">
                           <EditableDatePicker v-model="oper.APPLY_OP_DATE"
                             :schema="afterOcrDateSchema.test('required', '不可為空白', (value) => !(oper.APPLY_OP_CODE && !value))">
                           </EditableDatePicker>
                         </div>
                       </div>
-                      <div class="column is-4 pr-6">
-                        <div class="columns is-gapless w-100">
-                          <div class="column mr-2" style="max-width: 110px">
+                      <div class="column pr-2">
+                        <div class="columns is-gapless">
+                          <div class="column mr-5" style="max-width: 100px">
                             <EditableModal v-model:modelText="oper.APPLY_OP_CODE"
                               v-model:modelValue="oper.APPLY_OP_CODE" v-model:modelValue2="oper.APPLY_OP_NAME"
-                              :editingWidth="110" :modal="{
+                              :editingWidth="100" :modal="{
                                 component: OperationModal,
                                 id: 'surgicalCode',
                                 data: {}
                               }"></EditableModal>
                           </div>
-                          <div class="column limit-width" style="max-width: 100%">
+                          <div class="column" style="max-width: 100%">
                             <ErrorTippy v-if="oper.APPLY_OP_DATE && !oper.APPLY_OP_CODE" :errors="['請選擇手術代碼']">
                             </ErrorTippy>
                             <EllipseTippy class="limit-width" :content="oper.APPLY_OP_NAME" displayBlock manualRefresh>
@@ -707,7 +689,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="column is-2">
+                      <div class="column is-2 ml-2">
                         <EditableCheckbox v-model="oper.APPLY_OP_FEMALE"></EditableCheckbox>
                       </div>
                       <button class="button is-primary-lightest ml-5 is-editing"
@@ -730,7 +712,7 @@
             </div>
           </div>
 
-          <!-- 其他項目 急診時間 -->
+          <!-- 其他項目 急診時間
           <div class="part" v-show="diag.MEDICAL_DATA.EMGY_DATA">
             <div class="columns mr-top">
               <div class="column is-1 p-0"></div>
@@ -749,15 +731,15 @@
               </div>
             </div>
             <div class="columns is-vcentered">
-              <!--欄位名稱 -->
+              //欄位名稱
               <div class="column is-1">
                 <span class="field"><cathay-translate code="Component_DiagArea_56" /></span>
               </div>
 
-              <!--表格內容 -->
+              //表格內容
               <GroupEditable class="is-11 p-0" ref="emgyGroups">
                 <div class="columns is-multiline">
-                  <!-- 資料 -->
+                  //資料
                   <div class="column is-12" v-for="(emgy, index) in diag.MEDICAL_DATA.EMGY_DATA">
                     <div class="columns has-flex-column">
                       <div class="column is-1 hor-center p-0">
@@ -792,7 +774,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="columns has-flex-column" v-if="diag.MEDICAL_DATA.CFM_OTP_CNT !== null">
             <div class="column">
               <span class="field"><cathay-translate code="Component_DiagArea_59" /></span>
@@ -1986,11 +1968,9 @@ const addDiagArea = () => {
     MAN_ISRT_IND: 'Y',
     HOSP_CODE: '',
     HOSP_NAME: '',
-    DOC_LISN_NO: '',
-    DOC_NAME: '',
+    FACULTY_NAME: '',
     DIAG_CTX: '',
     CFM_DIAG_DIS: '',
-    IS_SOC_INSU: '',
     CFM_ICD_CODE1: '',
     CFM_ICD_NAME1: '',
     CFM_ICD_CODE2: '',
@@ -2012,19 +1992,28 @@ const addDiagArea = () => {
     CFM_MAIN_DEPNM: '',
     CFM_SUB_DEPNM: '',
     KEYIN3_IS_OP: '',
+    ID_YN: '',
     MEDICAL_DATA: {
       javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo14',
-      DAY_HOSP_INTERVAL: null,
-      STAY_HOSP_INTERVAL: null,
-      BURN_HOSP_INTERVAL: null,
+      DAY_HOSP_INTERVAL: '',
+      STAY_HOSP_INTERVAL: '',
+      BURN_HOSP_INTERVAL: '',
       ICU_INTERVAL: null,
       HOME_INTERVAL: null,
       CLINIC_DATA: null,
       RAD_DATA: null,
       CHEM_DATA: null,
-      OPER_DATA: null,
+      OPER_DATA: [],
       EMGY_DATA: null,
-      CFM_OTP_CNT: null // String
+      CFM_OTP_CNT: null,
+      APPLY_ICU_DAYS: '',
+      APPLY_BURNED_DAYS: '',
+      APPLY_CLINIC_TIMES: '',
+      APPLY_CLINIC_S_DATE: '',
+      APPLY_CLINIC_E_DATE: '',
+      APPLY_HOSP_S_DATE_1: '',
+      APPLY_HOSP_E_DATE_1: '',
+      STAY_HOSP_INTERVAL: '1'
     },
     EXTRA_DATA: {
       javaClass: 'com.cathay.aa.a0.bo.AA_A0Z100_bo15',

@@ -134,12 +134,6 @@
               }
             }
 
-            span {
-              &.field {
-                flex-shrink: 0;
-              }
-            }
-
             button {
               &.has-icon-back-add {
                 width: inherit;
@@ -367,7 +361,7 @@
 
 #selectHospitalModal {
   .modal-content {
-    width: 1000px;
+    width: 70%;
     overflow: visible;
 
     .box {
